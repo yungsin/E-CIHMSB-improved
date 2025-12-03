@@ -566,7 +566,7 @@ section[data-testid="stSidebar"] button[kind="header"],
     opacity: 0 !important;
 }
 
-/* ==================== 全屏選擇頁面樣式 ==================== */
+/* ==================== 全屏選擇頁面樣式（純等比例縮放）==================== */
 .welcome-container {
     display: flex;
     flex-direction: column;
@@ -574,16 +574,17 @@ section[data-testid="stSidebar"] button[kind="header"],
     justify-content: center;
     min-height: 2vh;
     text-align: center;
-    margin-bottom: clamp(0.3rem, 1vh, 1rem);
-    margin-top: clamp(-3rem, -2vh, -2rem);
+    margin-bottom: clamp(0.5rem, 1.5vh, 2rem);
+    margin-top: clamp(-4rem, -4vh, -1rem);
 }
 
 .welcome-title {
-    font-size: clamp(28px, 5vw, 75px);
+    /* 根據視窗寬度等比例縮放，確保所有螢幕看起來一致 */
+    font-size: clamp(28px, 4.5vw, 85px);
     font-weight: bold;
-    margin-bottom: 2rem;
-    letter-spacing: clamp(0.1em, 0.2em, 0.3em);
-    padding-left: 0.3em;
+    margin-bottom: clamp(1rem, 2vh, 2.5rem);
+    letter-spacing: clamp(0.08em, 0.15em, 0.25em);
+    padding-left: 0.2em;
     white-space: nowrap;
     background: linear-gradient(135deg, #4A6B8A 0%, #7D5A6B 100%);
     -webkit-background-clip: text;
@@ -597,13 +598,14 @@ section[data-testid="stSidebar"] button[kind="header"],
     margin-bottom: 3rem;
 }
 
-/* ==================== 動畫卡片樣式 ==================== */
+/* ==================== 動畫卡片樣式（純等比例縮放）==================== */
 .anim-card {
     width: 90%;
-    max-width: 550px;
-    min-height: clamp(160px, 20vh, 280px);
-    padding: clamp(12px, 2vw, 35px) clamp(12px, 1.8vw, 30px) clamp(8px, 1.2vw, 20px) clamp(8px, 1.2vw, 20px);
-    border-radius: 20px;
+    /* 用 vmin 讓寬度和高度都能影響卡片大小 */
+    max-width: clamp(320px, 32vw, 650px);
+    min-height: clamp(140px, 28vh, 350px);
+    padding: clamp(10px, 2vh, 35px) clamp(10px, 1.5vw, 30px);
+    border-radius: clamp(12px, 1.5vw, 25px);
     text-align: center;
     cursor: pointer;
     transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
@@ -631,21 +633,22 @@ section[data-testid="stSidebar"] button[kind="header"],
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: clamp(8px, 1.2vw, 18px);
-    margin-bottom: clamp(15px, 2vw, 30px);
-    font-size: clamp(32px, 4vw, 58px);
-    height: clamp(60px, 8vw, 100px);
+    gap: clamp(6px, 1vw, 18px);
+    margin-bottom: clamp(10px, 2vh, 30px);
+    font-size: clamp(28px, 3.5vw, 58px);
+    height: clamp(50px, 10vh, 120px);
 }
 
-/* ===== 首頁圖示響應式 ===== */
+/* ===== 首頁圖示響應式（用 vmin 確保等比例）===== */
 .anim-flow .anim-icon,
 .anim-flow img {
-    width: clamp(45px, 6vw, 95px) !important;
-    height: clamp(45px, 6vw, 95px) !important;
+    /* vmin = 取 vw 和 vh 的較小值，確保圖示在任何螢幕都等比例 */
+    width: clamp(40px, 8vmin, 100px) !important;
+    height: clamp(40px, 8vmin, 100px) !important;
 }
 .anim-flow .anim-icon-arrow {
-    width: clamp(35px, 4.5vw, 75px) !important;
-    height: clamp(35px, 4.5vw, 75px) !important;
+    width: clamp(30px, 6vmin, 80px) !important;
+    height: clamp(30px, 6vmin, 80px) !important;
 }
 
 .anim-icon {
@@ -703,19 +706,20 @@ section[data-testid="stSidebar"] button[kind="header"],
     50% { transform: scale(1.2) rotate(5deg); opacity: 0.9; }
 }
 
-/* 卡片文字 */
+/* 卡片文字（純等比例縮放）*/
 .anim-title {
-    font-size: clamp(28px, 3.5vw, 52px);
+    /* 用 vmin 確保文字大小同時考慮寬度和高度 */
+    font-size: clamp(22px, 4.5vmin, 55px);
     font-weight: bold;
     color: #FFFFFF;
-    margin-bottom: clamp(10px, 1.5vw, 20px);
+    margin-bottom: clamp(8px, 1.5vh, 20px);
     text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
 }
 
 .anim-desc {
-    font-size: clamp(20px, 2.8vw, 42px);
+    font-size: clamp(16px, 3.5vmin, 45px);
     color: rgba(255,255,255,0.9);
-    line-height: 1.7;
+    line-height: 1.6;
     margin-bottom: 0;
 }
 
@@ -730,15 +734,16 @@ section[data-testid="stSidebar"] button[kind="header"],
     margin-top: 8px;
 }
 
-/* ===== 底部組員文字響應式 ===== */
+/* ===== 底部組員文字響應式（純等比例）===== */
 .footer-credits {
     position: fixed;
-    bottom: clamp(2px, 0.5vh, 8px);
+    bottom: clamp(3px, 1vh, 15px);
     left: 0;
     right: 0;
     text-align: center;
     color: #5D5D5D;
-    font-size: clamp(16px, 2.2vw, 40px);
+    /* 用 vmin 讓文字在任何螢幕都保持相對比例 */
+    font-size: clamp(14px, 3vmin, 45px);
     font-weight: 500;
     z-index: 10;
 }
@@ -1170,110 +1175,45 @@ div[data-testid="stVerticalBlock"] > div {
     background: #f5f5f5 !important;
 }
 
-/* ==================== 響應式媒體查詢 ==================== */
+/* ==================== 響應式媒體查詢（簡化版 - 只處理極端情況）==================== */
 
-/* 超大螢幕 (2K+, 2560px 以上) */
-@media (min-width: 2560px) {
-    .welcome-title { font-size: 95px !important; }
-    .anim-card { max-width: 700px; min-height: 380px !important; }
-    .anim-title { font-size: 68px !important; }
-    .anim-desc { font-size: 52px !important; }
-    .anim-flow img { width: 120px !important; height: 120px !important; }
-    .anim-flow .anim-icon-arrow { width: 95px !important; height: 95px !important; }
-    .footer-credits { font-size: 50px !important; }
+/* 極小螢幕（手機，寬度 < 480px）- 確保最小可讀性 */
+@media (max-width: 480px) {
+    .welcome-title { 
+        font-size: 24px !important; 
+        letter-spacing: 0.05em !important; 
+    }
+    .anim-card { 
+        max-width: 95% !important;
+        min-height: 120px !important; 
+    }
+    .anim-title { font-size: 20px !important; }
+    .anim-desc { font-size: 16px !important; }
+    .anim-flow img { width: 35px !important; height: 35px !important; }
+    .anim-flow .anim-icon-arrow { width: 28px !important; height: 28px !important; }
+    .footer-credits { font-size: 14px !important; }
 }
 
-/* 大螢幕 (1920px - 2559px) */
-@media (min-width: 1920px) and (max-width: 2559px) {
-    .welcome-title { font-size: 80px !important; }
-    .anim-card { max-width: 600px; min-height: 320px !important; }
-    .anim-title { font-size: 58px !important; }
-    .anim-desc { font-size: 46px !important; }
-    .anim-flow img { width: 100px !important; height: 100px !important; }
-    .anim-flow .anim-icon-arrow { width: 80px !important; height: 80px !important; }
-    .footer-credits { font-size: 42px !important; }
-}
-
-/* 中大螢幕 (1600px - 1919px) */
-@media (min-width: 1600px) and (max-width: 1919px) {
-    .welcome-title { font-size: 68px !important; }
-    .anim-card { min-height: 280px !important; }
-    .anim-title { font-size: 50px !important; }
-    .anim-desc { font-size: 40px !important; }
-    .anim-flow img { width: 88px !important; height: 88px !important; }
-    .anim-flow .anim-icon-arrow { width: 70px !important; height: 70px !important; }
-    .footer-credits { font-size: 36px !important; }
-}
-
-/* 中等螢幕 (1200px - 1599px) */
-@media (min-width: 1200px) and (max-width: 1599px) {
-    .welcome-title { font-size: 55px !important; }
-    .anim-card { min-height: 250px !important; }
-    .anim-title { font-size: 42px !important; }
-    .anim-desc { font-size: 34px !important; }
-    .anim-flow img { width: 75px !important; height: 75px !important; }
-    .anim-flow .anim-icon-arrow { width: 60px !important; height: 60px !important; }
-    .footer-credits { font-size: 30px !important; }
-}
-
-/* 小螢幕 (992px - 1199px) */
-@media (min-width: 992px) and (max-width: 1199px) {
-    .welcome-title { font-size: 45px !important; letter-spacing: 0.15em !important; }
-    .anim-card { min-height: 180px !important; }
-    .anim-title { font-size: 36px !important; }
-    .anim-desc { font-size: 28px !important; }
-    .anim-flow img { width: 62px !important; height: 62px !important; }
-    .anim-flow .anim-icon-arrow { width: 50px !important; height: 50px !important; }
-    .footer-credits { font-size: 24px !important; }
-}
-
-/* 平板 (768px - 991px) */
-@media (min-width: 768px) and (max-width: 991px) {
-    .welcome-title { font-size: 38px !important; letter-spacing: 0.1em !important; }
-    .anim-card { min-height: 160px !important; padding: 15px 12px !important; }
-    .anim-title { font-size: 30px !important; }
-    .anim-desc { font-size: 24px !important; }
-    .anim-flow img { width: 55px !important; height: 55px !important; }
-    .anim-flow .anim-icon-arrow { width: 45px !important; height: 45px !important; }
-    .footer-credits { font-size: 20px !important; }
-}
-
-/* 手機 (小於 768px) */
-@media (max-width: 767px) {
-    .welcome-title { font-size: 28px !important; letter-spacing: 0.08em !important; }
-    .anim-card { min-height: 150px !important; padding: 12px 10px !important; }
-    .anim-title { font-size: 24px !important; }
-    .anim-desc { font-size: 20px !important; }
-    .anim-flow { gap: 8px !important; }
-    .anim-flow img { width: 45px !important; height: 45px !important; }
-    .anim-flow .anim-icon-arrow { width: 35px !important; height: 35px !important; }
-    .footer-credits { font-size: 16px !important; }
-}
-
-/* 小高度螢幕 (14吋筆電等，高度 < 800px) */
-@media (max-height: 800px) {
-    .welcome-container { margin-top: -3rem !important; margin-bottom: 0.3rem !important; }
-    .welcome-title { font-size: clamp(32px, 4vw, 55px) !important; }
-    .anim-card { min-height: clamp(140px, 18vh, 200px) !important; padding: 10px 12px 8px 12px !important; }
-    .anim-title { font-size: clamp(24px, 3vw, 40px) !important; margin-bottom: 8px !important; }
-    .anim-desc { font-size: clamp(18px, 2.2vw, 32px) !important; }
-    .anim-flow { margin-bottom: 15px !important; height: auto !important; }
-    .anim-flow img { width: clamp(40px, 5vw, 70px) !important; height: clamp(40px, 5vw, 70px) !important; }
-    .anim-flow .anim-icon-arrow { width: clamp(32px, 4vw, 55px) !important; height: clamp(32px, 4vw, 55px) !important; }
-    .footer-credits { font-size: clamp(16px, 2vw, 28px) !important; bottom: 2px !important; }
-}
-
-/* 極小高度螢幕 (高度 < 700px) */
-@media (max-height: 700px) {
-    .welcome-container { margin-top: -3.5rem !important; margin-bottom: 0.2rem !important; }
-    .welcome-title { font-size: clamp(28px, 3.5vw, 45px) !important; margin-bottom: 0.8rem !important; }
-    .anim-card { min-height: clamp(120px, 16vh, 180px) !important; padding: 8px 10px 6px 10px !important; }
-    .anim-title { font-size: clamp(22px, 2.8vw, 36px) !important; margin-bottom: 6px !important; }
-    .anim-desc { font-size: clamp(16px, 2vw, 28px) !important; line-height: 1.4 !important; }
-    .anim-flow { margin-bottom: 10px !important; gap: 8px !important; }
-    .anim-flow img { width: clamp(35px, 4.5vw, 60px) !important; height: clamp(35px, 4.5vw, 60px) !important; }
-    .anim-flow .anim-icon-arrow { width: clamp(28px, 3.5vw, 48px) !important; height: clamp(28px, 3.5vw, 48px) !important; }
-    .footer-credits { font-size: clamp(14px, 1.8vw, 24px) !important; }
+/* 極小高度螢幕（高度 < 600px）- 防止元素超出畫面 */
+@media (max-height: 600px) {
+    .welcome-container { 
+        margin-top: -3rem !important; 
+        margin-bottom: 0.3rem !important; 
+    }
+    .welcome-title { 
+        margin-bottom: 0.8rem !important; 
+    }
+    .anim-card { 
+        min-height: 110px !important; 
+        padding: 8px 12px !important; 
+    }
+    .anim-flow { 
+        margin-bottom: 8px !important; 
+        height: auto !important;
+    }
+    .footer-credits { 
+        bottom: 2px !important; 
+    }
 }
 </style>
 """, unsafe_allow_html=True)
