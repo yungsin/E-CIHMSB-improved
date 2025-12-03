@@ -29,10 +29,13 @@ def get_msb(number):
 
   返回:
     msb: 最高位元的值
-  """
-  binary = int_to_binary(number, 8)
-  msb = binary[0]  # 第一個位元就是 MSB
 
+  原理:
+    十進位平均值若小於 128 則 MSB=0，否則為 1
+    （等同於二進位最高位的判斷，但運算更快）
+  """
+  msb = 1 if number >= 128 else 0
+    
   return msb
 
 def binary_to_int(binary):

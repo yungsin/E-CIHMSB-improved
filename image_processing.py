@@ -24,53 +24,24 @@ def calculate_hierarchical_averages(block_8x8):
   """
   block_8x8 = np.array(block_8x8)
 
-  # ========== 第一層: 16 個 2×2 區塊 ==========
-  layer1_averages = []
+  # ========== 第一層: 16 個 2×2 區塊 (向量化) ==========
+  # 把 8×8 reshape 成 (4, 2, 4, 2)，對 axis 1 和 3 取平均
+  reshaped = block_8x8.reshape(4, 2, 4, 2)
+  layer1 = reshaped.mean(axis=(1, 3))  # 結果: 4×4
+  layer1_averages = layer1.flatten().astype(int).tolist()
 
-  # 8×8 切成 4×4 = 16 個 2×2 區塊
-  for i in range(4):  # 4 行
-    for j in range(4):  # 4 列
-      # 計算 2×2 區塊的範圍
-      start_row = i * 2
-      end_row = start_row + 2
-      start_col = j * 2
-      end_col = start_col + 2
-
-      # 提取 2×2 區塊
-      block_2x2 = block_8x8[start_row:end_row, start_col:end_col]
-
-      # 計算平均值
-      avg = int(np.mean(block_2x2))
-      layer1_averages.append(avg)
-
-  # ========== 第二層: 4 個分組 (對第一層的 16 個平均值重新分組) ==========
-  # 將第一層的 16 個值重新組織成 4×4 矩陣
-  layer1_matrix = np.array(layer1_averages).reshape(4, 4)
-
-  layer2_averages = []
-
-  # 將 4×4 矩陣分成 4 個 2×2 區塊
-  for i in range(2):  # 2 行
-    for j in range(2):  # 2 列
-      # 從 layer1_matrix 中取出 2×2 區塊
-      start_row = i * 2
-      end_row = start_row + 2
-      start_col = j * 2
-      end_col = start_col + 2
-
-      # 提取 2×2 區塊
-      group_values = layer1_matrix[start_row:end_row, start_col:end_col]
-
-      # 計算平均值
-      avg = int(np.mean(group_values))
-      layer2_averages.append(avg)
+  # ========== 第二層: 4 個分組 (對第一層的 16 個平均值重新分組) (向量化) ==========
+  # 把 4×4 reshape 成 (2, 2, 2, 2)，對 axis 1 和 3 取平均
+  layer1_2x2 = layer1.reshape(2, 2, 2, 2)
+  layer2 = layer1_2x2.mean(axis=(1, 3))  # 結果: 2×2
+  layer2_averages = layer2.flatten().astype(int).tolist()
 
   # ========== 第三層: 1 個 8×8 整體 (對第二層的 4 個平均值計算總平均) ==========
-  layer3_average = int(np.mean(layer2_averages))
+  layer3_average = int(layer2.mean())
 
   # ========== 合併三層結果 ==========
   averages_21 = layer1_averages + layer2_averages + [layer3_average]
-
+    
   return averages_21
 
 def process_image_multilayer(image):
@@ -85,12 +56,6 @@ def process_image_multilayer(image):
     all_averages: 所有 8×8 區塊的平均值列表
                   結構: [[區塊1 的 21 個平均值], [區塊2 的 21 個平均值], ...]
     num_units: 8×8 區塊的數量
-
-  範例:
-    512×512 圖片:
-    - 8×8 區塊數量: (512÷8)×(512÷8) = 64×64 = 4096 個
-    - 每個區塊: 21 個平均值
-    - 總共: 4096×21 = 86,016 個平均值
   """
   image = np.array(image)
 
@@ -111,22 +76,31 @@ def process_image_multilayer(image):
   num_cols = width // 8
   num_units = num_rows * num_cols
 
-  all_averages = []
+  # ========== 向量化優化: 一次處理所有區塊 ==========
+  # 步驟 1: 把整張圖片 reshape 成所有 8×8 區塊
+  # (H, W) → (num_rows, 8, num_cols, 8) → (num_units, 8, 8)
+  blocks = image.reshape(num_rows, 8, num_cols, 8).transpose(0, 2, 1, 3).reshape(num_units, 8, 8)
 
-  # 遍歷每個 8×8 區塊
-  for i in range(num_rows):
-    for j in range(num_cols):
-      # 提取 8×8 區塊
-      start_row = i * 8
-      end_row = start_row + 8
-      start_col = j * 8
-      end_col = start_col + 8
+  # 步驟 2: 第一層 - 每個區塊的 16 個 2×2 平均值
+  # (num_units, 8, 8) → (num_units, 4, 2, 4, 2)
+  reshaped = blocks.reshape(num_units, 4, 2, 4, 2)
+  layer1 = reshaped.mean(axis=(2, 4))  # (num_units, 4, 4)
+  layer1_flat = layer1.reshape(num_units, 16)
 
-      block_8x8 = image[start_row:end_row, start_col:end_col]
+  # 步驟 3: 第二層 - 每個區塊的 4 個分組平均值
+  # (num_units, 4, 4) → (num_units, 2, 2, 2, 2)
+  layer1_2x2 = layer1.reshape(num_units, 2, 2, 2, 2)
+  layer2 = layer1_2x2.mean(axis=(2, 4))  # (num_units, 2, 2)
+  layer2_flat = layer2.reshape(num_units, 4)
 
-      # 計算這個 8×8 區塊的 21 個平均值
-      averages_21 = calculate_hierarchical_averages(block_8x8)
+  # 步驟 4: 第三層 - 每個區塊的 1 個總平均
+  layer3 = layer2.mean(axis=(1, 2)).reshape(num_units, 1)
 
-      all_averages.append(averages_21)
+  # 步驟 5: 合併三層，轉成整數
+  all_averages_array = np.concatenate([layer1_flat, layer2_flat, layer3], axis=1)
+  all_averages_array = all_averages_array.astype(int)
+
+  # 轉成列表格式（保持原有介面）
+  all_averages = all_averages_array.tolist()
 
   return all_averages, num_units
