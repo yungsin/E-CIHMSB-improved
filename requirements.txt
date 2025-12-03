@@ -1,0 +1,6 @@
+streamlit
+pillow
+numpy
+qrcode
+pyzbar
+opencv-python-headless
