@@ -502,7 +502,8 @@ section[data-testid="stSidebar"] button[kind="header"],
     z-index: 999 !important;
     transition: transform 0.3s ease !important;
     transform: translateX(-100%);
-    background: #f5f5f0 !important;
+    /* 復古紙張色調背景 - 與主頁背景協調 */
+    background: linear-gradient(180deg, #d8cfc4 0%, #c9bfb3 100%) !important;
     box-shadow: 4px 0 15px rgba(0,0,0,0.2) !important;
 }
 
@@ -512,25 +513,25 @@ section[data-testid="stSidebar"] button[kind="header"],
 
 /* 側邊欄內部所有文字和元素顏色 */
 [data-testid="stSidebar"] * {
-    color: #333 !important;
+    color: #443C3C !important;
 }
 [data-testid="stSidebar"] p,
 [data-testid="stSidebar"] span,
 [data-testid="stSidebar"] label,
 [data-testid="stSidebar"] div {
-    color: #333 !important;
+    color: #443C3C !important;
 }
 
-/* 側邊欄輸入框和選單 */
+/* 側邊欄輸入框和選單 - 半透明白色 */
 [data-testid="stSidebar"] input,
 [data-testid="stSidebar"] textarea {
-    background-color: rgba(255, 255, 255, 0.7) !important;
+    background-color: rgba(255, 255, 255, 0.8) !important;
     color: #333 !important;
-    border: 1px solid #ccc !important;
+    border: 1px solid #a99b8a !important;
 }
 [data-testid="stSidebar"] .stTextInput > div > div,
 [data-testid="stSidebar"] .stSelectbox > div > div {
-    background-color: rgba(255, 255, 255, 0.7) !important;
+    background-color: rgba(255, 255, 255, 0.8) !important;
     color: #333 !important;
 }
 
@@ -539,16 +540,17 @@ section[data-testid="stSidebar"] button[kind="header"],
     background-color: transparent !important;
 }
 [data-testid="stSidebar"] details[open] > div {
-    background-color: rgba(74, 107, 138, 0.1) !important;
+    background-color: rgba(255, 255, 255, 0.3) !important;
     border-radius: 8px !important;
     padding: 10px !important;
 }
 
-/* 側邊欄標題字體放大 */
+/* 側邊欄標題字體放大 - 使用主題藍色 */
 [data-testid="stSidebar"] h3,
 [data-testid="stSidebar"] [data-testid="stMarkdownContainer"] h3 {
     font-size: 38px !important;
     font-weight: bold !important;
+    color: #4A6B8A !important;
 }
 
 [data-testid="stSidebar"] strong,
