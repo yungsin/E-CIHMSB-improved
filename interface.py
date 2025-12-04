@@ -992,6 +992,15 @@ figcaption,
     font-weight: bold !important;
     color: #333 !important;
 }
+/* 確保選中的值可見 */
+[data-testid="stMain"] [data-baseweb="select"] [data-testid="stMarkdown"],
+[data-testid="stMain"] [data-baseweb="select"] [class*="valueContainer"],
+[data-testid="stMain"] [data-baseweb="select"] [class*="singleValue"],
+[data-testid="stMain"] [data-baseweb="select"] [class*="placeholder"] {
+    color: #333 !important;
+    font-size: clamp(18px, 1.6vw, 24px) !important;
+    font-weight: bold !important;
+}
 
 /* ===== 側邊欄 Selectbox 樣式 - 保持原樣 ===== */
 [data-testid="stSidebar"] .stSelectbox > div > div {
@@ -1006,6 +1015,12 @@ figcaption,
     font-size: 14px !important;
     font-weight: normal !important;
     color: #333 !important;
+}
+[data-testid="stSidebar"] [data-baseweb="select"] [class*="valueContainer"],
+[data-testid="stSidebar"] [data-baseweb="select"] [class*="singleValue"],
+[data-testid="stSidebar"] [data-baseweb="select"] [class*="placeholder"] {
+    color: #333 !important;
+    font-size: 14px !important;
 }
 
 /* 下拉選單列表 */
@@ -1698,17 +1713,25 @@ elif st.session_state.current_mode == 'embed':
             const style = doc.createElement('style');
             style.id = 'global-selectbox-style';
             style.textContent = `
-                .stSelectbox div { font-size: 22px !important; }
+                .stSelectbox div { font-size: 22px !important; color: #333 !important; }
                 [data-baseweb="select"] input { 
                     font-size: 22px !important; 
                     caret-color: transparent !important;
+                    color: #333 !important;
                 }
                 [data-baseweb="select"] > div {
                     min-height: 50px !important;
                     display: flex !important;
                     align-items: center !important;
+                    color: #333 !important;
                 }
-                [data-baseweb="popover"] li { font-size: 22px !important; }
+                [data-baseweb="select"] span,
+                [data-baseweb="select"] [class*="singleValue"],
+                [data-baseweb="select"] [class*="placeholder"] {
+                    color: #333 !important;
+                    font-size: 22px !important;
+                }
+                [data-baseweb="popover"] li { font-size: 22px !important; color: #333 !important; }
                 .stRadio [role="radiogroup"] label { font-size: 28px !important; }
                 .stRadio label { font-size: 28px !important; }
                 .stRadio label p { font-size: 28px !important; }
@@ -1724,11 +1747,19 @@ elif st.session_state.current_mode == 'embed':
             input.setAttribute('readonly', 'true');
             input.style.setProperty('font-size', '22px', 'important');
             input.style.setProperty('caret-color', 'transparent', 'important');
+            input.style.setProperty('color', '#333', 'important');
             input.style.cursor = 'pointer';
         });
         const allSelectDivs = doc.querySelectorAll('.stSelectbox div');
         allSelectDivs.forEach(div => {
             div.style.setProperty('font-size', '22px', 'important');
+            div.style.setProperty('color', '#333', 'important');
+        });
+        // 特別處理選中值的顯示
+        const valueContainers = doc.querySelectorAll('[data-baseweb="select"] span, [data-baseweb="select"] [class*="Value"]');
+        valueContainers.forEach(el => {
+            el.style.setProperty('color', '#333', 'important');
+            el.style.setProperty('font-size', '22px', 'important');
         });
         const radioLabels = doc.querySelectorAll('.stRadio label, [data-testid="stRadio"] label');
         radioLabels.forEach(label => {
@@ -2319,17 +2350,25 @@ else:
             const style = doc.createElement('style');
             style.id = 'global-selectbox-style';
             style.textContent = `
-                .stSelectbox div { font-size: 22px !important; }
+                .stSelectbox div { font-size: 22px !important; color: #333 !important; }
                 [data-baseweb="select"] input { 
                     font-size: 22px !important; 
                     caret-color: transparent !important;
+                    color: #333 !important;
                 }
                 [data-baseweb="select"] > div {
                     min-height: 50px !important;
                     display: flex !important;
                     align-items: center !important;
+                    color: #333 !important;
                 }
-                [data-baseweb="popover"] li { font-size: 22px !important; }
+                [data-baseweb="select"] span,
+                [data-baseweb="select"] [class*="singleValue"],
+                [data-baseweb="select"] [class*="placeholder"] {
+                    color: #333 !important;
+                    font-size: 22px !important;
+                }
+                [data-baseweb="popover"] li { font-size: 22px !important; color: #333 !important; }
                 .stRadio [role="radiogroup"] label { font-size: 28px !important; }
                 .stRadio label { font-size: 28px !important; }
                 .stRadio label p { font-size: 28px !important; }
@@ -2345,11 +2384,19 @@ else:
             input.setAttribute('readonly', 'true');
             input.style.setProperty('font-size', '22px', 'important');
             input.style.setProperty('caret-color', 'transparent', 'important');
+            input.style.setProperty('color', '#333', 'important');
             input.style.cursor = 'pointer';
         });
         const allSelectDivs = doc.querySelectorAll('.stSelectbox div');
         allSelectDivs.forEach(div => {
             div.style.setProperty('font-size', '22px', 'important');
+            div.style.setProperty('color', '#333', 'important');
+        });
+        // 特別處理選中值的顯示
+        const valueContainers = doc.querySelectorAll('[data-baseweb="select"] span, [data-baseweb="select"] [class*="Value"]');
+        valueContainers.forEach(el => {
+            el.style.setProperty('color', '#333', 'important');
+            el.style.setProperty('font-size', '22px', 'important');
         });
         const radioLabels = doc.querySelectorAll('.stRadio label, [data-testid="stRadio"] label');
         radioLabels.forEach(label => {
