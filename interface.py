@@ -1254,6 +1254,13 @@ if st.session_state.current_mode is not None:
         section[data-testid="stSidebar"] [class*="st-emotion-cache"] {
             font-size: 20px !important;
         }
+
+        /* 強制隱藏所有右下角固定元素 */
+.stApp > div > div:last-child,
+div[style*="position: fixed"][style*="bottom"],
+div[style*="position: fixed"][style*="right"] {
+    display: none !important;
+}
         </style>
         <div id="sidebar-close-btn" style="position: absolute; top: 5px; right: 10px; 
             width: 30px; height: 30px; background: #e0e0e0; border-radius: 50%; 
