@@ -439,6 +439,31 @@ header[data-testid="stHeader"],
     display: none !important; 
     visibility: hidden !important;
 }
+
+/* 隱藏右下角的 Streamlit 徽章和 GitHub 圖標 */
+.viewerBadge_container__r5tak,
+.viewerBadge_link__qRIco,
+[data-testid="stStatusWidget"],
+.stStatusWidget,
+a[href*="streamlit.io"],
+a[href*="github.com"][target="_blank"],
+div[class*="viewerBadge"],
+div[class*="StatusWidget"],
+iframe[title="streamlit"],
+.st-emotion-cache-h4xjwg,
+.st-emotion-cache-1dp5vir,
+.st-emotion-cache-1wbqy5l,
+.st-emotion-cache-19rxjzo {
+    display: none !important;
+    visibility: hidden !important;
+    opacity: 0 !important;
+    pointer-events: none !important;
+    width: 0 !important;
+    height: 0 !important;
+    position: absolute !important;
+    left: -9999px !important;
+}
+
 .block-container { padding-top: 1rem !important; }
 
 /* 完全隱藏 Streamlit 所有側邊欄控制按鈕 */
@@ -1831,12 +1856,32 @@ elif st.session_state.current_mode == 'embed':
         });
     }
     
+    // 隱藏 Streamlit 右下角徽章（GitHub 和 Streamlit 圖標）
+    function hideStreamlitBadges() {
+        const selectors = [
+            '[class*="viewerBadge"]',
+            '[class*="StatusWidget"]',
+            'a[href*="streamlit.io"]',
+            'a[href*="github.com"]',
+            'iframe[title*="streamlit"]',
+            '[data-testid="stStatusWidget"]',
+            '.stStatusWidget'
+        ];
+        selectors.forEach(selector => {
+            doc.querySelectorAll(selector).forEach(el => {
+                el.style.setProperty('display', 'none', 'important');
+                el.style.setProperty('visibility', 'hidden', 'important');
+            });
+        });
+    }
+    
     setupToggle();
     fixAllSelectboxes();
-    setTimeout(() => { setupToggle(); fixAllSelectboxes(); }, 100);
-    setTimeout(() => { setupToggle(); fixAllSelectboxes(); }, 500);
-    setTimeout(() => { setupToggle(); fixAllSelectboxes(); }, 1000);
-    new MutationObserver(() => { setupToggle(); fixAllSelectboxes(); }).observe(doc.body, { childList: true, subtree: true });
+    hideStreamlitBadges();
+    setTimeout(() => { setupToggle(); fixAllSelectboxes(); hideStreamlitBadges(); }, 100);
+    setTimeout(() => { setupToggle(); fixAllSelectboxes(); hideStreamlitBadges(); }, 500);
+    setTimeout(() => { setupToggle(); fixAllSelectboxes(); hideStreamlitBadges(); }, 1000);
+    new MutationObserver(() => { setupToggle(); fixAllSelectboxes(); hideStreamlitBadges(); }).observe(doc.body, { childList: true, subtree: true });
 })();
 </script>
 """, height=0)
@@ -2479,12 +2524,32 @@ else:
         });
     }
     
+    // 隱藏 Streamlit 右下角徽章（GitHub 和 Streamlit 圖標）
+    function hideStreamlitBadges() {
+        const selectors = [
+            '[class*="viewerBadge"]',
+            '[class*="StatusWidget"]',
+            'a[href*="streamlit.io"]',
+            'a[href*="github.com"]',
+            'iframe[title*="streamlit"]',
+            '[data-testid="stStatusWidget"]',
+            '.stStatusWidget'
+        ];
+        selectors.forEach(selector => {
+            doc.querySelectorAll(selector).forEach(el => {
+                el.style.setProperty('display', 'none', 'important');
+                el.style.setProperty('visibility', 'hidden', 'important');
+            });
+        });
+    }
+    
     setupToggle();
     fixAllSelectboxes();
-    setTimeout(() => { setupToggle(); fixAllSelectboxes(); }, 100);
-    setTimeout(() => { setupToggle(); fixAllSelectboxes(); }, 500);
-    setTimeout(() => { setupToggle(); fixAllSelectboxes(); }, 1000);
-    new MutationObserver(() => { setupToggle(); fixAllSelectboxes(); }).observe(doc.body, { childList: true, subtree: true });
+    hideStreamlitBadges();
+    setTimeout(() => { setupToggle(); fixAllSelectboxes(); hideStreamlitBadges(); }, 100);
+    setTimeout(() => { setupToggle(); fixAllSelectboxes(); hideStreamlitBadges(); }, 500);
+    setTimeout(() => { setupToggle(); fixAllSelectboxes(); hideStreamlitBadges(); }, 1000);
+    new MutationObserver(() => { setupToggle(); fixAllSelectboxes(); hideStreamlitBadges(); }).observe(doc.body, { childList: true, subtree: true });
 })();
 </script>
 """, height=0)
