@@ -424,35 +424,6 @@ st.set_page_config(page_title="🔐 高效能無載體之機密編碼技術", pa
 # ==================== CSS 樣式 ====================
 st.markdown("""
 <style>
-/* 隱藏右下角的圖示按鈕 */
-.stActionButton,
-[data-testid="stActionButton"],
-[data-testid="baseButton-headerNoPadding"],
-button[kind="headerNoPadding"],
-.stApp > header button,
-[class*="viewerBadge"],
-[data-testid="stStatusWidget"],
-button[title="View app"],
-button[title="Fork app"],
-a[data-testid="stAppDeployButton"],
-.viewerBadge_container__r5tak {
-    display: none !important;
-    visibility: hidden !important;
-    opacity: 0 !important;
-}
-
-/* 隱藏右下角所有浮動按鈕 */
-.stApp > div:last-child > div:last-child {
-    display: none !important;
-}
-
-/* 隱藏 Streamlit Community Cloud 相關按鈕 */
-iframe[title="streamlit_app"],
-div[data-testid="stToolbar"],
-#MainMenu::after {
-    display: none !important;
-}
-
 /* 背景圖片 - 復古紙張紋理 */
 .stApp {
     background-image: url('https://i.pinimg.com/1200x/03/c9/99/03c999e78415b51ad02b3d4e92942bcd.jpg');
@@ -512,6 +483,35 @@ section[data-testid="stSidebar"] button[kind="header"],
 #sidebar-toggle-label:hover {
     padding-left: 12px;
     background: #5C8AAD;
+}
+
+/* 隱藏右下角的圖示按鈕 */
+.stActionButton,
+[data-testid="stActionButton"],
+[data-testid="baseButton-headerNoPadding"],
+button[kind="headerNoPadding"],
+.stApp > header button,
+[class*="viewerBadge"],
+[data-testid="stStatusWidget"],
+button[title="View app"],
+button[title="Fork app"],
+a[data-testid="stAppDeployButton"],
+.viewerBadge_container__r5tak {
+    display: none !important;
+    visibility: hidden !important;
+    opacity: 0 !important;
+}
+
+/* 隱藏右下角所有浮動按鈕 */
+.stApp > div:last-child > div:last-child {
+    display: none !important;
+}
+
+/* 隱藏 Streamlit Community Cloud 相關按鈕 */
+iframe[title="streamlit_app"],
+div[data-testid="stToolbar"],
+#MainMenu::after {
+    display: none !important;
 }
 
 /* 確保主內容區不受側邊欄影響 */
