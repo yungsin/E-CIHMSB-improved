@@ -439,32 +439,6 @@ header[data-testid="stHeader"],
     display: none !important; 
     visibility: hidden !important;
 }
-
-/* ==================== 隱藏右下角圖示按鈕 ==================== */
-.stActionButton,
-[data-testid="stActionButton"],
-[data-testid="baseButton-headerNoPadding"],
-button[kind="headerNoPadding"],
-.stApp > header button,
-[class*="viewerBadge"],
-[data-testid="stStatusWidget"],
-button[title="View app"],
-button[title="Fork app"],
-a[data-testid="stAppDeployButton"],
-.viewerBadge_container__r5tak,
-div[data-testid="stDecoration"],
-div[data-testid="stStatusWidget"] {
-    display: none !important;
-    visibility: hidden !important;
-    opacity: 0 !important;
-}
-
-/* 強制隱藏所有右下角固定元素 */
-.stApp > div > div:last-child > div[style*="position: fixed"],
-div[style*="position: fixed"][style*="bottom"][style*="right"]:not(#next-step-fixed):not(#back-step-fixed) {
-    display: none !important;
-}
-
 .block-container { padding-top: 1rem !important; }
 
 /* 完全隱藏 Streamlit 所有側邊欄控制按鈕 */
@@ -627,10 +601,10 @@ section[data-testid="stSidebar"] button[kind="header"],
 /* ==================== 動畫卡片樣式（純等比例縮放）==================== */
 .anim-card {
     width: 90%;
-    /* 用 vmin 讓寬度和高度都能影響卡片大小 */
-    max-width: clamp(320px, 32vw, 650px);
-    min-height: clamp(140px, 28vh, 350px);
-    padding: clamp(10px, 2vh, 35px) clamp(10px, 1.5vw, 30px);
+    /* 用 vw 控制寬度，vh 控制高度 */
+    max-width: clamp(320px, 30vw, 580px);
+    min-height: clamp(140px, 22vh, 300px);
+    padding: clamp(10px, 1.5vh, 30px) clamp(10px, 1.5vw, 25px);
     border-radius: clamp(12px, 1.5vw, 25px);
     text-align: center;
     cursor: pointer;
@@ -763,13 +737,13 @@ section[data-testid="stSidebar"] button[kind="header"],
 /* ===== 底部組員文字響應式（純等比例）===== */
 .footer-credits {
     position: fixed;
-    bottom: clamp(3px, 1vh, 15px);
+    bottom: clamp(5px, 1.5vh, 20px);
     left: 0;
     right: 0;
     text-align: center;
     color: #5D5D5D;
-    /* 用 vmin 讓文字在任何螢幕都保持相對比例 */
-    font-size: clamp(14px, 3vmin, 45px);
+    /* 用 vw 讓文字大小與螢幕寬度成正比 */
+    font-size: clamp(14px, 2.5vw, 42px);
     font-weight: 500;
     z-index: 10;
 }
@@ -1008,6 +982,7 @@ figcaption,
     font-weight: bold !important;
     min-height: 50px !important;
     padding: 8px 12px !important;
+    border: 1px solid #ccc !important;
 }
 [data-testid="stMain"] .stSelectbox [data-baseweb="select"] span,
 [data-testid="stMain"] .stSelectbox [data-baseweb="select"] div,
@@ -1015,6 +990,7 @@ figcaption,
 [data-testid="stMain"] .stSelectbox [data-baseweb="select"] {
     font-size: clamp(18px, 1.6vw, 24px) !important;
     font-weight: bold !important;
+    color: #333 !important;
 }
 
 /* ===== 側邊欄 Selectbox 樣式 - 保持原樣 ===== */
@@ -1023,11 +999,13 @@ figcaption,
     border-radius: 8px !important;
     font-size: 14px !important;
     font-weight: normal !important;
+    border: 1px solid #ccc !important;
 }
 [data-testid="stSidebar"] .stSelectbox [data-baseweb="select"] span,
 [data-testid="stSidebar"] .stSelectbox [data-baseweb="select"] div {
     font-size: 14px !important;
     font-weight: normal !important;
+    color: #333 !important;
 }
 
 /* 下拉選單列表 */
@@ -1157,6 +1135,9 @@ div[data-testid="stVerticalBlock"] > div {
     bottom: max(5px, 1vh) !important;
     right: max(20px, 2vw) !important;
     z-index: 1000 !important;
+    width: auto !important;
+    min-width: 100px !important;
+    max-width: 200px !important;
     background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
     color: white !important;
     border: none !important;
@@ -1187,6 +1168,9 @@ div[data-testid="stVerticalBlock"] > div {
     bottom: max(5px, 1vh) !important;
     left: max(20px, 2vw) !important;
     z-index: 1000 !important;
+    width: auto !important;
+    min-width: 80px !important;
+    max-width: 150px !important;
     background: white !important;
     color: #333 !important;
     border: 2px solid #ccc !important;
@@ -2073,8 +2057,19 @@ elif st.session_state.current_mode == 'embed':
             const findAndFixButton = () => {
                 const buttons = window.parent.document.querySelectorAll('button');
                 for (let btn of buttons) { 
-                    if (btn.innerText === '下一步') { btn.id = 'next-step-fixed'; }
-                    if (btn.innerText === '返回') { btn.id = 'back-step-fixed'; }
+                    const text = btn.innerText.trim();
+                    if (text.includes('下一步')) { 
+                        btn.id = 'next-step-fixed';
+                        btn.style.setProperty('width', 'auto', 'important');
+                        btn.style.setProperty('min-width', '100px', 'important');
+                        btn.style.setProperty('max-width', '200px', 'important');
+                    }
+                    if (text.includes('返回')) { 
+                        btn.id = 'back-step-fixed';
+                        btn.style.setProperty('width', 'auto', 'important');
+                        btn.style.setProperty('min-width', '80px', 'important');
+                        btn.style.setProperty('max-width', '150px', 'important');
+                    }
                 }
             };
             findAndFixButton();
@@ -2550,8 +2545,19 @@ else:
             const findAndFixButton = () => {
                 const buttons = window.parent.document.querySelectorAll('button');
                 for (let btn of buttons) { 
-                    if (btn.innerText === '下一步') { btn.id = 'next-step-fixed'; }
-                    if (btn.innerText === '返回') { btn.id = 'back-step-fixed'; }
+                    const text = btn.innerText.trim();
+                    if (text.includes('下一步')) { 
+                        btn.id = 'next-step-fixed';
+                        btn.style.setProperty('width', 'auto', 'important');
+                        btn.style.setProperty('min-width', '100px', 'important');
+                        btn.style.setProperty('max-width', '200px', 'important');
+                    }
+                    if (text.includes('返回')) { 
+                        btn.id = 'back-step-fixed';
+                        btn.style.setProperty('width', 'auto', 'important');
+                        btn.style.setProperty('min-width', '80px', 'important');
+                        btn.style.setProperty('max-width', '150px', 'important');
+                    }
                 }
             };
             findAndFixButton();
@@ -2567,7 +2573,15 @@ else:
             <script>
             const fixExtractBtn = () => {
                 const buttons = window.parent.document.querySelectorAll('button');
-                for (const btn of buttons) { if (btn.innerText === '開始提取') btn.id = 'next-step-fixed'; }
+                for (const btn of buttons) { 
+                    const text = btn.innerText.trim();
+                    if (text.includes('開始提取')) {
+                        btn.id = 'next-step-fixed';
+                        btn.style.setProperty('width', 'auto', 'important');
+                        btn.style.setProperty('min-width', '100px', 'important');
+                        btn.style.setProperty('max-width', '200px', 'important');
+                    }
+                }
             };
             fixExtractBtn();
             const observer = new MutationObserver(fixExtractBtn);
