@@ -628,7 +628,7 @@ section[data-testid="stSidebar"] button[kind="header"],
     /* 根據視窗寬度等比例縮放，確保所有螢幕看起來一致 */
     font-size: clamp(28px, 4.5vw, 85px);
     font-weight: bold;
-    margin-bottom: clamp(0.5rem, 1vh, 1.5rem);  /* 減少標題與卡片間距 */
+    margin-bottom: clamp(1.5rem, 3vh, 4rem);  /* 增加標題與卡片間距 */
     letter-spacing: clamp(0.08em, 0.15em, 0.25em);
     padding-left: 0.2em;
     white-space: nowrap;
