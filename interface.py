@@ -620,7 +620,7 @@ section[data-testid="stSidebar"] button[kind="header"],
     justify-content: center;
     min-height: 2vh;
     text-align: center;
-    margin-bottom: clamp(1rem, 3.5vh, 4rem);  /* 標題和卡片間距加大 */
+    margin-bottom: clamp(1rem, 3vh, 4rem);  /* 標題和卡片間距加大 */
     margin-top: clamp(2rem, 5vh, 6rem);
 }
 
@@ -628,7 +628,7 @@ section[data-testid="stSidebar"] button[kind="header"],
     /* 根據視窗寬度等比例縮放，確保所有螢幕看起來一致 */
     font-size: clamp(28px, 4.5vw, 85px);
     font-weight: bold;
-    margin-bottom: clamp(1.5rem, 3.5vh, 4rem);  /* 增加標題與卡片間距 */
+    margin-bottom: clamp(1.5rem, 3vh, 4rem);  /* 增加標題與卡片間距 */
     letter-spacing: clamp(0.08em, 0.15em, 0.25em);
     padding-left: 0.2em;
     white-space: nowrap;
@@ -679,22 +679,22 @@ section[data-testid="stSidebar"] button[kind="header"],
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: clamp(3px, 0.5vw, 10px);  /* 更小間距 */
+    gap: clamp(5px, 1vw, 15px);
     margin-bottom: clamp(12px, 2.5vh, 35px);
-    font-size: clamp(20px, 2.5vw, 40px);  /* + 號變小 */
+    font-size: clamp(24px, 3vw, 50px);  /* + 號大小 */
     height: clamp(50px, 10vh, 120px);
 }
 
 /* ===== 首頁圖示響應式（用 vmin 確保等比例）===== */
 .anim-flow .anim-icon,
 .anim-flow img {
-    /* 縮小圖示，確保在卡片內 */
-    width: clamp(35px, 5.5vmin, 70px) !important;
-    height: clamp(35px, 5.5vmin, 70px) !important;
+    /* 調大圖示 */
+    width: clamp(45px, 8vmin, 95px) !important;
+    height: clamp(45px, 8vmin, 95px) !important;
 }
 .anim-flow .anim-icon-arrow {
-    width: clamp(25px, 4vmin, 50px) !important;
-    height: clamp(25px, 4vmin, 50px) !important;
+    width: clamp(35px, 6vmin, 70px) !important;
+    height: clamp(35px, 6vmin, 70px) !important;
 }
 
 .anim-icon {
@@ -783,7 +783,7 @@ section[data-testid="stSidebar"] button[kind="header"],
 /* ===== 底部組員文字響應式（純等比例）===== */
 .footer-credits {
     position: fixed;
-    bottom: clamp(15px, 3.5vh, 40px);  /* 和標題到卡片間距一致 */
+    bottom: clamp(15px, 3vh, 40px);  /* 和標題到卡片間距一致 */
     left: 0;
     right: 0;
     text-align: center;
@@ -1257,34 +1257,34 @@ div[data-testid="stVerticalBlock"] > div {
 /* 平板直式（寬度 600-900px）*/
 @media (max-width: 900px) {
     .anim-card {
-        max-width: 280px !important;
-        min-height: 180px !important;
-        padding: 15px 20px !important;
+        max-width: 320px !important;
+        min-height: 220px !important;
+        padding: 18px 25px !important;
     }
     .anim-flow img {
+        width: 55px !important;
+        height: 55px !important;
+    }
+    .anim-flow .anim-icon-arrow {
         width: 40px !important;
         height: 40px !important;
     }
-    .anim-flow .anim-icon-arrow {
-        width: 28px !important;
-        height: 28px !important;
-    }
     .anim-flow {
-        gap: 3px !important;
-        font-size: 18px !important;
-    }
-    .anim-title {
+        gap: 5px !important;
         font-size: 22px !important;
     }
+    .anim-title {
+        font-size: 26px !important;
+    }
     .anim-desc {
-        font-size: 16px !important;
+        font-size: 18px !important;
     }
     .welcome-title {
-        font-size: 28px !important;
+        font-size: 32px !important;
     }
     .footer-credits {
-        font-size: 16px !important;
-        bottom: 10px !important;
+        font-size: 18px !important;
+        bottom: 15px !important;
     }
 }
 
