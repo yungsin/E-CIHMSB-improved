@@ -644,7 +644,7 @@ section[data-testid="stSidebar"] button[kind="header"],
 }
 
 .welcome-title {
-    font-size: 80px;
+    font-size: 100px;
     font-weight: bold;
     letter-spacing: 0.18em;
     padding-left: 0.18em;
