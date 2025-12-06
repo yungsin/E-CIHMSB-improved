@@ -660,7 +660,7 @@ section[data-testid="stSidebar"] button[kind="header"],
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 40px;
+    gap: 45px;
 }
 
 /* 底部組員文字 */
