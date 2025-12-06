@@ -1392,58 +1392,182 @@ if st.session_state.current_mode is None:
     icon_arrow = get_icon_base64("arrow")
     icon_zcode = get_icon_base64("z-code")
     
-    # 動態 CSS 設定圖標背景
-    st.markdown(f"""
+    # 使用 components.html 顯示完整首頁（避免 st.markdown 解析問題）
+    components.html(f"""
+    <!DOCTYPE html>
+    <html>
+    <head>
     <style>
-    .icon-secret {{ background-image: url('{icon_secret}'); }}
-    .icon-image {{ background-image: url('{icon_image}'); }}
-    .icon-arrow {{ background-image: url('{icon_arrow}'); }}
-    .icon-zcode {{ background-image: url('{icon_zcode}'); }}
-    .icon-box {{
+    * {{ margin: 0; padding: 0; box-sizing: border-box; }}
+    body {{ 
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        background: transparent;
+    }}
+    
+    .home-fullscreen {{
+        width: 100%;
+        height: 100vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: center;
+        padding: 35px 0;
+    }}
+    
+    .welcome-container {{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }}
+    
+    .welcome-title {{
+        font-size: 68px;
+        font-weight: bold;
+        letter-spacing: 0.18em;
+        padding-left: 0.18em;
+        white-space: nowrap;
+        background: linear-gradient(135deg, #4A6B8A 0%, #7D5A6B 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+    }}
+    
+    .cards-container {{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 40px;
+    }}
+    
+    .anim-card {{
+        width: 500px;
+        height: 340px;
+        padding: 30px 40px;
+        border-radius: 20px;
+        text-align: center;
+        cursor: pointer;
+        transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        position: relative;
+        overflow: hidden;
+        box-shadow: 8px 8px 0px 0px rgba(60, 80, 100, 0.4);
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }}
+    
+    .anim-card:hover {{
+        transform: translateY(-8px) scale(1.02);
+        box-shadow: 12px 12px 0px 0px rgba(60, 80, 100, 0.5);
+    }}
+    
+    .anim-card-embed {{
+        background: linear-gradient(145deg, #7BA3C4 0%, #5C8AAD 100%);
+    }}
+    
+    .anim-card-extract {{
+        background: linear-gradient(145deg, #C4A0AB 0%, #A67B85 100%);
+    }}
+    
+    .anim-flow {{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        margin-bottom: 20px;
+        font-size: 36px;
+        height: 100px;
+    }}
+    
+    .anim-flow img {{
         width: 90px;
         height: 90px;
-        background-size: contain;
-        background-repeat: no-repeat;
-        background-position: center;
-        display: inline-block;
+        object-fit: contain;
     }}
-    .icon-box.arrow {{
+    
+    .anim-flow img.arrow {{
         width: 70px;
         height: 70px;
     }}
-    </style>
-    """, unsafe_allow_html=True)
     
-    # 純 HTML Flexbox 結構（使用 div 背景圖片代替 img）
-    st.markdown("""
+    .anim-flow span {{
+        font-size: 36px;
+        color: white;
+        font-weight: bold;
+    }}
+    
+    .anim-title {{
+        font-size: 42px;
+        font-weight: bold;
+        color: white;
+        margin-bottom: 15px;
+        text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+    }}
+    
+    .anim-desc {{
+        font-size: 36px;
+        color: rgba(255,255,255,0.9);
+        line-height: 1.4;
+        white-space: nowrap;
+    }}
+    
+    .footer-credits {{
+        text-align: center;
+        color: #5D5D5D;
+        font-size: 28px;
+        font-weight: 500;
+    }}
+    
+    /* 動畫效果 */
+    .anim-card-embed img:first-child {{
+        animation: embedPulse 2s ease-in-out infinite;
+    }}
+    
+    .anim-card-embed img.arrow {{
+        animation: arrowBounce 1.5s ease-in-out infinite;
+    }}
+    
+    @keyframes embedPulse {{
+        0%, 100% {{ transform: scale(1); opacity: 1; }}
+        50% {{ transform: scale(1.15); opacity: 0.8; }}
+    }}
+    
+    @keyframes arrowBounce {{
+        0%, 100% {{ transform: translateX(0); }}
+        50% {{ transform: translateX(8px); }}
+    }}
+    </style>
+    </head>
+    <body>
     <div class="home-fullscreen">
         <div class="welcome-container">
             <div class="welcome-title">高效能無載體之機密編碼技術</div>
         </div>
         
         <div class="cards-container">
-            <div class="anim-card anim-card-embed" id="embed-card">
+            <div class="anim-card anim-card-embed" id="embed-card" onclick="clickEmbed()">
                 <div class="anim-flow">
-                    <div class="icon-box icon-secret anim-icon anim-icon-secret"></div>
-                    <span class="anim-icon">+</span>
-                    <div class="icon-box icon-image anim-icon"></div>
-                    <div class="icon-box icon-arrow arrow anim-icon anim-icon-arrow"></div>
-                    <div class="icon-box icon-zcode anim-icon anim-icon-result"></div>
+                    <img src="{icon_secret}" alt="secret">
+                    <span>+</span>
+                    <img src="{icon_image}" alt="image">
+                    <img src="{icon_arrow}" class="arrow" alt="arrow">
+                    <img src="{icon_zcode}" alt="zcode">
                 </div>
                 <div class="anim-title">嵌入機密</div>
-                <div class="anim-desc">基於載體圖像<br/>生成編碼圖像</div>
+                <div class="anim-desc">基於載體圖像<br>生成編碼圖像</div>
             </div>
             
-            <div class="anim-card anim-card-extract" id="extract-card">
+            <div class="anim-card anim-card-extract" id="extract-card" onclick="clickExtract()">
                 <div class="anim-flow">
-                    <div class="icon-box icon-zcode anim-icon anim-icon-source"></div>
-                    <span class="anim-icon">+</span>
-                    <div class="icon-box icon-image anim-icon"></div>
-                    <div class="icon-box icon-arrow arrow anim-icon anim-icon-arrow"></div>
-                    <div class="icon-box icon-secret anim-icon anim-icon-result"></div>
+                    <img src="{icon_zcode}" alt="zcode">
+                    <span>+</span>
+                    <img src="{icon_image}" alt="image">
+                    <img src="{icon_arrow}" class="arrow" alt="arrow">
+                    <img src="{icon_secret}" alt="secret">
                 </div>
                 <div class="anim-title">提取機密</div>
-                <div class="anim-desc">參考相同載體圖像<br/>重建機密訊息</div>
+                <div class="anim-desc">參考相同載體圖像<br>重建機密訊息</div>
             </div>
         </div>
         
@@ -1451,7 +1575,39 @@ if st.session_state.current_mode is None:
             組員：鄭凱譽、劉佳典、王于婕
         </div>
     </div>
-    """, unsafe_allow_html=True)
+    
+    <script>
+    const parentDoc = window.parent.document;
+    
+    function clickEmbed() {{
+        const btn = parentDoc.querySelector('button[kind="secondary"]');
+        if (btn && btn.innerText.includes('嵌入')) btn.click();
+        else {{
+            const buttons = parentDoc.querySelectorAll('button');
+            buttons.forEach(b => {{ if (b.innerText.includes('嵌入')) b.click(); }});
+        }}
+    }}
+    
+    function clickExtract() {{
+        const buttons = parentDoc.querySelectorAll('button');
+        buttons.forEach(b => {{ if (b.innerText.includes('提取')) b.click(); }});
+    }}
+    
+    // 隱藏 Streamlit 徽章
+    function hideStreamlitBadges() {{
+        parentDoc.querySelectorAll('[class*="viewerBadge"], a[href*="streamlit.io"], div[class*="StatusWidget"], [data-testid="manage-app-button"]').forEach(el => {{
+            el.style.display = 'none';
+            el.style.visibility = 'hidden';
+        }});
+    }}
+    
+    hideStreamlitBadges();
+    setTimeout(hideStreamlitBadges, 500);
+    setTimeout(hideStreamlitBadges, 1000);
+    </script>
+    </body>
+    </html>
+    """, height=810, scrolling=False)
     
     # 隱藏的按鈕供 JavaScript 觸發
     col1, col2 = st.columns(2)
@@ -1466,7 +1622,7 @@ if st.session_state.current_mode is None:
             st.session_state.current_mode = 'extract'
             st.rerun()
     
-    # ==================== 方案 A：等比例縮放 JavaScript ====================
+    # ==================== 隱藏按鈕的 JavaScript ====================
     components.html("""
 <script>
 const doc = window.parent.document;
@@ -1481,64 +1637,6 @@ function hideHomeButtons() {
     });
 }
 
-hideHomeButtons();
-setTimeout(hideHomeButtons, 0);
-setTimeout(hideHomeButtons, 10);
-setTimeout(hideHomeButtons, 50);
-setTimeout(hideHomeButtons, 100);
-
-function bindCardClicks() {
-    const embedCard = doc.getElementById('embed-card');
-    const extractCard = doc.getElementById('extract-card');
-    
-    if (embedCard && !embedCard.hasAttribute('data-bound')) {
-        embedCard.setAttribute('data-bound', 'true');
-        embedCard.style.cursor = 'pointer';
-        embedCard.addEventListener('click', () => {
-            const buttons = doc.querySelectorAll('button');
-            buttons.forEach(btn => {
-                if ((btn.innerText || btn.textContent).includes('開始嵌入')) {
-                    btn.click();
-                }
-            });
-        });
-    }
-    
-    if (extractCard && !extractCard.hasAttribute('data-bound')) {
-        extractCard.setAttribute('data-bound', 'true');
-        extractCard.style.cursor = 'pointer';
-        extractCard.addEventListener('click', () => {
-            const buttons = doc.querySelectorAll('button');
-            buttons.forEach(btn => {
-                if ((btn.innerText || btn.textContent).includes('開始提取')) {
-                    btn.click();
-                }
-            });
-        });
-    }
-}
-
-setTimeout(bindCardClicks, 100);
-
-// ===== 方案 A：等比例縮放（首頁專用）=====
-// 設計基準改小 = 內容放大
-const DESIGN_WIDTH = 1440;
-const DESIGN_HEIGHT = 810;
-
-function applyHomeScale() {
-    // 暫時禁用縮放，測試基本佈局
-    const windowWidth = window.innerWidth || doc.documentElement.clientWidth;
-    const windowHeight = window.innerHeight || doc.documentElement.clientHeight;
-    
-    // 隱藏捲軸
-    const container = doc.querySelector('[data-testid="stAppViewContainer"]');
-    if (container) {
-        container.style.overflow = 'hidden';
-        container.style.height = '100vh';
-    }
-}
-
-// 隱藏 Streamlit 徽章
 function hideStreamlitBadges() {
     doc.querySelectorAll('[class*="viewerBadge"], a[href*="streamlit.io"], div[class*="StatusWidget"], [data-testid="manage-app-button"]').forEach(el => {
         el.style.display = 'none';
@@ -1546,19 +1644,13 @@ function hideStreamlitBadges() {
     });
 }
 
-applyHomeScale();
+hideHomeButtons();
 hideStreamlitBadges();
-window.addEventListener('resize', applyHomeScale);
-setTimeout(applyHomeScale, 100);
-setTimeout(applyHomeScale, 300);
-setTimeout(applyHomeScale, 500);
-setTimeout(hideStreamlitBadges, 100);
+setTimeout(hideHomeButtons, 100);
 setTimeout(hideStreamlitBadges, 500);
 
 const observer = new MutationObserver(() => {
     hideHomeButtons();
-    bindCardClicks();
-    applyHomeScale();
     hideStreamlitBadges();
 });
 observer.observe(doc.body, { childList: true, subtree: true });
