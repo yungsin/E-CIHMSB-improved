@@ -660,7 +660,7 @@ section[data-testid="stSidebar"] button[kind="header"],
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 50px;
+    gap: 60px;
 }
 
 /* 底部組員文字 */
@@ -1442,7 +1442,7 @@ if st.session_state.current_mode is None:
         display: flex;
         justify-content: center;
         align-items: center;
-        gap: 50px;
+        gap: 60px;
     }}
     
     .anim-card {{
