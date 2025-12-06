@@ -1422,7 +1422,7 @@ if st.session_state.current_mode is None:
     }}
     
     .welcome-title {{
-        font-size: 68px;
+        font-size: 78px;
         font-weight: bold;
         letter-spacing: 0.18em;
         padding-left: 0.18em;
@@ -1441,9 +1441,9 @@ if st.session_state.current_mode is None:
     }}
     
     .anim-card {{
-        width: 500px;
-        height: 340px;
-        padding: 30px 40px;
+        width: 580px;
+        height: 400px;
+        padding: 35px 45px;
         border-radius: 20px;
         text-align: center;
         cursor: pointer;
@@ -1474,21 +1474,21 @@ if st.session_state.current_mode is None:
         display: flex;
         align-items: center;
         justify-content: center;
-        gap: 10px;
-        margin-bottom: 20px;
-        font-size: 36px;
-        height: 100px;
+        gap: 12px;
+        margin-bottom: 25px;
+        font-size: 40px;
+        height: 120px;
     }}
     
     .anim-flow img {{
-        width: 90px;
-        height: 90px;
+        width: 105px;
+        height: 105px;
         object-fit: contain;
     }}
     
     .anim-flow img.arrow {{
-        width: 70px;
-        height: 70px;
+        width: 80px;
+        height: 80px;
     }}
     
     .anim-flow span {{
@@ -1498,15 +1498,15 @@ if st.session_state.current_mode is None:
     }}
     
     .anim-title {{
-        font-size: 42px;
+        font-size: 48px;
         font-weight: bold;
         color: white;
-        margin-bottom: 15px;
+        margin-bottom: 18px;
         text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
     }}
     
     .anim-desc {{
-        font-size: 36px;
+        font-size: 40px;
         color: rgba(255,255,255,0.9);
         line-height: 1.4;
         white-space: nowrap;
