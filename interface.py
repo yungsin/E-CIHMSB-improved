@@ -440,13 +440,22 @@ header[data-testid="stHeader"],
     visibility: hidden !important;
 }
 
-/* 隱藏右下角的 Streamlit 徽章和 GitHub 圖標（保守版本）*/
+/* 隱藏右下角的 Streamlit 徽章和 GitHub 圖標（加強版）*/
 .viewerBadge_container__r5tak,
 .viewerBadge_link__qRIco,
 div[class*="viewerBadge"],
-div[class*="StatusWidget"] {
+div[class*="StatusWidget"],
+[data-testid="manage-app-button"],
+.stApp > footer,
+iframe[title="Streamlit"],
+div[class*="styles_viewerBadge"] {
     display: none !important;
     visibility: hidden !important;
+    opacity: 0 !important;
+    height: 0 !important;
+    width: 0 !important;
+    position: absolute !important;
+    top: -9999px !important;
 }
 
 .block-container { padding-top: 1rem !important; }
@@ -677,21 +686,21 @@ section[data-testid="stSidebar"] button[kind="header"],
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 12px;
-    margin-bottom: 25px;
-    font-size: 40px;
+    gap: 10px;
+    margin-bottom: 20px;
+    font-size: 36px;
     height: 100px;
 }
 
 .anim-flow .anim-icon,
 .anim-flow img {
-    width: 80px !important;
-    height: 80px !important;
+    width: 90px !important;
+    height: 90px !important;
 }
 
 .anim-flow .anim-icon-arrow {
-    width: 60px !important;
-    height: 60px !important;
+    width: 70px !important;
+    height: 70px !important;
 }
 
 .anim-icon {
@@ -759,10 +768,11 @@ section[data-testid="stSidebar"] button[kind="header"],
 }
 
 .anim-desc {
-    font-size: 42px;
+    font-size: 36px;
     color: rgba(255,255,255,0.9);
-    line-height: 1.6;
+    line-height: 1.5;
     margin-bottom: 0;
+    white-space: nowrap;
 }
 
 .anim-flow-text {
