@@ -660,7 +660,7 @@ section[data-testid="stSidebar"] button[kind="header"],
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 100px;
+    gap: 40px;
 }
 
 /* 底部組員文字 */
@@ -707,7 +707,7 @@ section[data-testid="stSidebar"] button[kind="header"],
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 12px;
+    gap: 10px;
     margin-bottom: 20px;
     font-size: 36px;
     height: 100px;
@@ -1406,18 +1406,17 @@ if st.session_state.current_mode is None:
         height: 100vh;
         display: flex;
         justify-content: center;
-        align-items: center;
+        align-items: flex-start;
     }}
     
     .home-fullscreen {{
         width: 100%;
-        min-height: 850px;
+        height: 850px;
         display: flex;
         flex-direction: column;
         justify-content: space-between;
         align-items: center;
-        padding: 20px 0 45px 0;
-        margin-top: -30px;
+        padding: 35px 0;
     }}
     
     .welcome-container {{
@@ -1428,9 +1427,9 @@ if st.session_state.current_mode is None:
     }}
     
     .welcome-title {{
-        font-size: 85px;
+        font-size: 72px;
         font-weight: bold;
-        letter-spacing: 0.16em;
+        letter-spacing: 0.18em;
         padding-left: 0.18em;
         white-space: nowrap;
         background: linear-gradient(135deg, #4A6B8A 0%, #7D5A6B 100%);
@@ -1443,7 +1442,7 @@ if st.session_state.current_mode is None:
         display: flex;
         justify-content: center;
         align-items: center;
-        gap: 100px;
+        gap: 40px;
     }}
     
     .anim-card {{
@@ -1480,31 +1479,31 @@ if st.session_state.current_mode is None:
         display: flex;
         align-items: center;
         justify-content: center;
-        gap: 14px;
-        margin-bottom: 25px;
-        font-size: 44px;
-        height: 125px;
+        gap: 10px;
+        margin-bottom: 22px;
+        font-size: 36px;
+        height: 110px;
     }}
     
     .anim-flow img {{
-        width: 105px;
-        height: 105px;
+        width: 95px;
+        height: 95px;
         object-fit: contain;
     }}
     
     .anim-flow img.arrow {{
-        width: 80px;
-        height: 80px;
+        width: 72px;
+        height: 72px;
     }}
     
     .anim-flow span {{
-        font-size: 44px;
+        font-size: 36px;
         color: white;
         font-weight: bold;
     }}
     
     .anim-title {{
-        font-size: 50px;
+        font-size: 44px;
         font-weight: bold;
         color: white;
         margin-bottom: 18px;
@@ -1512,7 +1511,7 @@ if st.session_state.current_mode is None:
     }}
     
     .anim-desc {{
-        font-size: 42px;
+        font-size: 38px;
         color: rgba(255,255,255,0.9);
         line-height: 1.4;
         white-space: nowrap;
@@ -1521,7 +1520,7 @@ if st.session_state.current_mode is None:
     .footer-credits {{
         text-align: center;
         color: #5D5D5D;
-        font-size: 50px;
+        font-size: 30px;
         font-weight: 500;
     }}
     
@@ -1599,10 +1598,10 @@ if st.session_state.current_mode is None:
         // 計算縮放比例（取較小值，確保不超出畫面）
         const scaleX = windowWidth / DESIGN_WIDTH;
         const scaleY = windowHeight / DESIGN_HEIGHT;
-        const scale = Math.min(scaleX, scaleY, 1.0); // 最大 1.0 倍
+        const scale = Math.min(scaleX, scaleY, 1.2); // 最大 1.2 倍
         
         container.style.transform = `scale(${{scale}})`;
-        container.style.transformOrigin = 'center center';
+        container.style.transformOrigin = 'top center';
     }}
     
     function clickEmbed() {{
@@ -1632,7 +1631,7 @@ if st.session_state.current_mode is None:
     </script>
     </body>
     </html>
-    """, height=950, scrolling=False)
+    """, height=850, scrolling=False)
     
     # 隱藏的按鈕供 JavaScript 觸發
     col1, col2 = st.columns(2)
