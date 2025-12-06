@@ -763,7 +763,7 @@ section[data-testid="stSidebar"] button[kind="header"],
 }
 
 .anim-desc {
-    font-size: clamp(20px, 4.5vmin, 55px);
+    font-size: clamp(20px, 4.5vmin, 65px);
     color: rgba(255,255,255,0.9);
     line-height: 1.6;
     margin-bottom: 0;
@@ -1262,8 +1262,8 @@ div[data-testid="stVerticalBlock"] > div {
         padding: 18px 25px !important;
     }
     .anim-flow img {
-        width: 55px !important;
-        height: 55px !important;
+        width: 65px !important;
+        height: 65px !important;
     }
     .anim-flow .anim-icon-arrow {
         width: 40px !important;
