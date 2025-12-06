@@ -1411,7 +1411,7 @@ if st.session_state.current_mode is None:
     
     .home-fullscreen {{
         width: 100%;
-        height: 950px;
+        height: 1050px;
         display: flex;
         flex-direction: column;
         justify-content: space-between;
