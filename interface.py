@@ -689,8 +689,8 @@ section[data-testid="stSidebar"] button[kind="header"],
 .anim-flow .anim-icon,
 .anim-flow img {
     /* 縮小圖示，確保在卡片內 */
-    width: clamp(45px, 10vmin, 90px) !important;
-    height: clamp(45px, 10vmin, 90px) !important;
+    width: clamp(45px, 7vmin, 90px) !important;
+    height: clamp(45px, 7vmin, 90px) !important;
 }
 .anim-flow .anim-icon-arrow {
     width: clamp(30px, 5vmin, 65px) !important;
