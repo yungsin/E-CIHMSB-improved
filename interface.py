@@ -667,7 +667,7 @@ section[data-testid="stSidebar"] button[kind="header"],
 .footer-credits {
     text-align: center;
     color: #5D5D5D;
-    font-size: 28px;
+    font-size: 40px;
     font-weight: 500;
 }
 
