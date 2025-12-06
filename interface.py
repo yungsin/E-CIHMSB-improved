@@ -1416,8 +1416,7 @@ if st.session_state.current_mode is None:
         flex-direction: column;
         justify-content: space-between;
         align-items: center;
-        padding: 30px 0 45px 0;
-        margin-top: -25px;
+        padding: 35px 0;
     }}
     
     .welcome-container {{
