@@ -1,6 +1,4 @@
-streamlit
-pillow
+gradio>=4.0.0
 numpy
-qrcode
-pyzbar
-opencv-python-headless
+Pillow
+requests
