@@ -1411,7 +1411,7 @@ if st.session_state.current_mode is None:
     
     .home-fullscreen {{
         width: 100%;
-        height: 850px;
+        height: 920px;
         display: flex;
         flex-direction: column;
         justify-content: space-between;
@@ -1631,7 +1631,7 @@ if st.session_state.current_mode is None:
     </script>
     </body>
     </html>
-    """, height=850, scrolling=False)
+    """, height=950, scrolling=False)
     
     # 隱藏的按鈕供 JavaScript 觸發
     col1, col2 = st.columns(2)
