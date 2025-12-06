@@ -1411,12 +1411,12 @@ if st.session_state.current_mode is None:
     
     .home-fullscreen {{
         width: 100%;
-        height: 850px;
+        min-height: 850px;
         display: flex;
         flex-direction: column;
         justify-content: space-between;
         align-items: center;
-        padding: 35px 0 45px 0;
+        padding: 35px 0 55px 0;
     }}
     
     .welcome-container {{
@@ -1601,7 +1601,7 @@ if st.session_state.current_mode is None:
         const scale = Math.min(scaleX, scaleY, 1.0); // 最大 1.0 倍
         
         container.style.transform = `scale(${{scale}})`;
-        container.style.transformOrigin = 'top center';
+        container.style.transformOrigin = 'center center';
     }}
     
     function clickEmbed() {{
