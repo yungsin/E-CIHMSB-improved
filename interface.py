@@ -1446,9 +1446,9 @@ if st.session_state.current_mode is None:
     }}
     
     .anim-card {{
-        width: 635px;
-        height: 440px;
-        padding: 35px 46px;
+        width: 600px;
+        height: 410px;
+        padding: 35px 45px;
         border-radius: 20px;
         text-align: center;
         cursor: pointer;
@@ -1479,31 +1479,31 @@ if st.session_state.current_mode is None:
         display: flex;
         align-items: center;
         justify-content: center;
-        gap: 12px;
+        gap: 14px;
         margin-bottom: 25px;
-        font-size: 42px;
-        height: 127px;
+        font-size: 44px;
+        height: 135px;
     }}
     
     .anim-flow img {{
-        width: 110px;
-        height: 110px;
+        width: 115px;
+        height: 115px;
         object-fit: contain;
     }}
     
     .anim-flow img.arrow {{
-        width: 83px;
-        height: 83px;
+        width: 88px;
+        height: 88px;
     }}
     
     .anim-flow span {{
-        font-size: 42px;
+        font-size: 44px;
         color: white;
         font-weight: bold;
     }}
     
     .anim-title {{
-        font-size: 51px;
+        font-size: 54px;
         font-weight: bold;
         color: white;
         margin-bottom: 18px;
@@ -1511,7 +1511,7 @@ if st.session_state.current_mode is None:
     }}
     
     .anim-desc {{
-        font-size: 44px;
+        font-size: 46px;
         color: rgba(255,255,255,0.9);
         line-height: 1.4;
         white-space: nowrap;
@@ -1520,7 +1520,7 @@ if st.session_state.current_mode is None:
     .footer-credits {{
         text-align: center;
         color: #5D5D5D;
-        font-size: 35px;
+        font-size: 38px;
         font-weight: 500;
     }}
     
