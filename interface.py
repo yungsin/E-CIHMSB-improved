@@ -1402,11 +1402,16 @@ if st.session_state.current_mode is None:
     body {{ 
         font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
         background: transparent;
+        overflow: hidden;
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: flex-start;
     }}
     
     .home-fullscreen {{
-        width: 100%;
-        height: 100vh;
+        width: 1440px;
+        height: 900px;
         display: flex;
         flex-direction: column;
         justify-content: space-between;
@@ -1492,7 +1497,7 @@ if st.session_state.current_mode is None:
     }}
     
     .anim-flow span {{
-        font-size: 36px;
+        font-size: 40px;
         color: white;
         font-weight: bold;
     }}
@@ -1515,7 +1520,7 @@ if st.session_state.current_mode is None:
     .footer-credits {{
         text-align: center;
         color: #5D5D5D;
-        font-size: 28px;
+        font-size: 32px;
         font-weight: 500;
     }}
     
@@ -1579,13 +1584,29 @@ if st.session_state.current_mode is None:
     <script>
     const parentDoc = window.parent.document;
     
+    // 設計基準尺寸
+    const DESIGN_WIDTH = 1440;
+    const DESIGN_HEIGHT = 900;
+    
+    function applyScale() {{
+        const container = document.querySelector('.home-fullscreen');
+        if (!container) return;
+        
+        const windowWidth = window.innerWidth;
+        const windowHeight = window.innerHeight;
+        
+        // 計算縮放比例（取較小值，確保不超出畫面）
+        const scaleX = windowWidth / DESIGN_WIDTH;
+        const scaleY = windowHeight / DESIGN_HEIGHT;
+        const scale = Math.min(scaleX, scaleY, 1.2); // 最大 1.2 倍
+        
+        container.style.transform = `scale(${{scale}})`;
+        container.style.transformOrigin = 'top center';
+    }}
+    
     function clickEmbed() {{
-        const btn = parentDoc.querySelector('button[kind="secondary"]');
-        if (btn && btn.innerText.includes('嵌入')) btn.click();
-        else {{
-            const buttons = parentDoc.querySelectorAll('button');
-            buttons.forEach(b => {{ if (b.innerText.includes('嵌入')) b.click(); }});
-        }}
+        const buttons = parentDoc.querySelectorAll('button');
+        buttons.forEach(b => {{ if (b.innerText.includes('嵌入')) b.click(); }});
     }}
     
     function clickExtract() {{
@@ -1601,13 +1622,16 @@ if st.session_state.current_mode is None:
         }});
     }}
     
+    applyScale();
     hideStreamlitBadges();
+    window.addEventListener('resize', applyScale);
+    setTimeout(applyScale, 100);
     setTimeout(hideStreamlitBadges, 500);
     setTimeout(hideStreamlitBadges, 1000);
     </script>
     </body>
     </html>
-    """, height=810, scrolling=False)
+    """, height=950, scrolling=False)
     
     # 隱藏的按鈕供 JavaScript 觸發
     col1, col2 = st.columns(2)
