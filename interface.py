@@ -1430,7 +1430,7 @@ if st.session_state.current_mode is None:
         font-size: 84px;
         font-weight: bold;
         letter-spacing: 0.18em;
-        padding-left: 0.2em;
+        padding-left: 0.16em;
         white-space: nowrap;
         background: linear-gradient(135deg, #4A6B8A 0%, #7D5A6B 100%);
         -webkit-background-clip: text;
