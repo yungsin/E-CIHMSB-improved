@@ -1374,7 +1374,18 @@ if st.session_state.current_mode is None:
     # ==================== 全屏選擇頁面 + 動畫卡片 ====================
     
     st.markdown("""
-
+    <style>
+    html, body, [data-testid="stAppViewContainer"], .main, [data-testid="stMain"] {
+        overflow: visible !important;
+        max-height: 100vh !important;
+    }
+    .block-container {
+        padding-bottom: 0 !important;
+        max-height: 100vh !important;
+        overflow: visible !important;
+    }
+    </style>
+    """, unsafe_allow_html=True)
     
     icon_secret = get_icon_base64("secret-message")
     icon_image = get_icon_base64("public-image")
