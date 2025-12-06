@@ -1411,7 +1411,7 @@ if st.session_state.current_mode is None:
     
     .home-fullscreen {{
         width: 100%;
-        height: 850px;
+        height: 980px;
         display: flex;
         flex-direction: column;
         justify-content: space-between;
@@ -1427,7 +1427,7 @@ if st.session_state.current_mode is None:
     }}
     
     .welcome-title {{
-        font-size: 72px;
+        font-size: 83px;
         font-weight: bold;
         letter-spacing: 0.18em;
         padding-left: 0.18em;
@@ -1446,9 +1446,9 @@ if st.session_state.current_mode is None:
     }}
     
     .anim-card {{
-        width: 550px;
-        height: 380px;
-        padding: 30px 40px;
+        width: 635px;
+        height: 440px;
+        padding: 35px 46px;
         border-radius: 20px;
         text-align: center;
         cursor: pointer;
@@ -1479,31 +1479,31 @@ if st.session_state.current_mode is None:
         display: flex;
         align-items: center;
         justify-content: center;
-        gap: 10px;
-        margin-bottom: 22px;
-        font-size: 36px;
-        height: 110px;
+        gap: 12px;
+        margin-bottom: 25px;
+        font-size: 42px;
+        height: 127px;
     }}
     
     .anim-flow img {{
-        width: 95px;
-        height: 95px;
+        width: 110px;
+        height: 110px;
         object-fit: contain;
     }}
     
     .anim-flow img.arrow {{
-        width: 72px;
-        height: 72px;
+        width: 83px;
+        height: 83px;
     }}
     
     .anim-flow span {{
-        font-size: 36px;
+        font-size: 42px;
         color: white;
         font-weight: bold;
     }}
     
     .anim-title {{
-        font-size: 44px;
+        font-size: 51px;
         font-weight: bold;
         color: white;
         margin-bottom: 18px;
@@ -1511,7 +1511,7 @@ if st.session_state.current_mode is None:
     }}
     
     .anim-desc {{
-        font-size: 38px;
+        font-size: 44px;
         color: rgba(255,255,255,0.9);
         line-height: 1.4;
         white-space: nowrap;
@@ -1520,7 +1520,7 @@ if st.session_state.current_mode is None:
     .footer-credits {{
         text-align: center;
         color: #5D5D5D;
-        font-size: 30px;
+        font-size: 35px;
         font-weight: 500;
     }}
     
@@ -1631,7 +1631,7 @@ if st.session_state.current_mode is None:
     </script>
     </body>
     </html>
-    """, height=850, scrolling=False)
+    """, height=980, scrolling=False)
     
     # 隱藏的按鈕供 JavaScript 觸發
     col1, col2 = st.columns(2)
