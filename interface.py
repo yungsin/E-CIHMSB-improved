@@ -1429,7 +1429,7 @@ if st.session_state.current_mode is None:
     .welcome-title {{
         font-size: 85px;
         font-weight: bold;
-        letter-spacing: 0.18em;
+        letter-spacing: 0.16em;
         padding-left: 0.18em;
         white-space: nowrap;
         background: linear-gradient(135deg, #4A6B8A 0%, #7D5A6B 100%);
