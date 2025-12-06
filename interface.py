@@ -1442,7 +1442,7 @@ if st.session_state.current_mode is None:
         display: flex;
         justify-content: center;
         align-items: center;
-        gap: 40px;
+        gap: 50px;
     }}
     
     .anim-card {{
