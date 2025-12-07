@@ -1790,7 +1790,7 @@ elif st.session_state.current_mode == 'embed':
                     capacity = calculate_image_capacity(selected_size)
                     usage = secret_bits_needed / capacity * 100
                     color = "#ffa726" if usage > 90 else "#28a745"
-                    st.markdown(f'<div class="bits-info" style="color: {color};">機密容量：{secret_bits_needed:,} bits / 圖像容量：{capacity:,} bits ({usage:.1f}%)</div>', unsafe_allow_html=True)
+                    st.markdown(f'<div class="bits-info" style="color: {color};">機密容量：{secret_bits_needed:,} bits<br>圖像容量：{capacity:,} bits<br>使用率：{usage:.1f}%</div>', unsafe_allow_html=True)
                     
                     st.session_state.embed_image_id = selected_image["id"]
                     st.session_state.embed_image_size = selected_size
