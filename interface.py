@@ -1555,12 +1555,13 @@ elif st.session_state.current_mode == 'embed':
                 original_text = r["secret_desc"].replace('文字: "', '').rstrip('"')
                 if len(original_text) > 30:
                     truncated_text = original_text[:30] + "..."
-                    secret_display = f'文字: "{truncated_text}"'
+                    secret_display = f'文字："{truncated_text}"'
                 else:
-                    secret_display = r["secret_desc"]
+                    # 原本格式也要改
+                    secret_display = f'文字："{original_text}"'
             else:
                 size_info = r["secret_desc"].replace("圖片: ", "")
-                secret_display = f'圖片: {secret_filename} ({size_info})' if secret_filename else r["secret_desc"]
+                secret_display = f'圖片：{secret_filename} ({size_info})' if secret_filename else r["secret_desc"]
             
             st.markdown(f'<div class="info-box"><strong>嵌入資訊</strong><br><br>載體圖像編號：<strong>{img_num}</strong>（{img_name}）<br>載體圖像尺寸：{img_size}×{img_size}<br>機密內容：<br>{secret_display}<br>機密 / 容量：{secret_bits:,} / {capacity:,} bits ({usage_percent:.1f}%)</div>', unsafe_allow_html=True)
         
