@@ -763,6 +763,34 @@ h3 { font-size: clamp(28px, 3vw, 36px) !important; font-weight: bold !important;
     font-size: clamp(16px, 1.8vw, 22px) !important;
 }
 
+/* FileUploader 樣式 */
+[data-testid="stFileUploader"] > div > div {
+    background-color: #ecefef !important;
+}
+
+[data-testid="stFileUploader"] [data-testid="stFileUploaderDropzone"] {
+    background-color: #ecefef !important;
+}
+
+/* 已上傳檔案名稱和大小的字體顏色 */
+[data-testid="stFileUploader"] [data-testid="stFileUploaderFile"],
+[data-testid="stFileUploader"] [data-testid="stFileUploaderFile"] span,
+[data-testid="stFileUploader"] [data-testid="stFileUploaderFile"] small,
+[data-testid="stFileUploader"] small,
+[data-testid="stFileUploader"] .uploadedFileName,
+[data-testid="stFileUploader"] div[data-testid="stMarkdownContainer"] p {
+    color: #443C3C !important;
+}
+
+/* 檔案資訊區塊 */
+[data-testid="stFileUploader"] section > div {
+    color: #443C3C !important;
+}
+
+[data-testid="stFileUploader"] section small {
+    color: #443C3C !important;
+}
+
 /* Selectbox 樣式 */
 [data-testid="stMain"] .stSelectbox > div > div {
     background-color: #ecefef !important;
@@ -1656,13 +1684,14 @@ elif st.session_state.current_mode == 'embed':
                         embed_img_file.seek(0)
                         st.session_state.embed_secret_image_data = embed_img_file.read()
                         st.session_state.embed_secret_image_name = embed_img_file.name
-                        st.image(secret_img, width=120)
-                        st.markdown(f'<div class="bits-info">機密圖片:<br>{secret_img.size[0]}×{secret_img.size[1]} px | {secret_bits_needed:,} bits</div>', unsafe_allow_html=True)
+                        st.image(secret_img, width=180)
+                        st.markdown(f'<div class="bits-info">機密圖片:<br>{st.session_state.embed_secret_image_name} ({secret_img.size[0]}×{secret_img.size[1]} px) | {secret_bits_needed:,} bits</div>', unsafe_allow_html=True)
                         step2_done = True
                     elif st.session_state.get('embed_secret_image_data'):
                         secret_img = Image.open(BytesIO(st.session_state.embed_secret_image_data))
-                        st.image(secret_img, width=120)
-                        st.markdown(f'<div class="bits-info">機密圖片:<br>{secret_img.size[0]}×{secret_img.size[1]} px | {st.session_state.get("secret_bits_saved", 0):,} bits</div>', unsafe_allow_html=True)
+                        st.image(secret_img, width=180)
+                        secret_img_name = st.session_state.get('embed_secret_image_name', 'image.png')
+                        st.markdown(f'<div class="bits-info">機密圖片:<br>{secret_img_name} ({secret_img.size[0]}×{secret_img.size[1]} px) | {st.session_state.get("secret_bits_saved", 0):,} bits</div>', unsafe_allow_html=True)
                         step2_done = True
                     else:
                         st.session_state.secret_bits_saved = 0
