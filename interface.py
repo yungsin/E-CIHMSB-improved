@@ -825,7 +825,7 @@ if st.session_state.current_mode is not None:
         section[data-testid="stSidebar"] details summary span p { font-size: 22px !important; }
         #built-contacts-title { font-size: 28px !important; font-weight: bold !important; margin-bottom: 10px !important; text-align: center !important; }
         </style>
-        <div id="sidebar-close-btn" style="position: absolute; top: -15px; right: 10px; 
+        <div id="sidebar-close-btn" style="position: absolute; top: -15px; right: 0px; 
             width: 30px; height: 30px; background: #e0e0e0; border-radius: 50%; 
             display: flex; align-items: center; justify-content: center; 
             cursor: pointer; font-size: 18px; color: #666; z-index: 9999;">✕</div>
