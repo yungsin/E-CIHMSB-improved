@@ -1590,7 +1590,7 @@ elif st.session_state.current_mode == 'embed':
                 
                 if selected != "選擇":
                     st.session_state.selected_contact_saved = selected
-                    st.markdown(f'<p style="font-size: 22px; color: #443C3C;">已選擇：{selected}</p>', unsafe_allow_html=True)
+                    st.markdown(f'<p style="font-size: 20px; color: #d04d04;">已選擇：{selected}</p>', unsafe_allow_html=True)
                     step1_done = True
                 else:
                     st.session_state.selected_contact_saved = None
