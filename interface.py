@@ -1104,18 +1104,45 @@ function injectScrollbarStyle() {
         *::-webkit-scrollbar-thumb:hover { background: #9a8b6e !important; }
         * { scrollbar-width: thin !important; scrollbar-color: #b8a88a #f5f0e6 !important; }
         
-        /* textarea 外層強制隱藏滾動條 */
+        /* textarea 外層強制隱藏滾動條 - 最高優先級 */
         .stTextArea::-webkit-scrollbar,
-        .stTextArea *::-webkit-scrollbar {
+        .stTextArea > div::-webkit-scrollbar,
+        .stTextArea > div > div::-webkit-scrollbar,
+        .stTextArea > div > div > div::-webkit-scrollbar,
+        .stTextArea [data-baseweb="textarea"]::-webkit-scrollbar,
+        .stTextArea [data-baseweb="textarea"] > div::-webkit-scrollbar,
+        .stTextArea [data-testid="stTextAreaRootContainer"]::-webkit-scrollbar,
+        .stTextArea [data-testid="stTextAreaRootContainer"] > div::-webkit-scrollbar,
+        .stTextArea [data-testid="stTextAreaRootContainer"] > div > div::-webkit-scrollbar,
+        div.stTextArea *:not(textarea)::-webkit-scrollbar {
             display: none !important;
             width: 0 !important;
             height: 0 !important;
             background: transparent !important;
+            visibility: hidden !important;
         }
         .stTextArea,
-        .stTextArea * {
+        .stTextArea > div,
+        .stTextArea > div > div,
+        .stTextArea > div > div > div,
+        .stTextArea [data-baseweb="textarea"],
+        .stTextArea [data-testid="stTextAreaRootContainer"],
+        .stTextArea [data-testid="stTextAreaRootContainer"] > div,
+        div.stTextArea *:not(textarea) {
             scrollbar-width: none !important;
             scrollbar-color: transparent transparent !important;
+            -ms-overflow-style: none !important;
+            overflow: hidden !important;
+        }
+        /* textarea 本身可滾動但隱藏滾動條 */
+        .stTextArea textarea {
+            overflow-y: auto !important;
+            scrollbar-width: none !important;
+            -ms-overflow-style: none !important;
+        }
+        .stTextArea textarea::-webkit-scrollbar {
+            display: none !important;
+            width: 0 !important;
         }
     `;
     
@@ -1129,67 +1156,35 @@ function injectScrollbarStyle() {
         const style2 = document.createElement('style');
         style2.textContent = css;
         style2.id = 'custom-scrollbar-style';
-        if (!window.parent.document.getElementById('custom-scrollbar-style')) {
-            window.parent.document.head.appendChild(style2);
-        }
+        // 移除舊的再加新的，確保最新
+        const oldStyle = window.parent.document.getElementById('custom-scrollbar-style');
+        if (oldStyle) oldStyle.remove();
+        window.parent.document.head.appendChild(style2);
     }
 }
 
 // 強制隱藏 textarea 所有滾動條
 function fixTextareaScrollbar() {
     if (window.parent && window.parent.document) {
-        const styleId = 'fix-textarea-scrollbar';
-        if (!window.parent.document.getElementById(styleId)) {
-            const style = document.createElement('style');
-            style.id = styleId;
-            style.textContent = `
-                /* 隱藏 textarea 所有層級滾動條 */
-                .stTextArea,
-                .stTextArea > div,
-                .stTextArea > div > div,
-                .stTextArea > div > div > div,
-                .stTextArea [data-baseweb="textarea"],
-                .stTextArea [data-testid="stTextAreaRootContainer"],
-                .stTextArea [data-testid="stTextAreaRootContainer"] > div,
-                .stTextArea [data-testid="stTextAreaRootContainer"] > div > div {
-                    overflow: hidden !important;
-                    scrollbar-width: none !important;
-                    -ms-overflow-style: none !important;
-                }
-                .stTextArea *::-webkit-scrollbar {
-                    display: none !important;
-                    width: 0 !important;
-                    height: 0 !important;
-                }
-                /* textarea 本身可滾動但隱藏滾動條 */
-                .stTextArea textarea {
-                    overflow-y: auto !important;
-                    scrollbar-width: none !important;
-                    -ms-overflow-style: none !important;
-                }
-                .stTextArea textarea::-webkit-scrollbar {
-                    display: none !important;
-                    width: 0 !important;
-                }
-                /* 額外強制隱藏 */
-                [data-testid="stTextAreaRootContainer"] *::-webkit-scrollbar {
-                    display: none !important;
-                    width: 0 !important;
-                }
-            `;
-            window.parent.document.head.appendChild(style);
-        }
-        
-        // 直接操作 DOM 元素
+        // 直接操作 DOM 元素設定 inline style（最高優先級）
         const textareas = window.parent.document.querySelectorAll('.stTextArea');
         textareas.forEach(ta => {
+            // 設定容器本身
+            ta.style.cssText += 'overflow:hidden!important;scrollbar-width:none!important;';
+            
+            // 設定所有子元素（排除 textarea）
             const allElements = ta.querySelectorAll('*');
             allElements.forEach(el => {
                 if (el.tagName !== 'TEXTAREA') {
-                    el.style.overflow = 'hidden';
-                    el.style.scrollbarWidth = 'none';
+                    el.style.cssText += 'overflow:hidden!important;scrollbar-width:none!important;-ms-overflow-style:none!important;';
                 }
             });
+            
+            // textarea 本身可以滾動但隱藏滾動條
+            const textarea = ta.querySelector('textarea');
+            if (textarea) {
+                textarea.style.cssText += 'overflow-y:auto!important;scrollbar-width:none!important;-ms-overflow-style:none!important;';
+            }
         });
     }
 }
