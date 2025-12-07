@@ -671,7 +671,7 @@ h3 { font-size: clamp(28px, 3vw, 36px) !important; font-weight: bold !important;
 
 [data-testid="stMain"] .stSelectbox [data-baseweb="select"] span,
 [data-testid="stMain"] .stSelectbox [data-baseweb="select"] div {
-    font-size: 16px !important;
+    font-size: 22px !important;
     font-weight: bold !important;
     color: #333 !important;
 }
@@ -1317,7 +1317,7 @@ elif st.session_state.current_mode == 'embed':
 </script>
 """, height=0)
         
-        st.markdown('<div class="page-title-embed" style="text-align: center; margin-bottom: 20px; margin-top: 2rem;">嵌入機密</div>', unsafe_allow_html=True)
+        st.markdown('<div class="page-title-embed" style="text-align: center; margin-bottom: 20px; margin-top: 3rem;">嵌入機密</div>', unsafe_allow_html=True)
         
         embed_text, embed_image, secret_bits_needed = None, None, 0
         embed_image_choice, selected_size = None, None
