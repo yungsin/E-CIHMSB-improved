@@ -1720,7 +1720,7 @@ elif st.session_state.current_mode == 'embed':
                         # 計算中文和英文/符號數量
                         chinese_count = sum(1 for c in embed_text if ord(c) > 127)
                         other_count = len(embed_text) - chinese_count
-                        st.markdown(f'<div class="bits-info">機密文字:<br>{chinese_count} 中文 + {other_count} 英文/符號<br>所需容量：{secret_bits_needed:,} bits</div>', unsafe_allow_html=True)
+                        st.markdown(f'<div class="bits-info">機密文字：<br>{chinese_count} 中文 + {other_count} 英文/符號<br>所需容量：{secret_bits_needed:,} bits</div>', unsafe_allow_html=True)
                         step2_done = True
                     else:
                         st.session_state.secret_bits_saved = 0
@@ -1737,13 +1737,13 @@ elif st.session_state.current_mode == 'embed':
                         st.session_state.embed_secret_image_data = embed_img_file.read()
                         st.session_state.embed_secret_image_name = embed_img_file.name
                         st.image(secret_img, width=180)
-                        st.markdown(f'<div class="bits-info">機密圖片: {st.session_state.embed_secret_image_name} ({secret_img.size[0]}×{secret_img.size[1]} px)<br>所需容量：{secret_bits_needed:,} bits</div>', unsafe_allow_html=True)
+                        st.markdown(f'<div class="bits-info">機密圖片：{st.session_state.embed_secret_image_name} ({secret_img.size[0]}×{secret_img.size[1]} px)<br>所需容量：{secret_bits_needed:,} bits</div>', unsafe_allow_html=True)
                         step2_done = True
                     elif st.session_state.get('embed_secret_image_data'):
                         secret_img = Image.open(BytesIO(st.session_state.embed_secret_image_data))
                         st.image(secret_img, width=180)
                         secret_img_name = st.session_state.get('embed_secret_image_name', 'image.png')
-                        st.markdown(f'<div class="bits-info">機密圖片: {secret_img_name} ({secret_img.size[0]}×{secret_img.size[1]} px)<br>所需容量：{st.session_state.get("secret_bits_saved", 0):,} bits</div>', unsafe_allow_html=True)
+                        st.markdown(f'<div class="bits-info">機密圖片：{secret_img_name} ({secret_img.size[0]}×{secret_img.size[1]} px)<br>所需容量：{st.session_state.get("secret_bits_saved", 0):,} bits</div>', unsafe_allow_html=True)
                         step2_done = True
                     else:
                         st.session_state.secret_bits_saved = 0
