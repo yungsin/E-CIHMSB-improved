@@ -621,15 +621,15 @@ section[data-testid="stSidebar"] button[kind="header"],
 
 /* bits 資訊專用樣式 */
 .bits-info {
-    font-size: 30px !important;
-    color: #dfa1a6 !important;
+    font-size: 28px !important;
+    color: #c89095 !important;
     font-weight: bold !important;
 }
 
 /* 已選擇資訊專用樣式 */
 .selected-info {
-    font-size: 30px !important;
-    color: #dfa1a6 !important;
+    font-size: 28px !important;
+    color: #c89095 !important;
     font-weight: bold !important;
 }
 
