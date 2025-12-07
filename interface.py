@@ -1649,7 +1649,7 @@ elif st.session_state.current_mode == 'embed':
         </style>
         """, unsafe_allow_html=True)
         
-        col1, col2, col3 = st.columns([0.4, 1, 1.6], gap="large")
+        col1, col2, col3 = st.columns([1, 1, 1.6], gap="large")
         
         # ===== 第一步：選擇對象 =====
         with col1:
