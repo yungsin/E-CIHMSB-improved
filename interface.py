@@ -677,17 +677,28 @@ h3 { font-size: clamp(28px, 3vw, 36px) !important; font-weight: bold !important;
     caret-color: #333 !important;
 }
 
-/* 隱藏 textarea 滾動條 - 外層裁剪 */
-.stTextArea > div,
-.stTextArea > div > div,
-.stTextArea [data-baseweb="textarea"],
-.stTextArea [data-baseweb="base-input"] {
-    overflow: hidden !important;
+/* textarea 滾動條 - 米色風格 */
+.stTextArea textarea::-webkit-scrollbar {
+    width: 8px !important;
+}
+
+.stTextArea textarea::-webkit-scrollbar-track {
+    background: #f5f0e6 !important;
+    border-radius: 4px !important;
+}
+
+.stTextArea textarea::-webkit-scrollbar-thumb {
+    background: #b8a88a !important;
+    border-radius: 4px !important;
+}
+
+.stTextArea textarea::-webkit-scrollbar-thumb:hover {
+    background: #9a8b6e !important;
 }
 
 .stTextArea textarea {
-    width: calc(100% + 20px) !important;
-    padding-right: 20px !important;
+    scrollbar-width: thin !important;
+    scrollbar-color: #b8a88a #f5f0e6 !important;
 }
 
 .stTextArea textarea:focus {
@@ -984,9 +995,14 @@ function injectScrollbarStyle() {
         *::-webkit-scrollbar-thumb:hover { background: #9a8b6e !important; }
         * { scrollbar-width: thin !important; scrollbar-color: #b8a88a #f5f0e6 !important; }
         
-        /* 隱藏 textarea 滾動條 - 外層裁剪 */
-        .stTextArea > div, .stTextArea > div > div, .stTextArea [data-baseweb="textarea"], .stTextArea [data-baseweb="base-input"] { overflow: hidden !important; }
-        .stTextArea textarea { width: calc(100% + 20px) !important; padding-right: 20px !important; }
+        /* textarea 滾動條 - 米色風格 */
+        .stTextArea textarea::-webkit-scrollbar { width: 8px !important; }
+        .stTextArea textarea::-webkit-scrollbar-track { background: #f5f0e6 !important; border-radius: 4px !important; }
+        .stTextArea textarea::-webkit-scrollbar-thumb { background: #b8a88a !important; border-radius: 4px !important; }
+        textarea::-webkit-scrollbar { width: 8px !important; }
+        textarea::-webkit-scrollbar-track { background: #f5f0e6 !important; border-radius: 4px !important; }
+        textarea::-webkit-scrollbar-thumb { background: #b8a88a !important; border-radius: 4px !important; }
+        .stTextArea textarea, textarea { scrollbar-width: thin !important; scrollbar-color: #b8a88a #f5f0e6 !important; }
     `;
     
     // 注入到當前 document
@@ -1003,46 +1019,7 @@ function injectScrollbarStyle() {
             window.parent.document.head.appendChild(style2);
         }
         
-        // 強制隱藏 textarea 滾動條
-        function hideTextareaScrollbar() {
-            // 注入額外的 style 標籤
-            const extraStyle = document.createElement('style');
-            extraStyle.textContent = `
-                .stTextArea * { overflow: hidden !important; }
-                .stTextArea textarea { overflow: auto !important; width: calc(100% + 30px) !important; margin-right: -30px !important; }
-            `;
-            if (!window.parent.document.getElementById('hide-scrollbar-style')) {
-                extraStyle.id = 'hide-scrollbar-style';
-                window.parent.document.head.appendChild(extraStyle);
-            }
-            
-            // 直接操作 DOM
-            const containers = window.parent.document.querySelectorAll('.stTextArea');
-            containers.forEach(container => {
-                // 設定所有層級 overflow hidden
-                const allDivs = container.querySelectorAll('div');
-                allDivs.forEach(div => {
-                    div.style.setProperty('overflow', 'hidden', 'important');
-                });
-                
-                // textarea 本身擴寬並推出滾動條
-                const ta = container.querySelector('textarea');
-                if (ta) {
-                    ta.style.setProperty('width', 'calc(100% + 30px)', 'important');
-                    ta.style.setProperty('margin-right', '-30px', 'important');
-                    ta.style.setProperty('overflow-y', 'auto', 'important');
-                    ta.style.setProperty('overflow-x', 'hidden', 'important');
-                }
-            });
-        }
-        hideTextareaScrollbar();
-        setTimeout(hideTextareaScrollbar, 300);
-        setTimeout(hideTextareaScrollbar, 800);
-        setTimeout(hideTextareaScrollbar, 1500);
-        
-        // 監聽 DOM 變化
-        const textareaObserver = new MutationObserver(hideTextareaScrollbar);
-        textareaObserver.observe(window.parent.document.body, { childList: true, subtree: true });
+        // textarea 滾動條已改為米色風格
     }
 }
 
