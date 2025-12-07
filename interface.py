@@ -1768,7 +1768,7 @@ elif st.session_state.current_mode == 'embed':
                 default_style_index = style_list.index(auto_style) if auto_style and auto_style != "選擇" and auto_style in style_list else 0
                 
                 # 第一行：風格、圖片
-                row1_col1, row1_col2 = st.columns([1.2, 2.5])
+                row1_col1, row1_col2 = st.columns([1.5, 2.5])
                 
                 with row1_col1:
                     selected_style = st.selectbox("風格", style_list, index=default_style_index, key="embed_style_h")
@@ -1787,7 +1787,7 @@ elif st.session_state.current_mode == 'embed':
                         available_sizes = [AVAILABLE_SIZES[-1]]
                     recommended_size = available_sizes[0]
                     
-                    size_options = [f"{s}×{s} ⭐" if s == recommended_size else f"{s}×{s}" for s in available_sizes]
+                    size_options = [f"{s}×{s} ⭐ 推薦" if s == recommended_size else f"{s}×{s}" for s in available_sizes]
                     
                     # 第二行：尺寸
                     size_idx = st.selectbox("尺寸", range(len(available_sizes)), format_func=lambda i: size_options[i], key="embed_size_h")
