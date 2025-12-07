@@ -1014,7 +1014,27 @@ function injectScrollbarStyle() {
             window.parent.document.head.appendChild(style2);
         }
         
-        // textarea 滾動條已用 CSS 同色隱藏，保留 resize handle
+        // 強制隱藏 textarea 滾動條
+        function hideTextareaScrollbar() {
+            const textareas = window.parent.document.querySelectorAll('textarea');
+            textareas.forEach(ta => {
+                // 外層容器設定 overflow hidden
+                let parent = ta.parentElement;
+                for (let i = 0; i < 3; i++) {
+                    if (parent) {
+                        parent.style.setProperty('overflow', 'hidden', 'important');
+                        parent = parent.parentElement;
+                    }
+                }
+                
+                // textarea 本身：寬度多出 20px，用 margin 推到外面
+                ta.style.setProperty('width', 'calc(100% + 20px)', 'important');
+                ta.style.setProperty('padding-right', '20px', 'important');
+            });
+        }
+        hideTextareaScrollbar();
+        setTimeout(hideTextareaScrollbar, 500);
+        setTimeout(hideTextareaScrollbar, 1500);
     }
 }
 
