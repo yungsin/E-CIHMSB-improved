@@ -410,7 +410,7 @@ section[data-testid="stSidebar"] button[kind="header"],
 }
 
 .welcome-title {
-    font-size: 80px;
+    font-size: 68px;
     font-weight: bold;
     letter-spacing: 0.18em;
     padding-left: 0.18em;
@@ -431,7 +431,7 @@ section[data-testid="stSidebar"] button[kind="header"],
 .footer-credits {
     text-align: center;
     color: #5D5D5D;
-    font-size: 50px;
+    font-size: 28px;
     font-weight: 500;
 }
 
