@@ -1538,7 +1538,7 @@ elif st.session_state.current_mode == 'embed':
         
         st.markdown('<div class="page-title-embed" style="text-align: center; margin-bottom: 30px;">嵌入結果</div>', unsafe_allow_html=True)
         
-        spacer_left, col_left, col_gap, col_right, spacer_right = st.columns([0.5, 3, 0.3, 2, 0.5])
+        spacer_left, col_left, col_gap, col_right, spacer_right = st.columns([0.5, 3, 0.8, 2, 0.5])
         
         with col_left:
             st.markdown(f'<div class="success-box">嵌入成功! ({r["elapsed_time"]:.2f} 秒)</div>', unsafe_allow_html=True)
@@ -1615,7 +1615,7 @@ elif st.session_state.current_mode == 'embed':
         #btn-back-home { 
             position: fixed !important; 
             bottom: 30px !important; 
-            left: 49% !important; 
+            left: 50% !important; 
             transform: translateX(-50%) !important; 
             z-index: 1000 !important; 
             background: #4A6B8A !important; 
@@ -1627,6 +1627,7 @@ elif st.session_state.current_mode == 'embed':
             writing-mode: horizontal-tb !important;
             white-space: nowrap !important;
             min-width: 150px !important;
+            text-align: center !important;
         }
         </style>
         """, unsafe_allow_html=True)
@@ -1647,10 +1648,10 @@ elif st.session_state.current_mode == 'embed':
             for (let btn of buttons) { 
                 if (btn.innerText === '返回首頁') {
                     btn.id = 'btn-back-home';
-                    btn.style.cssText = 'writing-mode:horizontal-tb!important;white-space:nowrap!important;';
+                    btn.style.cssText = 'writing-mode:horizontal-tb!important;white-space:nowrap!important;text-align:center!important;';
                     let container = btn.closest('.stButton') || btn.parentElement.parentElement.parentElement;
                     if (container) {
-                        container.style.cssText = 'position:fixed!important;bottom:30px!important;left:49%!important;transform:translateX(-50%)!important;width:auto!important;z-index:1000!important;';
+                        container.style.cssText = 'position:fixed!important;bottom:30px!important;left:50%!important;transform:translateX(-50%)!important;width:auto!important;z-index:1000!important;';
                     }
                 }
             }
@@ -1926,7 +1927,7 @@ elif st.session_state.current_mode == 'embed':
                     if (btn.innerText === '開始嵌入') {
                         let container = btn.closest('.stButton') || btn.parentElement.parentElement.parentElement;
                         if (container) {
-                            container.style.cssText = 'position:fixed!important;bottom:30px!important;left:49%!important;transform:translateX(-50%)!important;width:auto!important;z-index:1000!important;';
+                            container.style.cssText = 'position:fixed!important;bottom:30px!important;left:50%!important;transform:translateX(-50%)!important;width:auto!important;z-index:1000!important;';
                         }
                     }
                 }
@@ -2066,10 +2067,10 @@ else:
             const buttons = window.parent.document.querySelectorAll('button');
             for (let btn of buttons) { 
                 if (btn.innerText === '返回首頁') {
-                    btn.style.cssText = 'writing-mode:horizontal-tb!important;white-space:nowrap!important;';
+                    btn.style.cssText = 'writing-mode:horizontal-tb!important;white-space:nowrap!important;text-align:center!important;';
                     let container = btn.closest('.stButton') || btn.parentElement.parentElement.parentElement;
                     if (container) {
-                        container.style.cssText = 'position:fixed!important;bottom:30px!important;left:49%!important;transform:translateX(-50%)!important;width:auto!important;z-index:1000!important;';
+                        container.style.cssText = 'position:fixed!important;bottom:30px!important;left:50%!important;transform:translateX(-50%)!important;width:auto!important;z-index:1000!important;';
                     }
                 }
             }
