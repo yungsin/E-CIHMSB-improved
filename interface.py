@@ -652,6 +652,11 @@ h3 { font-size: clamp(28px, 3vw, 36px) !important; font-weight: bold !important;
     min-width: 100px !important;
 }
 
+[data-testid="stMain"] .stButton button[kind="primary"] span,
+[data-testid="stMain"] .stButton button[kind="primary"] p {
+    font-size: 50px !important;
+}
+
 [data-testid="stSidebar"] .stButton button[kind="primary"] {
     background: #8ba7c8 !important;
     color: white !important;
@@ -1832,7 +1837,7 @@ elif st.session_state.current_mode == 'embed':
                     if (btn.innerText === '開始嵌入') {
                         let container = btn.closest('.stButton') || btn.parentElement.parentElement.parentElement;
                         if (container) {
-                            container.style.cssText = 'position:fixed!important;bottom:30px!important;left:46%!important;transform:translateX(-50%)!important;width:auto!important;z-index:1000!important;';
+                            container.style.cssText = 'position:fixed!important;bottom:30px!important;left:48%!important;transform:translateX(-50%)!important;width:auto!important;z-index:1000!important;';
                         }
                     }
                 }
