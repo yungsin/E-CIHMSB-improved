@@ -711,12 +711,16 @@ if st.session_state.current_mode is None:
     <style>
     html, body, [data-testid="stAppViewContainer"], .main, [data-testid="stMain"] {
         overflow: hidden !important;
-        max-height: 100vh !important;
+        height: 100vh !important;
     }
     .block-container {
         padding-bottom: 0 !important;
-        max-height: 100vh !important;
+        height: 100vh !important;
         overflow: hidden !important;
+    }
+    iframe {
+        height: calc(100vh - 20px) !important;
+        min-height: 700px !important;
     }
     </style>
     """, unsafe_allow_html=True)
@@ -732,11 +736,14 @@ if st.session_state.current_mode is None:
     <head>
     <style>
     * {{ margin: 0; padding: 0; box-sizing: border-box; }}
+    html, body {{ 
+        height: 100%;
+        min-height: 100vh;
+    }}
     body {{ 
         font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
         background: transparent;
         overflow: hidden;
-        height: 100vh;
         display: flex;
         justify-content: center;
         align-items: center;
@@ -746,12 +753,13 @@ if st.session_state.current_mode is None:
         width: 100%;
         max-width: 1920px;
         margin: 0 auto;
-        height: 100vh;
+        height: 100%;
+        min-height: 100vh;
         display: flex;
         flex-direction: column;
         justify-content: space-between;
         align-items: center;
-        padding: 3vh 2vw;
+        padding: 5vh 2vw 3vh 2vw;
     }}
     
     .welcome-container {{
@@ -851,6 +859,7 @@ if st.session_state.current_mode is None:
         color: #5D5D5D;
         font-size: clamp(20px, 3vw, 50px);
         font-weight: 500;
+        padding-bottom: 2vh;
     }}
     
     /* 統一脈動動畫 - 排除載體圖（第2張） */
@@ -940,7 +949,20 @@ if st.session_state.current_mode is None:
     </script>
     </body>
     </html>
-    """, height=850, scrolling=False)
+    """, height=900, scrolling=False)
+    
+    # 動態調整 iframe 高度
+    components.html("""
+    <script>
+    (function() {
+        const iframe = window.frameElement;
+        if (iframe) {
+            iframe.style.height = 'calc(100vh - 50px)';
+            iframe.style.minHeight = '700px';
+        }
+    })();
+    </script>
+    """, height=0)
     
     # 隱藏的按鈕
     col1, col2 = st.columns(2)
