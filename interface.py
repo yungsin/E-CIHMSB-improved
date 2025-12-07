@@ -364,13 +364,11 @@ section[data-testid="stSidebar"] button[kind="header"],
 [data-testid="stSidebar"] > div {
     display: flex !important;
     flex-direction: column !important;
-    align-items: center !important;
     padding: 1rem !important;
 }
 
 [data-testid="stSidebar"] > div > div {
     width: 100% !important;
-    text-align: center !important;
 }
 
 [data-testid="stSidebar"].sidebar-open {
