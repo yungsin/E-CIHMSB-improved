@@ -1245,7 +1245,7 @@ if st.session_state.current_mode is None:
     }}
     
     .welcome-title {{
-        font-size: clamp(37px, 6.3vw, 115px);
+        font-size: clamp(35px, 5.5vw, 100px);
         font-weight: bold;
         letter-spacing: 0.1em;
         white-space: nowrap;
@@ -1332,7 +1332,7 @@ if st.session_state.current_mode is None:
     .footer-credits {{
         text-align: center;
         color: #5D5D5D;
-        font-size: clamp(20px, 3vw, 50px);
+        font-size: clamp(24px, 3.5vw, 60px);
         font-weight: 500;
         padding-bottom: 2vh;
     }}
