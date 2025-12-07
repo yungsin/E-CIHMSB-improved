@@ -281,6 +281,8 @@ st.markdown("""
     background-position: center;
     background-repeat: no-repeat;
     background-attachment: fixed;
+    box-shadow: inset 80px 0 60px -40px rgba(80, 60, 40, 0.5), 
+                inset -80px 0 60px -40px rgba(80, 60, 40, 0.5);
 }
 
 /* 隱藏 Streamlit 預設元素 */
