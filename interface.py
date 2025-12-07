@@ -1020,12 +1020,38 @@ function injectScrollbarStyle() {
         if (!window.parent.document.getElementById('custom-scrollbar-style')) {
             window.parent.document.head.appendChild(style2);
         }
+        
+        // 直接找到所有 textarea 並設定樣式
+        const textareas = window.parent.document.querySelectorAll('textarea');
+        textareas.forEach(ta => {
+            ta.style.overflow = 'hidden';
+            ta.style.scrollbarWidth = 'none';
+            ta.style.msOverflowStyle = 'none';
+        });
+        
+        // 找到 stTextArea 容器
+        const textAreaContainers = window.parent.document.querySelectorAll('.stTextArea, [data-baseweb="textarea"]');
+        textAreaContainers.forEach(container => {
+            container.style.overflow = 'hidden';
+            const allChildren = container.querySelectorAll('*');
+            allChildren.forEach(child => {
+                child.style.overflow = 'hidden';
+                child.style.scrollbarWidth = 'none';
+            });
+        });
     }
 }
 
 injectScrollbarStyle();
 setTimeout(injectScrollbarStyle, 300);
 setTimeout(injectScrollbarStyle, 1000);
+setTimeout(injectScrollbarStyle, 2000);
+
+// 監聽 DOM 變化，新元素出現時也隱藏滾動條
+if (window.parent && window.parent.document) {
+    const observer = new MutationObserver(injectScrollbarStyle);
+    observer.observe(window.parent.document.body, { childList: true, subtree: true });
+}
 </script>
 """, height=0)
 
