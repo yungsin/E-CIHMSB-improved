@@ -357,7 +357,9 @@ section[data-testid="stSidebar"] button[kind="header"],
     z-index: 999 !important;
     transition: transform 0.3s ease !important;
     transform: translateX(-100%);
-    background: linear-gradient(180deg, #d8cfc4 0%, #c9bfb3 100%) !important;
+    background-image: url('https://i.pinimg.com/736x/53/1a/01/531a01457eca178f01c83ac2ede3f102.jpg') !important;
+    background-size: cover !important;
+    background-position: center !important;
     box-shadow: 4px 0 15px rgba(0,0,0,0.2) !important;
 }
 
