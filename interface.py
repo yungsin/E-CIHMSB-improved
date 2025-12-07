@@ -580,8 +580,8 @@ h3 { font-size: clamp(28px, 3vw, 36px) !important; font-weight: bold !important;
     background-color: white !important;
     border-radius: 8px !important;
     font-size: clamp(18px, 2vw, 24px) !important;
-    min-height: 50px !important;
-    padding: 8px 12px !important;
+    min-height: 60px !important;
+    padding: 12px 16px !important;
     border: 1px solid #ccc !important;
 }
 
@@ -589,6 +589,7 @@ h3 { font-size: clamp(28px, 3vw, 36px) !important; font-weight: bold !important;
 [data-testid="stMain"] .stSelectbox [data-baseweb="select"] div {
     font-size: clamp(18px, 2vw, 24px) !important;
     color: #333 !important;
+    line-height: 1.5 !important;
 }
 
 [data-baseweb="popover"] li {
