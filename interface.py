@@ -626,6 +626,13 @@ section[data-testid="stSidebar"] button[kind="header"],
     font-weight: bold !important;
 }
 
+/* 已選擇資訊專用樣式 */
+.selected-info {
+    font-size: 20px !important;
+    color: #d04d04 !important;
+    font-weight: bold !important;
+}
+
 h3 { font-size: clamp(28px, 3vw, 36px) !important; font-weight: bold !important; }
 
 /* 按鈕樣式 */
@@ -1597,7 +1604,7 @@ elif st.session_state.current_mode == 'embed':
                 
                 if selected != "選擇":
                     st.session_state.selected_contact_saved = selected
-                    st.markdown(f'<p style="font-size: 20px; color: #d04d04;">已選擇：{selected}</p>', unsafe_allow_html=True)
+                    st.markdown(f'<div class="selected-info">已選擇：{selected}</div>', unsafe_allow_html=True)
                     step1_done = True
                 else:
                     st.session_state.selected_contact_saved = None
