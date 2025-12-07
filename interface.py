@@ -392,8 +392,8 @@ section[data-testid="stSidebar"] button[kind="header"],
 
 [data-testid="stSidebar"] [data-testid="stExpander"] {
     width: 100% !important;
-    background-color: rgba(255, 255, 255, 0.85) !important;
-    border: 2px solid rgba(200, 200, 200, 0.8) !important;
+    background-color: #efe7da !important;
+    border: 2px solid rgba(200, 200, 200, 0.6) !important;
     border-radius: 10px !important;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1) !important;
     margin-bottom: 8px !important;
@@ -401,7 +401,7 @@ section[data-testid="stSidebar"] button[kind="header"],
 
 /* Expander 標題列背景 */
 [data-testid="stSidebar"] [data-testid="stExpander"] > details > summary {
-    background-color: rgba(255, 255, 255, 0.9) !important;
+    background-color: #efe7da !important;
     border-radius: 8px !important;
 }
 
@@ -411,7 +411,7 @@ section[data-testid="stSidebar"] button[kind="header"],
 }
 
 [data-testid="stSidebar"] [data-testid="stExpander"] [data-testid="stExpanderDetails"] {
-    background-color: rgba(255, 255, 255, 0.9) !important;
+    background-color: #efe7da !important;
 }
 
 /* 側邊欄下拉選單 */
