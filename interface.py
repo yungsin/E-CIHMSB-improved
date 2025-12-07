@@ -670,13 +670,21 @@ h3 { font-size: clamp(28px, 3vw, 36px) !important; font-weight: bold !important;
 .stTextArea textarea {
     font-size: clamp(22px, 2.5vw, 30px) !important;
     background-color: #ecefef !important;
-    border: 1px solid #ccc !important;
-    color: #443C3C !important;
+    border: 2px solid #ccc !important;
+    border-radius: 8px !important;
+    color: #333 !important;
+    padding: 12px !important;
+}
+
+.stTextArea textarea:focus {
+    border-color: #4A6B8A !important;
+    outline: none !important;
+    box-shadow: 0 0 0 2px rgba(74, 107, 138, 0.2) !important;
 }
 
 .stTextArea textarea::placeholder {
-    color: #443C3C !important;
-    opacity: 0.6 !important;
+    color: #888 !important;
+    opacity: 1 !important;
 }
 
 /* 移除 textarea 底部黑線 */
