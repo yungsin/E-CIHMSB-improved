@@ -1627,13 +1627,24 @@ elif st.session_state.current_mode == 'embed':
         secret_bits_saved = st.session_state.get('secret_bits_saved', 0)
         step2_done = secret_bits_saved > 0
         
-        # 三欄並排佈局 - 加大寬度
+        # 三欄並排佈局 - 加大寬度 + 固定不滾動
         st.markdown("""
         <style>
         [data-testid="stMain"] [data-testid="stHorizontalBlock"] {
             max-width: 100% !important;
             width: 100% !important;
             gap: 2rem !important;
+        }
+        
+        /* 固定頁面不滾動 */
+        html, body, [data-testid="stAppViewContainer"], .main, [data-testid="stMain"] {
+            overflow: hidden !important;
+            height: 100vh !important;
+        }
+        .block-container {
+            padding-bottom: 0 !important;
+            height: 100vh !important;
+            overflow: hidden !important;
         }
         </style>
         """, unsafe_allow_html=True)
