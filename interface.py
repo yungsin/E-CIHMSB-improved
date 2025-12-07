@@ -451,6 +451,25 @@ section[data-testid="stSidebar"] button[kind="header"],
     font-size: 18px !important;
 }
 
+/* 側邊欄按鈕白色背景 */
+[data-testid="stSidebar"] .stButton button {
+    background-color: white !important;
+    color: #333 !important;
+    border: 1px solid #ccc !important;
+}
+
+[data-testid="stSidebar"] .stButton button:hover {
+    background-color: #f5f5f5 !important;
+    border-color: #999 !important;
+}
+
+/* 側邊欄 primary 按鈕 */
+[data-testid="stSidebar"] .stButton button[kind="primary"] {
+    background: linear-gradient(135deg, #4A6B8A 0%, #5C8AAD 100%) !important;
+    color: white !important;
+    border: none !important;
+}
+
 [data-testid="stSidebar"] [data-testid="stBaseButton-header"],
 [data-testid="stSidebar"] button[kind="header"] {
     display: none !important;
