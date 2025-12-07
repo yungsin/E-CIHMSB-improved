@@ -583,14 +583,15 @@ h3 { font-size: clamp(28px, 3vw, 36px) !important; font-weight: bold !important;
     min-height: 45px !important;
     padding: 12px 16px !important;
     border: 1px solid #ccc !important;
-    display: flex !important;
-    align-items: center !important;
-    justify-content: flex-start !important;
 }
 
 [data-testid="stMain"] .stSelectbox [data-baseweb="select"] {
     min-height: 45px !important;
-    text-align: left !important;
+}
+
+[data-testid="stMain"] .stSelectbox [data-baseweb="select"] > div {
+    justify-content: flex-start !important;
+    padding-left: 8px !important;
 }
 
 [data-testid="stMain"] .stSelectbox [data-baseweb="select"] span,
@@ -599,8 +600,17 @@ h3 { font-size: clamp(28px, 3vw, 36px) !important; font-weight: bold !important;
     font-weight: bold !important;
     color: #333 !important;
     line-height: 1.4 !important;
-    text-align: left !important;
+}
+
+/* 強制選中值靠左 */
+[data-testid="stMain"] .stSelectbox [class*="valueContainer"] {
     justify-content: flex-start !important;
+    padding-left: 0 !important;
+}
+
+[data-testid="stMain"] .stSelectbox [class*="singleValue"] {
+    margin-left: 0 !important;
+    text-align: left !important;
 }
 
 [data-baseweb="popover"] li {
