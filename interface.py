@@ -579,25 +579,26 @@ h3 { font-size: clamp(28px, 3vw, 36px) !important; font-weight: bold !important;
 [data-testid="stMain"] .stSelectbox > div > div {
     background-color: white !important;
     border-radius: 8px !important;
-    min-height: 45px !important;
-    padding: 8px 12px !important;
+    min-height: 55px !important;
+    padding: 12px 16px !important;
     border: 1px solid #ccc !important;
 }
 
 [data-testid="stMain"] .stSelectbox [data-baseweb="select"] span,
 [data-testid="stMain"] .stSelectbox [data-baseweb="select"] div {
-    font-size: 18px !important;
+    font-size: 22px !important;
     font-weight: bold !important;
     color: #333 !important;
+    line-height: 1.5 !important;
 }
 
 [data-baseweb="popover"] li {
     background-color: white !important;
-    font-size: 20px !important;
+    font-size: 22px !important;
     font-weight: bold !important;
     color: #333 !important;
-    min-height: 45px !important;
-    padding: 10px 16px !important;
+    min-height: 50px !important;
+    padding: 12px 16px !important;
 }
 
 [data-baseweb="popover"] li span,
@@ -610,7 +611,7 @@ ul[role="listbox"] li,
 ul[role="listbox"] li * {
     color: #333 !important;
     background-color: white !important;
-    font-size: 20px !important;
+    font-size: 22px !important;
     font-weight: bold !important;
 }
 
@@ -1238,9 +1239,9 @@ elif st.session_state.current_mode == 'embed':
         current_step = st.session_state.embed_step
         st.markdown(f"""
         <div style="display: flex; justify-content: space-between; margin-bottom: 20px; max-width: 1200px; margin-left: auto; margin-right: auto;">
-            <div style="flex: 1; text-align: center; padding: 15px 10px; border-bottom: {'4px solid #4A6B8A' if current_step == 1 else '2px solid #B8C8D8'}; color: {'#4A6B8A' if current_step == 1 else '#7A8A9A'}; font-size: clamp(16px, 2vw, 24px); font-weight: 700;">第一步: 選擇對象</div>
-            <div style="flex: 1; text-align: center; padding: 15px 10px; border-bottom: {'4px solid #4A6B8A' if current_step == 2 else '2px solid #B8C8D8'}; color: {'#4A6B8A' if current_step == 2 else '#7A8A9A'}; font-size: clamp(16px, 2vw, 24px); font-weight: 700;">第二步: 機密內容</div>
-            <div style="flex: 1; text-align: center; padding: 15px 10px; border-bottom: {'4px solid #4A6B8A' if current_step == 3 else '2px solid #B8C8D8'}; color: {'#4A6B8A' if current_step == 3 else '#7A8A9A'}; font-size: clamp(16px, 2vw, 24px); font-weight: 700;">第三步: 載體圖像</div>
+            <div style="flex: 1; text-align: center; padding: 15px 10px; border-bottom: {'4px solid #4A6B8A' if current_step == 1 else '2px solid #B8C8D8'}; color: {'#4A6B8A' if current_step == 1 else '#7A8A9A'}; font-size: clamp(20px, 2.5vw, 30px); font-weight: 700;">第一步: 選擇對象</div>
+            <div style="flex: 1; text-align: center; padding: 15px 10px; border-bottom: {'4px solid #4A6B8A' if current_step == 2 else '2px solid #B8C8D8'}; color: {'#4A6B8A' if current_step == 2 else '#7A8A9A'}; font-size: clamp(20px, 2.5vw, 30px); font-weight: 700;">第二步: 機密內容</div>
+            <div style="flex: 1; text-align: center; padding: 15px 10px; border-bottom: {'4px solid #4A6B8A' if current_step == 3 else '2px solid #B8C8D8'}; color: {'#4A6B8A' if current_step == 3 else '#7A8A9A'}; font-size: clamp(20px, 2.5vw, 30px); font-weight: 700;">第三步: 載體圖像</div>
         </div>
         """, unsafe_allow_html=True)
         
@@ -1620,8 +1621,8 @@ else:
         current_step = st.session_state.extract_step
         st.markdown(f"""
         <div style="display: flex; justify-content: space-between; margin-bottom: 20px; max-width: 1200px; margin-left: auto; margin-right: auto;">
-            <div style="flex: 1; text-align: center; padding: 15px 10px; border-bottom: {'4px solid #7D5A6B' if current_step == 1 else '2px solid #D8C0C8'}; color: {'#7D5A6B' if current_step == 1 else '#A08090'}; font-size: clamp(16px, 2vw, 24px); font-weight: 700;">第一步: 選擇對象</div>
-            <div style="flex: 1; text-align: center; padding: 15px 10px; border-bottom: {'4px solid #7D5A6B' if current_step == 2 else '2px solid #D8C0C8'}; color: {'#7D5A6B' if current_step == 2 else '#A08090'}; font-size: clamp(16px, 2vw, 24px); font-weight: 700;">第二步: 上傳 Z碼圖</div>
+            <div style="flex: 1; text-align: center; padding: 15px 10px; border-bottom: {'4px solid #7D5A6B' if current_step == 1 else '2px solid #D8C0C8'}; color: {'#7D5A6B' if current_step == 1 else '#A08090'}; font-size: clamp(20px, 2.5vw, 30px); font-weight: 700;">第一步: 選擇對象</div>
+            <div style="flex: 1; text-align: center; padding: 15px 10px; border-bottom: {'4px solid #7D5A6B' if current_step == 2 else '2px solid #D8C0C8'}; color: {'#7D5A6B' if current_step == 2 else '#A08090'}; font-size: clamp(20px, 2.5vw, 30px); font-weight: 700;">第二步: 上傳 Z碼圖</div>
         </div>
         """, unsafe_allow_html=True)
         
