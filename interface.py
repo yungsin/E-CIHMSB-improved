@@ -1360,7 +1360,7 @@ elif st.session_state.current_mode == 'embed':
                     show_next_btn = True
                     next_step = 2
             else:
-                st.markdown("""<div style="background: #fff2cc; border: 2px solid #ffc107; border-radius: 12px; padding: 15px; text-align: center; margin: 10px 0;"><div style="font-size: 16px; font-weight: bold; color: #856404;">⚠️ 請先新增對象（點擊左上角「對象管理」按鈕）</div></div>""", unsafe_allow_html=True)
+                st.markdown("""<div style="background: #fff2cc; border: none; border-radius: 12px; padding: 15px; text-align: center; margin: 10px 0;"><div style="font-size: 16px; font-weight: bold; color: #856404;">⚠️ 請先新增對象（點擊左上角「對象管理」按鈕）</div></div>""", unsafe_allow_html=True)
         
         elif st.session_state.embed_step == 2:
             selected_contact = st.session_state.get('selected_contact_saved', '選擇')
@@ -1747,7 +1747,7 @@ else:
                     show_next_btn = True
                     next_step = 2
             else:
-                st.markdown("""<div style="background: #fff2cc; border: 2px solid #ffc107; border-radius: 12px; padding: 15px; text-align: center;"><div style="font-size: 16px; font-weight: bold; color: #856404;">⚠️ 請先新增對象</div></div>""", unsafe_allow_html=True)
+                st.markdown("""<div style="background: #fff2cc; border: none; border-radius: 12px; padding: 15px; text-align: center;"><div style="font-size: 16px; font-weight: bold; color: #856404;">⚠️ 請先新增對象</div></div>""", unsafe_allow_html=True)
         
         elif st.session_state.extract_step == 2:
             saved_contact = st.session_state.get('extract_contact_saved', None)
