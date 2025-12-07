@@ -424,14 +424,13 @@ section[data-testid="stSidebar"] button[kind="header"],
     color: #333 !important;
 }
 
-/* 隱藏下拉選單的搜索游標 */
-[data-testid="stSidebar"] .stSelectbox input,
-[data-testid="stSidebar"] [data-baseweb="select"] input,
-[data-testid="stSidebar"] [data-baseweb="input"] input {
+/* 完全禁用下拉選單的輸入功能 */
+[data-testid="stSidebar"] .stSelectbox input[aria-autocomplete],
+[data-testid="stSidebar"] [data-baseweb="select"] input {
+    pointer-events: none !important;
     caret-color: transparent !important;
-    color: transparent !important;
-    width: 0 !important;
-    padding: 0 !important;
+    opacity: 0 !important;
+    position: absolute !important;
 }
 
 /* 側邊欄輸入框 */
