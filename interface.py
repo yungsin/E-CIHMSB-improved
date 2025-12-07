@@ -677,31 +677,37 @@ h3 { font-size: clamp(28px, 3vw, 36px) !important; font-weight: bold !important;
     caret-color: #333 !important;
 }
 
-/* 隱藏 textarea 滾動條 */
+/* 隱藏 textarea 滾動條 - 強制所有層級 */
 .stTextArea textarea::-webkit-scrollbar,
 .stTextArea *::-webkit-scrollbar,
 .stTextArea > div::-webkit-scrollbar,
-.stTextArea > div > div::-webkit-scrollbar {
+.stTextArea > div > div::-webkit-scrollbar,
+.stTextArea > div > div > div::-webkit-scrollbar,
+[data-testid="stTextArea"] *::-webkit-scrollbar,
+[data-baseweb="textarea"] *::-webkit-scrollbar {
     display: none !important;
     width: 0 !important;
+    height: 0 !important;
+    background: transparent !important;
 }
 
-.stTextArea textarea,
+.stTextArea,
 .stTextArea *,
+.stTextArea textarea,
 .stTextArea > div,
-.stTextArea > div > div {
+.stTextArea > div > div,
+.stTextArea > div > div > div,
+[data-testid="stTextArea"],
+[data-testid="stTextArea"] *,
+[data-baseweb="textarea"],
+[data-baseweb="textarea"] * {
     scrollbar-width: none !important;
     -ms-overflow-style: none !important;
 }
 
+/* 確保 textarea 內容可以輸入但不顯示滾動條 */
 .stTextArea textarea {
-    overflow-y: auto !important;
-    overflow-x: hidden !important;
-}
-
-.stTextArea [data-baseweb="textarea"],
-.stTextArea [data-baseweb="base-input"] {
-    overflow: hidden !important;
+    overflow: auto !important;
 }
 
 .stTextArea textarea:focus {
@@ -999,12 +1005,23 @@ function injectScrollbarStyle() {
         * { scrollbar-width: thin !important; scrollbar-color: #b8a88a #f5f0e6 !important; }
         
         /* 隱藏 textarea 滾動條 */
-        .stTextArea *::-webkit-scrollbar { display: none !important; width: 0 !important; }
-        .stTextArea * { scrollbar-width: none !important; -ms-overflow-style: none !important; }
-        textarea::-webkit-scrollbar { display: none !important; width: 0 !important; }
-        textarea { scrollbar-width: none !important; -ms-overflow-style: none !important; }
-        [data-baseweb="textarea"] *::-webkit-scrollbar { display: none !important; width: 0 !important; }
-        [data-baseweb="base-input"] *::-webkit-scrollbar { display: none !important; width: 0 !important; }
+        .stTextArea *::-webkit-scrollbar,
+        [data-testid="stTextArea"] *::-webkit-scrollbar,
+        [data-baseweb="textarea"] *::-webkit-scrollbar,
+        [data-baseweb="base-input"] *::-webkit-scrollbar,
+        textarea::-webkit-scrollbar { 
+            display: none !important; 
+            width: 0 !important; 
+            height: 0 !important;
+            background: transparent !important;
+        }
+        .stTextArea, .stTextArea *,
+        [data-testid="stTextArea"], [data-testid="stTextArea"] *,
+        [data-baseweb="textarea"], [data-baseweb="textarea"] *,
+        textarea { 
+            scrollbar-width: none !important; 
+            -ms-overflow-style: none !important; 
+        }
     `;
     
     // 注入到當前 document
@@ -1024,19 +1041,19 @@ function injectScrollbarStyle() {
         // 直接找到所有 textarea 並設定樣式
         const textareas = window.parent.document.querySelectorAll('textarea');
         textareas.forEach(ta => {
-            ta.style.overflow = 'hidden';
             ta.style.scrollbarWidth = 'none';
             ta.style.msOverflowStyle = 'none';
         });
         
-        // 找到 stTextArea 容器
-        const textAreaContainers = window.parent.document.querySelectorAll('.stTextArea, [data-baseweb="textarea"]');
+        // 找到 stTextArea 容器及其所有子元素
+        const textAreaContainers = window.parent.document.querySelectorAll('.stTextArea, [data-testid="stTextArea"], [data-baseweb="textarea"], [data-baseweb="base-input"]');
         textAreaContainers.forEach(container => {
-            container.style.overflow = 'hidden';
+            container.style.scrollbarWidth = 'none';
+            container.style.msOverflowStyle = 'none';
             const allChildren = container.querySelectorAll('*');
             allChildren.forEach(child => {
-                child.style.overflow = 'hidden';
                 child.style.scrollbarWidth = 'none';
+                child.style.msOverflowStyle = 'none';
             });
         });
     }
