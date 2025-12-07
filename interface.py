@@ -282,35 +282,16 @@ st.markdown("""
     background-attachment: fixed;
 }
 
-/* 隱藏 Streamlit 預設元素 - 加強版 */
+/* 隱藏 Streamlit 預設元素 */
 header[data-testid="stHeader"],
 #MainMenu, footer, .stDeployButton, div[data-testid="stToolbar"],
 .viewerBadge_container__r5tak, .viewerBadge_link__qRIco,
 div[class*="viewerBadge"], div[class*="StatusWidget"],
 [data-testid="manage-app-button"], .stApp > footer,
 iframe[title="Streamlit"], div[class*="styles_viewerBadge"],
-.stAppDeployButton, div[class*="stAppDeployButton"],
-button[kind="manage-app"], section[data-testid="stStatusWidget"],
-div[class*="stDeployButton"], [data-testid="stAppViewBlockContainer"] > footer,
-div[class*="AppDeployButton"], a[href*="streamlit.io/cloud"],
-[data-testid="stDecoration"], div[class*="StatusWidget"],
-div[class*="stToolbar"], div[class*="manage-app"],
-button[class*="manage"], div[class*="manage"] {
+.stAppDeployButton, section[data-testid="stStatusWidget"] {
     display: none !important;
     visibility: hidden !important;
-    opacity: 0 !important;
-    height: 0 !important;
-    width: 0 !important;
-    pointer-events: none !important;
-    position: absolute !important;
-    top: -9999px !important;
-    left: -9999px !important;
-}
-
-/* 隱藏右下角固定元素 */
-body > div[style*="position: fixed"][style*="bottom"],
-.stApp > div[style*="position: fixed"][style*="bottom"] {
-    display: none !important;
 }
 
 .block-container { padding-top: 1rem !important; }
@@ -941,34 +922,21 @@ if st.session_state.current_mode is None:
             '[class*="StatusWidget"]',
             '[data-testid="manage-app-button"]',
             '.stAppDeployButton',
-            'button[kind="manage-app"]',
             'section[data-testid="stStatusWidget"]',
             '[class*="stDeployButton"]',
-            '[class*="AppDeployButton"]',
-            '[data-testid="stDecoration"]'
+            '[class*="AppDeployButton"]'
         ];
         selectors.forEach(sel => {{
             parentDoc.querySelectorAll(sel).forEach(el => {{
-                el.remove();
+                el.style.display = 'none';
             }});
-        }});
-        
-        // 強制移除右下角任何固定定位的元素
-        parentDoc.querySelectorAll('*').forEach(el => {{
-            const style = window.parent.getComputedStyle(el);
-            if (style.position === 'fixed' && 
-                parseInt(style.bottom) < 100 && 
-                parseInt(style.right) < 200) {{
-                const text = el.innerText || '';
-                if (text.includes('Manage') || text.includes('app') || text.includes('streamlit')) {{
-                    el.remove();
-                }}
-            }}
         }});
     }}
     
     hideStreamlitBadges();
-    setInterval(hideStreamlitBadges, 300);
+    setTimeout(hideStreamlitBadges, 500);
+    setTimeout(hideStreamlitBadges, 1000);
+    setTimeout(hideStreamlitBadges, 2000);
     </script>
     </body>
     </html>
