@@ -643,10 +643,13 @@ h3 { font-size: clamp(28px, 3vw, 36px) !important; font-weight: bold !important;
 }
 
 [data-testid="stMain"] .stButton button[kind="primary"] {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
+    background: linear-gradient(135deg, #4A6B8A 0%, #5C8AAD 100%) !important;
     color: white !important;
     border: none !important;
     border-radius: 8px !important;
+    font-size: 24px !important;
+    padding: 15px 50px !important;
+    min-width: 180px !important;
 }
 
 [data-testid="stSidebar"] .stButton button[kind="primary"] {
