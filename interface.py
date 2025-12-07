@@ -1097,69 +1097,70 @@ components.html("""
 <script>
 function injectScrollbarStyle() {
     const css = `
-        /* 全局滾動條 - 米色風格 */
-        *::-webkit-scrollbar { width: 8px !important; }
-        *::-webkit-scrollbar-track { background: #f5f0e6 !important; border-radius: 4px !important; }
-        *::-webkit-scrollbar-thumb { background: #b8a88a !important; border-radius: 4px !important; }
-        *::-webkit-scrollbar-thumb:hover { background: #9a8b6e !important; }
-        * { scrollbar-width: thin !important; scrollbar-color: #b8a88a #f5f0e6 !important; }
+        /* 只針對下拉選單滾動條 - 米色風格 */
+        [data-baseweb="popover"]::-webkit-scrollbar,
+        [data-baseweb="popover"] > div::-webkit-scrollbar,
+        [data-baseweb="popover"] ul::-webkit-scrollbar,
+        [data-baseweb="menu"]::-webkit-scrollbar,
+        ul[role="listbox"]::-webkit-scrollbar,
+        div[data-baseweb="popover"] *::-webkit-scrollbar {
+            width: 8px !important;
+        }
+        [data-baseweb="popover"]::-webkit-scrollbar-track,
+        [data-baseweb="popover"] > div::-webkit-scrollbar-track,
+        [data-baseweb="popover"] ul::-webkit-scrollbar-track,
+        [data-baseweb="menu"]::-webkit-scrollbar-track,
+        ul[role="listbox"]::-webkit-scrollbar-track,
+        div[data-baseweb="popover"] *::-webkit-scrollbar-track {
+            background: #f5f0e6 !important;
+            border-radius: 4px !important;
+        }
+        [data-baseweb="popover"]::-webkit-scrollbar-thumb,
+        [data-baseweb="popover"] > div::-webkit-scrollbar-thumb,
+        [data-baseweb="popover"] ul::-webkit-scrollbar-thumb,
+        [data-baseweb="menu"]::-webkit-scrollbar-thumb,
+        ul[role="listbox"]::-webkit-scrollbar-thumb,
+        div[data-baseweb="popover"] *::-webkit-scrollbar-thumb {
+            background: #b8a88a !important;
+            border-radius: 4px !important;
+        }
+        [data-baseweb="popover"]::-webkit-scrollbar-thumb:hover,
+        [data-baseweb="popover"] > div::-webkit-scrollbar-thumb:hover,
+        [data-baseweb="menu"]::-webkit-scrollbar-thumb:hover,
+        ul[role="listbox"]::-webkit-scrollbar-thumb:hover {
+            background: #9a8b6e !important;
+        }
+        [data-baseweb="popover"],
+        [data-baseweb="popover"] > div,
+        [data-baseweb="popover"] ul,
+        [data-baseweb="menu"],
+        ul[role="listbox"] {
+            scrollbar-width: thin !important;
+            scrollbar-color: #b8a88a #f5f0e6 !important;
+        }
         
-        /* textarea 外層強制隱藏滾動條 - 最高優先級 */
+        /* textarea 完全隱藏滾動條 */
         .stTextArea::-webkit-scrollbar,
-        .stTextArea > div::-webkit-scrollbar,
-        .stTextArea > div > div::-webkit-scrollbar,
-        .stTextArea > div > div > div::-webkit-scrollbar,
-        .stTextArea [data-baseweb="textarea"]::-webkit-scrollbar,
-        .stTextArea [data-baseweb="textarea"] > div::-webkit-scrollbar,
-        .stTextArea [data-testid="stTextAreaRootContainer"]::-webkit-scrollbar,
-        .stTextArea [data-testid="stTextAreaRootContainer"] > div::-webkit-scrollbar,
-        .stTextArea [data-testid="stTextAreaRootContainer"] > div > div::-webkit-scrollbar,
-        div.stTextArea *:not(textarea)::-webkit-scrollbar {
+        .stTextArea *::-webkit-scrollbar {
             display: none !important;
             width: 0 !important;
             height: 0 !important;
-            background: transparent !important;
-            visibility: hidden !important;
         }
         .stTextArea,
-        .stTextArea > div,
-        .stTextArea > div > div,
-        .stTextArea > div > div > div,
-        .stTextArea [data-baseweb="textarea"],
-        .stTextArea [data-testid="stTextAreaRootContainer"],
-        .stTextArea [data-testid="stTextAreaRootContainer"] > div,
-        div.stTextArea *:not(textarea) {
-            scrollbar-width: none !important;
-            scrollbar-color: transparent transparent !important;
-            -ms-overflow-style: none !important;
-            overflow: hidden !important;
-        }
-        /* textarea 本身可滾動但隱藏滾動條 */
-        .stTextArea textarea {
-            overflow-y: auto !important;
+        .stTextArea * {
             scrollbar-width: none !important;
             -ms-overflow-style: none !important;
-        }
-        .stTextArea textarea::-webkit-scrollbar {
-            display: none !important;
-            width: 0 !important;
         }
     `;
     
-    // 注入到當前 document
-    const style1 = document.createElement('style');
-    style1.textContent = css;
-    document.head.appendChild(style1);
-    
     // 注入到 parent document (Streamlit 主頁面)
     if (window.parent && window.parent.document && window.parent.document.head) {
-        const style2 = document.createElement('style');
-        style2.textContent = css;
-        style2.id = 'custom-scrollbar-style';
-        // 移除舊的再加新的，確保最新
+        const style = document.createElement('style');
+        style.textContent = css;
+        style.id = 'custom-scrollbar-style';
         const oldStyle = window.parent.document.getElementById('custom-scrollbar-style');
         if (oldStyle) oldStyle.remove();
-        window.parent.document.head.appendChild(style2);
+        window.parent.document.head.appendChild(style);
     }
 }
 
@@ -1861,7 +1862,7 @@ elif st.session_state.current_mode == 'embed':
                 
                 if embed_secret_type == "文字":
                     saved_text = st.session_state.get('embed_text_saved', '')
-                    embed_text_raw = st.text_area("輸入機密", value=saved_text, placeholder="輸入機密訊息...", height=130, key="embed_text_h", label_visibility="collapsed")
+                    embed_text_raw = st.text_area("輸入機密", value=saved_text, placeholder="輸入機密訊息...", height=150, key="embed_text_h", label_visibility="collapsed")
                     if embed_text_raw and embed_text_raw.strip():
                         embed_text = embed_text_raw.strip()
                         secret_bits_needed = len(text_to_binary(embed_text))
