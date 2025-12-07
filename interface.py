@@ -686,6 +686,7 @@ h3 { font-size: clamp(28px, 3vw, 36px) !important; font-weight: bold !important;
 .stTextArea textarea {
     scrollbar-width: none !important;
     -ms-overflow-style: none !important;
+    overflow-y: hidden !important;
 }
 
 .stTextArea textarea:focus {
@@ -984,10 +985,13 @@ function injectScrollbarStyle() {
         
         /* 隱藏 textarea 滾動條 */
         textarea::-webkit-scrollbar { display: none !important; width: 0 !important; }
-        textarea { scrollbar-width: none !important; -ms-overflow-style: none !important; }
+        textarea { scrollbar-width: none !important; -ms-overflow-style: none !important; overflow-y: hidden !important; }
         .stTextArea textarea::-webkit-scrollbar { display: none !important; width: 0 !important; }
+        .stTextArea textarea { overflow-y: hidden !important; }
         [data-baseweb="textarea"]::-webkit-scrollbar { display: none !important; width: 0 !important; }
+        [data-baseweb="textarea"] { overflow-y: hidden !important; }
         [data-baseweb="base-input"]::-webkit-scrollbar { display: none !important; width: 0 !important; }
+        [data-baseweb="base-input"] { overflow-y: hidden !important; }
     `;
     
     // 注入到當前 document
