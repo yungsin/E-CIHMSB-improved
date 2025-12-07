@@ -759,7 +759,7 @@ if st.session_state.current_mode is None:
     }}
     
     .welcome-title {{
-        font-size: clamp(40px, 7vw, 130px);
+        font-size: clamp(40px, 7vw, 100px);
         font-weight: bold;
         letter-spacing: 0.1em;
         white-space: nowrap;
