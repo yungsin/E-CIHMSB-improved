@@ -397,6 +397,26 @@ section[data-testid="stSidebar"] button[kind="header"],
     margin-bottom: 8px !important;
 }
 
+/* Expander 展開後內容背景 */
+[data-testid="stSidebar"] [data-testid="stExpander"] > div {
+    background-color: transparent !important;
+}
+
+[data-testid="stSidebar"] [data-testid="stExpander"] [data-testid="stExpanderDetails"] {
+    background-color: rgba(255, 255, 255, 0.9) !important;
+}
+
+/* 側邊欄下拉選單 */
+[data-testid="stSidebar"] .stSelectbox > div > div {
+    background-color: white !important;
+    color: #333 !important;
+}
+
+[data-testid="stSidebar"] .stSelectbox [data-baseweb="select"] span,
+[data-testid="stSidebar"] .stSelectbox [data-baseweb="select"] div {
+    color: #333 !important;
+}
+
 [data-testid="stSidebar"] input,
 [data-testid="stSidebar"] select,
 [data-testid="stSidebar"] button {
@@ -754,7 +774,7 @@ if st.session_state.current_mode is not None:
         style_options = ["選擇"] + list(STYLE_CATEGORIES.keys())
         
         # 新增對象
-        with st.expander("➕ 新增對象", expanded=False):
+        with st.expander("新增對象", expanded=False):
             add_counter = st.session_state.get('add_contact_counter', 0)
             new_name = st.text_input("名稱", key=f"sidebar_new_name_{add_counter}", placeholder="例如：小明、老媽、閨蜜")
             new_style = st.selectbox("綁定風格", style_options, key=f"sidebar_new_style_{add_counter}")
