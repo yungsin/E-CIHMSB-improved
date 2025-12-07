@@ -579,31 +579,14 @@ h3 { font-size: clamp(28px, 3vw, 36px) !important; font-weight: bold !important;
 [data-testid="stMain"] .stSelectbox > div > div {
     background-color: white !important;
     border-radius: 8px !important;
-    min-height: 60px !important;
-    padding: 0 16px !important;
+    min-height: 50px !important;
     border: 1px solid #ccc !important;
-    overflow: visible !important;
 }
 
-[data-testid="stMain"] .stSelectbox [data-baseweb="select"] {
-    height: 60px !important;
-}
-
-[data-testid="stMain"] .stSelectbox [data-baseweb="select"] > div {
-    height: 100% !important;
-    padding-top: 0 !important;
-    padding-bottom: 0 !important;
-}
-
-[data-testid="stMain"] .stSelectbox [data-baseweb="select"] span,
-[data-testid="stMain"] .stSelectbox [data-baseweb="select"] div[class*="singleValue"],
-[data-testid="stMain"] .stSelectbox [data-baseweb="select"] div[class*="placeholder"] {
-    font-size: 22px !important;
+[data-testid="stMain"] .stSelectbox [data-baseweb="select"] span {
+    font-size: 20px !important;
     font-weight: bold !important;
     color: #333 !important;
-    line-height: 60px !important;
-    height: 60px !important;
-    overflow: visible !important;
 }
 
 [data-baseweb="popover"] li {
