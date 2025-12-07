@@ -424,6 +424,11 @@ section[data-testid="stSidebar"] button[kind="header"],
     color: #333 !important;
 }
 
+/* 隱藏下拉選單的搜索游標 */
+[data-testid="stSidebar"] .stSelectbox input {
+    caret-color: transparent !important;
+}
+
 /* 側邊欄輸入框 */
 [data-testid="stSidebar"] .stTextInput input {
     background-color: white !important;
