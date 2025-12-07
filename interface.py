@@ -371,7 +371,7 @@ section[data-testid="stSidebar"] button[kind="header"],
 
 [data-testid="stSidebar"] input,
 [data-testid="stSidebar"] textarea {
-    background-color: #f3f3f3 !important;
+    background-color: #e6e6e6 !important;
     color: #333 !important;
     border: 1px solid #ccc !important;
 }
@@ -416,7 +416,7 @@ section[data-testid="stSidebar"] button[kind="header"],
 
 /* 側邊欄下拉選單 */
 [data-testid="stSidebar"] .stSelectbox > div > div {
-    background-color: #f3f3f3 !important;
+    background-color: #e6e6e6 !important;
     color: #333 !important;
     border: 1px solid #ccc !important;
     min-height: 45px !important;
@@ -446,7 +446,7 @@ section[data-testid="stSidebar"] button[kind="header"],
 
 /* 側邊欄輸入框 - 確保可以輸入 */
 [data-testid="stSidebar"] .stTextInput input {
-    background-color: #f3f3f3 !important;
+    background-color: #e6e6e6 !important;
     color: #333 !important;
     border: 1px solid #ccc !important;
     pointer-events: auto !important;
@@ -462,7 +462,7 @@ section[data-testid="stSidebar"] button[kind="header"],
 
 /* 側邊欄按鈕白色背景 */
 [data-testid="stSidebar"] .stButton button {
-    background-color: #f3f3f3 !important;
+    background-color: #e6e6e6 !important;
     color: #333 !important;
     border: 1px solid #ccc !important;
 }
