@@ -677,12 +677,19 @@ h3 { font-size: clamp(28px, 3vw, 36px) !important; font-weight: bold !important;
 }
 
 [data-baseweb="popover"] li {
-    background-color: white !important;
+    background-color: #ecefef !important;
     font-size: 22px !important;
     font-weight: bold !important;
     color: #333 !important;
     min-height: 50px !important;
     padding: 12px 16px !important;
+}
+
+/* 下拉列表容器背景 */
+[data-baseweb="popover"],
+[data-baseweb="popover"] > div,
+ul[role="listbox"] {
+    background-color: #ecefef !important;
 }
 
 [data-baseweb="popover"] li span,
@@ -694,14 +701,14 @@ h3 { font-size: clamp(28px, 3vw, 36px) !important; font-weight: bold !important;
 ul[role="listbox"] li,
 ul[role="listbox"] li * {
     color: #333 !important;
-    background-color: white !important;
+    background-color: #ecefef !important;
     font-size: 22px !important;
     font-weight: bold !important;
 }
 
 ul[role="listbox"] li:hover,
 [data-baseweb="menu"] li:hover {
-    background-color: #f0f0f0 !important;
+    background-color: #dce0e0 !important;
 }
 
 /* 確保選中的值完整顯示 */
