@@ -594,19 +594,37 @@ h3 { font-size: clamp(28px, 3vw, 36px) !important; font-weight: bold !important;
 [data-baseweb="popover"] li {
     background-color: white !important;
     font-size: clamp(16px, 1.8vw, 22px) !important;
+    color: #333 !important;
+}
+
+[data-baseweb="popover"] li span,
+[data-baseweb="popover"] li div,
+[data-baseweb="popover"] [role="option"],
+[data-baseweb="popover"] [role="option"] *,
+[data-baseweb="menu"] li,
+[data-baseweb="menu"] li *,
+ul[role="listbox"] li,
+ul[role="listbox"] li * {
+    color: #333 !important;
+    background-color: white !important;
+}
+
+ul[role="listbox"] li:hover,
+[data-baseweb="menu"] li:hover {
+    background-color: #f0f0f0 !important;
 }
 
 /* 固定按鈕容器 */
 .fixed-btn-next {
     position: fixed !important;
-    bottom: 30px !important;
+    bottom: 50px !important;
     right: 30px !important;
     z-index: 1000 !important;
 }
 
 .fixed-btn-back {
     position: fixed !important;
-    bottom: 30px !important;
+    bottom: 50px !important;
     left: 30px !important;
     z-index: 1000 !important;
 }
@@ -1213,7 +1231,7 @@ elif st.session_state.current_mode == 'embed':
         next_step = 1
         
         if st.session_state.embed_step == 1:
-            st.markdown('<p style="font-size: 30px; font-weight: bold; margin-bottom: 10px;">選擇對象</p>', unsafe_allow_html=True)
+            st.markdown('<p style="font-size: 30px; font-weight: bold; margin-bottom: 10px; color: #443C3C;">選擇對象</p>', unsafe_allow_html=True)
             if contact_names:
                 options = ["選擇"] + contact_names
                 saved_contact = st.session_state.get('selected_contact_saved', None)
@@ -1365,7 +1383,7 @@ elif st.session_state.current_mode == 'embed':
                             if (btn.innerText === '開始嵌入') {
                                 let container = btn.closest('.stButton') || btn.parentElement.parentElement.parentElement;
                                 if (container) {
-                                    container.style.cssText = 'position:fixed!important;bottom:30px!important;right:30px!important;left:auto!important;width:auto!important;z-index:1000!important;';
+                                    container.style.cssText = 'position:fixed!important;bottom:50px!important;right:30px!important;left:auto!important;width:auto!important;z-index:1000!important;';
                                 }
                             }
                         }
@@ -1450,13 +1468,13 @@ elif st.session_state.current_mode == 'embed':
                     // 找到 .stButton 容器
                     let container = btn.closest('.stButton') || btn.parentElement.parentElement.parentElement;
                     if (container) {
-                        container.style.cssText = 'position:fixed!important;bottom:30px!important;right:30px!important;left:auto!important;width:auto!important;z-index:1000!important;';
+                        container.style.cssText = 'position:fixed!important;bottom:50px!important;right:30px!important;left:auto!important;width:auto!important;z-index:1000!important;';
                     }
                 }
                 if (btn.innerText.includes('返回') && !btn.innerText.includes('首頁')) {
                     let container = btn.closest('.stButton') || btn.parentElement.parentElement.parentElement;
                     if (container) {
-                        container.style.cssText = 'position:fixed!important;bottom:30px!important;left:30px!important;right:auto!important;width:auto!important;z-index:1000!important;';
+                        container.style.cssText = 'position:fixed!important;bottom:50px!important;left:30px!important;right:auto!important;width:auto!important;z-index:1000!important;';
                     }
                 }
             }
@@ -1595,7 +1613,7 @@ else:
         style_name = None
         
         if st.session_state.extract_step == 1:
-            st.markdown('<p style="font-size: 30px; font-weight: bold; margin-bottom: 10px;">選擇對象</p>', unsafe_allow_html=True)
+            st.markdown('<p style="font-size: 30px; font-weight: bold; margin-bottom: 10px; color: #443C3C;">選擇對象</p>', unsafe_allow_html=True)
             if contact_names:
                 options = ["選擇"] + contact_names
                 saved_contact = st.session_state.get('extract_contact_saved', None)
@@ -1741,13 +1759,13 @@ else:
                 if (btn.innerText.includes('下一步') || btn.innerText.includes('開始提取')) {
                     let container = btn.closest('.stButton') || btn.parentElement.parentElement.parentElement;
                     if (container) {
-                        container.style.cssText = 'position:fixed!important;bottom:30px!important;right:30px!important;left:auto!important;width:auto!important;z-index:1000!important;';
+                        container.style.cssText = 'position:fixed!important;bottom:50px!important;right:30px!important;left:auto!important;width:auto!important;z-index:1000!important;';
                     }
                 }
                 if (btn.innerText.includes('返回') && !btn.innerText.includes('首頁')) {
                     let container = btn.closest('.stButton') || btn.parentElement.parentElement.parentElement;
                     if (container) {
-                        container.style.cssText = 'position:fixed!important;bottom:30px!important;left:30px!important;right:auto!important;width:auto!important;z-index:1000!important;';
+                        container.style.cssText = 'position:fixed!important;bottom:50px!important;left:30px!important;right:auto!important;width:auto!important;z-index:1000!important;';
                     }
                 }
             }
