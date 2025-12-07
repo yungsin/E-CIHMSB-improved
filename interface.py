@@ -425,8 +425,13 @@ section[data-testid="stSidebar"] button[kind="header"],
 }
 
 /* 隱藏下拉選單的搜索游標 */
-[data-testid="stSidebar"] .stSelectbox input {
+[data-testid="stSidebar"] .stSelectbox input,
+[data-testid="stSidebar"] [data-baseweb="select"] input,
+[data-testid="stSidebar"] [data-baseweb="input"] input {
     caret-color: transparent !important;
+    color: transparent !important;
+    width: 0 !important;
+    padding: 0 !important;
 }
 
 /* 側邊欄輸入框 */
