@@ -1497,7 +1497,7 @@ elif st.session_state.current_mode == 'embed':
         
         st.markdown('<div class="page-title-embed" style="text-align: center; margin-bottom: 30px;">嵌入結果</div>', unsafe_allow_html=True)
         
-        spacer_left, col_left, col_gap, col_right, spacer_right = st.columns([1.2, 2, 0.5, 2, 0.3])
+        spacer_left, col_left, col_gap, col_right, spacer_right = st.columns([0.8, 2.5, 0.5, 2, 0.3])
         
         with col_left:
             st.markdown(f'<div class="success-box">嵌入成功! ({r["elapsed_time"]:.2f} 秒)</div>', unsafe_allow_html=True)
