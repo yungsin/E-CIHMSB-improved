@@ -1726,13 +1726,13 @@ elif st.session_state.current_mode == 'embed':
                         st.session_state.embed_secret_image_data = embed_img_file.read()
                         st.session_state.embed_secret_image_name = embed_img_file.name
                         st.image(secret_img, width=180)
-                        st.markdown(f'<div class="bits-info">機密圖片:<br>{st.session_state.embed_secret_image_name} ({secret_img.size[0]}×{secret_img.size[1]} px)<br>所需容量：{secret_bits_needed:,} bits</div>', unsafe_allow_html=True)
+                        st.markdown(f'<div class="bits-info">機密圖片: {st.session_state.embed_secret_image_name} ({secret_img.size[0]}×{secret_img.size[1]} px)<br>所需容量：{secret_bits_needed:,} bits</div>', unsafe_allow_html=True)
                         step2_done = True
                     elif st.session_state.get('embed_secret_image_data'):
                         secret_img = Image.open(BytesIO(st.session_state.embed_secret_image_data))
                         st.image(secret_img, width=180)
                         secret_img_name = st.session_state.get('embed_secret_image_name', 'image.png')
-                        st.markdown(f'<div class="bits-info">機密圖片:<br>{secret_img_name} ({secret_img.size[0]}×{secret_img.size[1]} px)<br>所需容量：{st.session_state.get("secret_bits_saved", 0):,} bits</div>', unsafe_allow_html=True)
+                        st.markdown(f'<div class="bits-info">機密圖片: {secret_img_name} ({secret_img.size[0]}×{secret_img.size[1]} px)<br>所需容量：{st.session_state.get("secret_bits_saved", 0):,} bits</div>', unsafe_allow_html=True)
                         step2_done = True
                     else:
                         st.session_state.secret_bits_saved = 0
@@ -1790,7 +1790,7 @@ elif st.session_state.current_mode == 'embed':
                     capacity = calculate_image_capacity(selected_size)
                     usage = secret_bits_needed / capacity * 100
                     color = "#ffa726" if usage > 90 else "#28a745"
-                    st.markdown(f'<p style="font-size: 18px; color: {color};">{usage:.1f}% 使用</p>', unsafe_allow_html=True)
+                    st.markdown(f'<p style="font-size: 18px; color: {color};">機密容量 {secret_bits_needed:,} bits / 圖像容量 {capacity:,} bits ({usage:.1f}%)</p>', unsafe_allow_html=True)
                     
                     st.session_state.embed_image_id = selected_image["id"]
                     st.session_state.embed_image_size = selected_size
