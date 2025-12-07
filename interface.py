@@ -679,7 +679,7 @@ h3 { font-size: clamp(28px, 3vw, 36px) !important; font-weight: bold !important;
 [data-baseweb="popover"] li {
     background-color: #ecefef !important;
     font-size: 22px !important;
-    font-weight: bold !important;
+    font-weight: normal !important;
     color: #333 !important;
     min-height: 50px !important;
     padding: 12px 16px !important;
@@ -703,7 +703,7 @@ ul[role="listbox"] li * {
     color: #333 !important;
     background-color: #ecefef !important;
     font-size: 22px !important;
-    font-weight: bold !important;
+    font-weight: normal !important;
 }
 
 ul[role="listbox"] li:hover,
