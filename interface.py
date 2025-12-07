@@ -781,6 +781,15 @@ h3 { font-size: clamp(28px, 3vw, 36px) !important; font-weight: bold !important;
     overflow: hidden !important;
     overflow-y: hidden !important;
     overflow-x: hidden !important;
+    scrollbar-width: none !important;
+    -ms-overflow-style: none !important;
+}
+
+/* 隱藏外層所有滾動條軌道 */
+.stTextArea *:not(textarea)::-webkit-scrollbar {
+    display: none !important;
+    width: 0 !important;
+    height: 0 !important;
 }
 
 /* 只有 textarea 元素本身可以滾動 */
@@ -1131,11 +1140,16 @@ function fixTextareaScrollbar() {
         const textareas = window.parent.document.querySelectorAll('.stTextArea');
         textareas.forEach(ta => {
             // 找到所有子元素並隱藏滾動
-            const allDivs = ta.querySelectorAll('div');
-            allDivs.forEach(div => {
-                div.style.overflow = 'hidden';
-                div.style.overflowY = 'hidden';
-                div.style.overflowX = 'hidden';
+            const allElements = ta.querySelectorAll('*');
+            allElements.forEach(el => {
+                if (el.tagName !== 'TEXTAREA') {
+                    el.style.overflow = 'hidden';
+                    el.style.overflowY = 'hidden';
+                    el.style.overflowX = 'hidden';
+                    // 移除滾動條寬度
+                    el.style.scrollbarWidth = 'none';
+                    el.style.msOverflowStyle = 'none';
+                }
             });
             // 只有 textarea 本身可以滾動
             const textarea = ta.querySelector('textarea');
@@ -1144,6 +1158,25 @@ function fixTextareaScrollbar() {
                 textarea.style.overflowY = 'auto';
             }
         });
+        
+        // 注入隱藏外層滾動條的 CSS
+        const styleId = 'fix-textarea-scrollbar';
+        if (!window.parent.document.getElementById(styleId)) {
+            const style = document.createElement('style');
+            style.id = styleId;
+            style.textContent = `
+                .stTextArea *:not(textarea)::-webkit-scrollbar {
+                    display: none !important;
+                    width: 0 !important;
+                    height: 0 !important;
+                }
+                .stTextArea *:not(textarea) {
+                    scrollbar-width: none !important;
+                    -ms-overflow-style: none !important;
+                }
+            `;
+            window.parent.document.head.appendChild(style);
+        }
     }
 }
 
