@@ -474,7 +474,7 @@ section[data-testid="stSidebar"] button[kind="header"],
 
 /* 側邊欄 primary 按鈕 */
 [data-testid="stSidebar"] .stButton button[kind="primary"] {
-    background: #7395bd !important;
+    background: #8ba7c8 !important;
     color: white !important;
     border: none !important;
 }
