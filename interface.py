@@ -1125,9 +1125,39 @@ setTimeout(injectScrollbarStyle, 300);
 setTimeout(injectScrollbarStyle, 1000);
 setTimeout(injectScrollbarStyle, 2000);
 
+// 強制移除 textarea 外層滾動條
+function fixTextareaScrollbar() {
+    if (window.parent && window.parent.document) {
+        const textareas = window.parent.document.querySelectorAll('.stTextArea');
+        textareas.forEach(ta => {
+            // 找到所有子元素並移除滾動條
+            const divs = ta.querySelectorAll('div');
+            divs.forEach(div => {
+                if (div.tagName === 'DIV' && !div.querySelector('textarea')) {
+                    div.style.overflow = 'visible';
+                    div.style.overflowY = 'visible';
+                }
+            });
+            // 保留 textarea 本身的滾動
+            const textarea = ta.querySelector('textarea');
+            if (textarea) {
+                textarea.style.overflow = 'auto';
+            }
+        });
+    }
+}
+
+fixTextareaScrollbar();
+setTimeout(fixTextareaScrollbar, 500);
+setTimeout(fixTextareaScrollbar, 1000);
+setTimeout(fixTextareaScrollbar, 2000);
+
 // 監聽 DOM 變化，新元素出現時也隱藏滾動條
 if (window.parent && window.parent.document) {
-    const observer = new MutationObserver(injectScrollbarStyle);
+    const observer = new MutationObserver(() => {
+        injectScrollbarStyle();
+        fixTextareaScrollbar();
+    });
     observer.observe(window.parent.document.body, { childList: true, subtree: true });
 }
 </script>
@@ -1532,7 +1562,7 @@ elif st.session_state.current_mode == 'embed':
                 size_info = r["secret_desc"].replace("圖片: ", "")
                 secret_display = f'圖片: {secret_filename} ({size_info})' if secret_filename else r["secret_desc"]
             
-            st.markdown(f'<div class="info-box"><strong>嵌入資訊</strong><br><br>載體圖像編號：<strong>{img_num}</strong>（{img_name}）<br>載體圖像尺寸：{img_size}×{img_size}<br>機密內容：<br>{secret_display}<br>容量：{secret_bits:,} / {capacity:,} bits ({usage_percent:.1f}%)</div>', unsafe_allow_html=True)
+            st.markdown(f'<div class="info-box"><strong>嵌入資訊</strong><br><br>載體圖像編號：<strong>{img_num}</strong>（{img_name}）<br>載體圖像尺寸：{img_size}×{img_size}<br>機密內容：<br>{secret_display}<br>機密 / 容量：{secret_bits:,} / {capacity:,} bits ({usage_percent:.1f}%)</div>', unsafe_allow_html=True)
         
         with col_right:
             if r['embed_secret_type'] == "文字":
