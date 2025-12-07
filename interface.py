@@ -670,6 +670,21 @@ h3 { font-size: clamp(28px, 3vw, 36px) !important; font-weight: bold !important;
 .stTextArea textarea {
     font-size: clamp(22px, 2.5vw, 30px) !important;
     background-color: #ecefef !important;
+    border: 1px solid #ccc !important;
+}
+
+.stTextArea textarea::placeholder {
+    color: #443C3C !important;
+    opacity: 0.6 !important;
+}
+
+/* 移除 textarea 底部黑線 */
+.stTextArea [data-baseweb="textarea"] {
+    border: none !important;
+}
+
+.stTextArea [data-baseweb="base-input"] {
+    border-bottom: none !important;
 }
 
 /* 隱藏 Ctrl+Enter 提示 */
