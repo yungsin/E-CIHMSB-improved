@@ -1427,7 +1427,7 @@ if st.session_state.current_mode is None:
     }}
     
     .welcome-title {{
-        font-size: 90px;
+        font-size: 100px;
         font-weight: bold;
         letter-spacing: 0.18em;
         padding-left: 0.5em;
