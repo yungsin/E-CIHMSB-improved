@@ -677,37 +677,38 @@ h3 { font-size: clamp(28px, 3vw, 36px) !important; font-weight: bold !important;
     caret-color: #333 !important;
 }
 
-/* 隱藏 textarea 滾動條 - 強制所有層級 */
-.stTextArea textarea::-webkit-scrollbar,
-.stTextArea *::-webkit-scrollbar,
-.stTextArea > div::-webkit-scrollbar,
-.stTextArea > div > div::-webkit-scrollbar,
-.stTextArea > div > div > div::-webkit-scrollbar,
-[data-testid="stTextArea"] *::-webkit-scrollbar,
-[data-baseweb="textarea"] *::-webkit-scrollbar {
-    display: none !important;
-    width: 0 !important;
-    height: 0 !important;
-    background: transparent !important;
+/* 隱藏 textarea 滾動條 - 用偽元素遮罩 */
+.stTextArea {
+    position: relative !important;
 }
 
-.stTextArea,
-.stTextArea *,
+.stTextArea::after {
+    content: '' !important;
+    position: absolute !important;
+    top: 0 !important;
+    right: 0 !important;
+    width: 15px !important;
+    height: 100% !important;
+    background: #ecefef !important;
+    pointer-events: none !important;
+    z-index: 10 !important;
+    border-radius: 0 8px 8px 0 !important;
+}
+
+/* 備用方式 */
 .stTextArea textarea,
-.stTextArea > div,
-.stTextArea > div > div,
-.stTextArea > div > div > div,
-[data-testid="stTextArea"],
+.stTextArea *,
 [data-testid="stTextArea"] *,
-[data-baseweb="textarea"],
 [data-baseweb="textarea"] * {
     scrollbar-width: none !important;
     -ms-overflow-style: none !important;
 }
 
-/* 確保 textarea 內容可以輸入但不顯示滾動條 */
-.stTextArea textarea {
-    overflow: auto !important;
+.stTextArea *::-webkit-scrollbar,
+[data-testid="stTextArea"] *::-webkit-scrollbar,
+[data-baseweb="textarea"] *::-webkit-scrollbar {
+    display: none !important;
+    width: 0 !important;
 }
 
 .stTextArea textarea:focus {
@@ -1038,23 +1039,27 @@ function injectScrollbarStyle() {
             window.parent.document.head.appendChild(style2);
         }
         
-        // 直接找到所有 textarea 並設定樣式
+        // 直接找到所有 textarea 並用負 margin 隱藏滾動條
         const textareas = window.parent.document.querySelectorAll('textarea');
         textareas.forEach(ta => {
+            ta.style.marginRight = '-20px';
+            ta.style.paddingRight = '32px';
             ta.style.scrollbarWidth = 'none';
             ta.style.msOverflowStyle = 'none';
+            
+            // 確保父容器 overflow hidden
+            if (ta.parentElement) {
+                ta.parentElement.style.overflow = 'hidden';
+            }
         });
         
-        // 找到 stTextArea 容器及其所有子元素
-        const textAreaContainers = window.parent.document.querySelectorAll('.stTextArea, [data-testid="stTextArea"], [data-baseweb="textarea"], [data-baseweb="base-input"]');
+        // 找到 stTextArea 容器
+        const textAreaContainers = window.parent.document.querySelectorAll('.stTextArea');
         textAreaContainers.forEach(container => {
-            container.style.scrollbarWidth = 'none';
-            container.style.msOverflowStyle = 'none';
-            const allChildren = container.querySelectorAll('*');
-            allChildren.forEach(child => {
-                child.style.scrollbarWidth = 'none';
-                child.style.msOverflowStyle = 'none';
-            });
+            const innerDiv = container.querySelector('div > div');
+            if (innerDiv) {
+                innerDiv.style.overflow = 'hidden';
+            }
         });
     }
 }
