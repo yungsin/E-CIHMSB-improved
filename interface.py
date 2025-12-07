@@ -767,6 +767,18 @@ h3 { font-size: clamp(28px, 3vw, 36px) !important; font-weight: bold !important;
     display: none !important;
 }
 
+/* 隱藏外層滾動條，只保留 textarea 本身的滾動條 */
+.stTextArea > div,
+.stTextArea > div > div,
+.stTextArea [data-baseweb="textarea"],
+.stTextArea [data-testid="stTextAreaRootContainer"] {
+    overflow: visible !important;
+}
+
+.stTextArea [data-testid="stTextAreaRootContainer"] > div:first-child {
+    overflow: hidden !important;
+}
+
 .stCaption, [data-testid="stCaptionContainer"] {
     color: #443C3C !important;
     font-size: clamp(16px, 1.8vw, 22px) !important;
@@ -1499,7 +1511,13 @@ elif st.session_state.current_mode == 'embed':
             usage_percent = r.get("usage_percent", 0)
             
             if r['embed_secret_type'] == "文字":
-                secret_display = r["secret_desc"]
+                # 截斷顯示：超過30字顯示省略號
+                original_text = r["secret_desc"].replace('文字: "', '').rstrip('"')
+                if len(original_text) > 30:
+                    truncated_text = original_text[:30] + "..."
+                    secret_display = f'文字: "{truncated_text}"'
+                else:
+                    secret_display = r["secret_desc"]
             else:
                 size_info = r["secret_desc"].replace("圖片: ", "")
                 secret_display = f'圖片: {secret_filename} ({size_info})' if secret_filename else r["secret_desc"]
