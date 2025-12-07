@@ -417,20 +417,22 @@ section[data-testid="stSidebar"] button[kind="header"],
     background-color: white !important;
     color: #333 !important;
     border: 1px solid #ccc !important;
+    min-height: 45px !important;
 }
 
 [data-testid="stSidebar"] .stSelectbox [data-baseweb="select"] span,
 [data-testid="stSidebar"] .stSelectbox [data-baseweb="select"] div {
     color: #333 !important;
+    font-size: 18px !important;
+    overflow: visible !important;
 }
 
-/* 完全禁用下拉選單的輸入功能 */
-[data-testid="stSidebar"] .stSelectbox input[aria-autocomplete],
-[data-testid="stSidebar"] [data-baseweb="select"] input {
+/* 只禁用 selectbox 的搜索輸入，不影響 text_input */
+[data-testid="stSidebar"] .stSelectbox [data-baseweb="select"] input {
     pointer-events: none !important;
     caret-color: transparent !important;
     opacity: 0 !important;
-    position: absolute !important;
+    width: 1px !important;
 }
 
 /* 側邊欄輸入框 */
