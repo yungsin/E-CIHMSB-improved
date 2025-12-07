@@ -1538,7 +1538,7 @@ elif st.session_state.current_mode == 'embed':
         
         st.markdown('<div class="page-title-embed" style="text-align: center; margin-bottom: 30px;">嵌入結果</div>', unsafe_allow_html=True)
         
-        spacer_left, col_left, col_gap, col_right, spacer_right = st.columns([0.8, 2.5, 0.5, 2, 0.3])
+        spacer_left, col_left, col_gap, col_right, spacer_right = st.columns([0.5, 3, 0.3, 2, 0.5])
         
         with col_left:
             st.markdown(f'<div class="success-box">嵌入成功! ({r["elapsed_time"]:.2f} 秒)</div>', unsafe_allow_html=True)
@@ -1806,7 +1806,7 @@ elif st.session_state.current_mode == 'embed':
                 
                 if embed_secret_type == "文字":
                     saved_text = st.session_state.get('embed_text_saved', '')
-                    embed_text_raw = st.text_area("輸入機密", value=saved_text, placeholder="輸入機密訊息...", height=100, key="embed_text_h", label_visibility="collapsed")
+                    embed_text_raw = st.text_area("輸入機密", value=saved_text, placeholder="輸入機密訊息...", height=150, key="embed_text_h", label_visibility="collapsed")
                     if embed_text_raw and embed_text_raw.strip():
                         embed_text = embed_text_raw.strip()
                         secret_bits_needed = len(text_to_binary(embed_text))
