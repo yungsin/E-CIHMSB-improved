@@ -282,16 +282,27 @@ st.markdown("""
     background-attachment: fixed;
 }
 
-/* 隱藏 Streamlit 預設元素 */
+/* 隱藏 Streamlit 預設元素 - 加強版 */
 header[data-testid="stHeader"],
 #MainMenu, footer, .stDeployButton, div[data-testid="stToolbar"],
 .viewerBadge_container__r5tak, .viewerBadge_link__qRIco,
 div[class*="viewerBadge"], div[class*="StatusWidget"],
 [data-testid="manage-app-button"], .stApp > footer,
 iframe[title="Streamlit"], div[class*="styles_viewerBadge"],
-.stAppDeployButton, section[data-testid="stStatusWidget"] {
+.stAppDeployButton, div[class*="stAppDeployButton"],
+button[kind="manage-app"], section[data-testid="stStatusWidget"],
+div[class*="stDeployButton"], [data-testid="stAppViewBlockContainer"] > footer,
+div[class*="AppDeployButton"], a[href*="streamlit.io/cloud"],
+[data-testid="stDecoration"], div[class*="StatusWidget"] {
     display: none !important;
     visibility: hidden !important;
+    opacity: 0 !important;
+    height: 0 !important;
+    width: 0 !important;
+    pointer-events: none !important;
+    position: absolute !important;
+    top: -9999px !important;
+    left: -9999px !important;
 }
 
 .block-container { padding-top: 1rem !important; }
@@ -321,14 +332,14 @@ section[data-testid="stSidebar"] button[kind="header"],
 /* 自訂標籤：可點擊 */
 #sidebar-toggle-label {
     position: fixed;
-    top: 95px;
+    top: 8px;
     left: 0;
     background: #4A6B8A;
     color: white;
     writing-mode: vertical-rl;
-    padding: 12px 5px;
-    border-radius: 0 6px 6px 0;
-    font-size: 20px;
+    padding: 16px 8px;
+    border-radius: 0 8px 8px 0;
+    font-size: 24px;
     font-weight: bold;
     z-index: 999999;
     cursor: pointer;
@@ -378,7 +389,6 @@ section[data-testid="stSidebar"] button[kind="header"],
     font-size: 38px !important;
     font-weight: bold !important;
     color: #4A6B8A !important;
-    text-align: center !important;
 }
 
 [data-testid="stSidebar"] strong { font-size: 24px !important; }
@@ -386,59 +396,6 @@ section[data-testid="stSidebar"] button[kind="header"],
 [data-testid="stSidebar"] [data-testid="stExpander"] summary,
 [data-testid="stSidebar"] details summary span {
     font-size: 24px !important;
-}
-
-[data-testid="stSidebar"] [data-testid="stExpander"] {
-    width: 100% !important;
-    background-color: rgba(255, 255, 255, 0.85) !important;
-    border: 2px solid rgba(200, 200, 200, 0.8) !important;
-    border-radius: 10px !important;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1) !important;
-    margin-bottom: 8px !important;
-}
-
-/* Expander 標題列背景 */
-[data-testid="stSidebar"] [data-testid="stExpander"] > details > summary {
-    background-color: rgba(255, 255, 255, 0.9) !important;
-    border-radius: 8px !important;
-}
-
-/* Expander 展開後內容背景 */
-[data-testid="stSidebar"] [data-testid="stExpander"] > div {
-    background-color: transparent !important;
-}
-
-[data-testid="stSidebar"] [data-testid="stExpander"] [data-testid="stExpanderDetails"] {
-    background-color: rgba(255, 255, 255, 0.9) !important;
-}
-
-/* 側邊欄下拉選單 */
-[data-testid="stSidebar"] .stSelectbox > div > div {
-    background-color: white !important;
-    color: #333 !important;
-    border: 1px solid #ccc !important;
-}
-
-[data-testid="stSidebar"] .stSelectbox [data-baseweb="select"] span,
-[data-testid="stSidebar"] .stSelectbox [data-baseweb="select"] div {
-    color: #333 !important;
-}
-
-/* 隱藏下拉選單的搜索游標 */
-[data-testid="stSidebar"] .stSelectbox input,
-[data-testid="stSidebar"] [data-baseweb="select"] input,
-[data-testid="stSidebar"] [data-baseweb="input"] input {
-    caret-color: transparent !important;
-    color: transparent !important;
-    width: 0 !important;
-    padding: 0 !important;
-}
-
-/* 側邊欄輸入框 */
-[data-testid="stSidebar"] .stTextInput input {
-    background-color: white !important;
-    color: #333 !important;
-    border: 1px solid #ccc !important;
 }
 
 [data-testid="stSidebar"] input,
@@ -546,7 +503,7 @@ section[data-testid="stSidebar"] button[kind="header"],
 
 /* 功能頁面樣式 */
 .page-title-embed {
-    font-size: clamp(36px, 4vw, 56px);
+    font-size: 48px;
     font-weight: bold;
     background: linear-gradient(135deg, #4A6B8A 0%, #5C8AAD 100%);
     -webkit-background-clip: text;
@@ -555,7 +512,7 @@ section[data-testid="stSidebar"] button[kind="header"],
 }
 
 .page-title-extract {
-    font-size: clamp(36px, 4vw, 56px);
+    font-size: 48px;
     font-weight: bold;
     background: linear-gradient(135deg, #7D5A6B 0%, #A67B85 100%);
     -webkit-background-clip: text;
@@ -567,27 +524,27 @@ section[data-testid="stSidebar"] button[kind="header"],
 .success-box {
     background: linear-gradient(135deg, #4A6B8A 0%, #5C8AAD 100%);
     color: white; padding: 20px 30px; border-radius: 10px;
-    margin: 10px 0; display: inline-block; font-size: clamp(20px, 2.5vw, 28px); min-width: 300px;
+    margin: 10px 0; display: inline-block; font-size: 28px; min-width: 350px;
 }
 .info-box {
     background: linear-gradient(135deg, #4A6B8A 0%, #5C8AAD 100%);
     color: white; padding: 20px 30px; border-radius: 10px;
-    margin: 10px 0; display: inline-block; font-size: clamp(18px, 2vw, 26px); line-height: 1.9; min-width: 300px;
+    margin: 10px 0; display: inline-block; font-size: 26px; line-height: 1.9; min-width: 350px;
 }
 .error-box {
     background: linear-gradient(135deg, #8B5A5A 0%, #A67B7B 100%);
     color: white; padding: 20px 30px; border-radius: 10px;
-    margin: 10px 0; display: inline-block; font-size: clamp(18px, 2vw, 26px); min-width: 300px;
+    margin: 10px 0; display: inline-block; font-size: 26px; min-width: 350px;
 }
 
 /* 字體放大 */
 [data-testid="stMain"] .stMarkdown p,
 [data-testid="stMain"] .stText p {
-    font-size: clamp(22px, 2.5vw, 30px) !important;
+    font-size: 30px !important;
     font-weight: bold !important;
 }
 
-h3 { font-size: clamp(28px, 3vw, 36px) !important; font-weight: bold !important; }
+h3 { font-size: 36px !important; font-weight: bold !important; }
 
 /* 按鈕樣式 */
 .stButton button span,
@@ -613,99 +570,64 @@ h3 { font-size: clamp(28px, 3vw, 36px) !important; font-weight: bold !important;
 /* 表單元素 */
 .stSelectbox label, .stRadio label, .stTextArea label, .stFileUploader label,
 [data-testid="stWidgetLabel"] p {
-    font-size: clamp(18px, 2vw, 24px) !important;
+    font-size: 24px !important;
     font-weight: bold !important;
 }
 
 .stRadio [role="radiogroup"] label,
 .stRadio [role="radiogroup"] label p {
-    font-size: clamp(20px, 2.2vw, 28px) !important;
+    font-size: 28px !important;
 }
 
-.stTextArea textarea { font-size: clamp(22px, 2.5vw, 30px) !important; }
+.stTextArea textarea { font-size: 30px !important; }
 
 .stCaption, [data-testid="stCaptionContainer"] {
     color: #443C3C !important;
-    font-size: clamp(16px, 1.8vw, 22px) !important;
+    font-size: 22px !important;
 }
 
 /* Selectbox 樣式 */
 [data-testid="stMain"] .stSelectbox > div > div {
     background-color: white !important;
     border-radius: 8px !important;
-    min-height: 55px !important;
+    font-size: 24px !important;
+    min-height: 50px !important;
+    padding: 8px 12px !important;
     border: 1px solid #ccc !important;
 }
 
 [data-testid="stMain"] .stSelectbox [data-baseweb="select"] span,
 [data-testid="stMain"] .stSelectbox [data-baseweb="select"] div {
-    font-size: 16px !important;
-    font-weight: bold !important;
+    font-size: 24px !important;
     color: #333 !important;
 }
 
 [data-baseweb="popover"] li {
     background-color: white !important;
     font-size: 22px !important;
-    font-weight: bold !important;
-    color: #333 !important;
-    min-height: 50px !important;
-    padding: 12px 16px !important;
 }
 
-[data-baseweb="popover"] li span,
-[data-baseweb="popover"] li div,
-[data-baseweb="popover"] [role="option"],
-[data-baseweb="popover"] [role="option"] *,
-[data-baseweb="menu"] li,
-[data-baseweb="menu"] li *,
-ul[role="listbox"] li,
-ul[role="listbox"] li * {
-    color: #333 !important;
-    background-color: white !important;
-    font-size: 22px !important;
-    font-weight: bold !important;
-}
-
-ul[role="listbox"] li:hover,
-[data-baseweb="menu"] li:hover {
-    background-color: #f0f0f0 !important;
-}
-
-/* 確保選中的值完整顯示 */
-[data-baseweb="select"] > div {
-    min-height: 45px !important;
-    padding: 8px !important;
-}
-
-[data-baseweb="select"] [data-testid="stMarkdownContainer"],
-[data-baseweb="select"] .css-1dimb5e-singleValue,
-[data-baseweb="select"] div[class*="singleValue"] {
-    overflow: visible !important;
-    text-overflow: unset !important;
-    white-space: nowrap !important;
-}
-
-/* 固定按鈕容器 */
-.fixed-btn-next {
+/* 固定按鈕 */
+#next-step-fixed {
     position: fixed !important;
-    bottom: 50px !important;
-    right: 30px !important;
+    bottom: 15px !important;
+    right: 120px !important;
     z-index: 1000 !important;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
+    color: white !important;
+    border: none !important;
+    border-radius: 8px !important;
+    box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4) !important;
 }
 
-.fixed-btn-back {
+#back-step-fixed {
     position: fixed !important;
-    bottom: 50px !important;
-    left: 30px !important;
+    bottom: 5px !important;
+    left: 20px !important;
     z-index: 1000 !important;
-}
-
-.fixed-btn-next button,
-.fixed-btn-back button {
-    font-size: 18px !important;
-    padding: 12px 36px !important;
-    min-width: 120px !important;
+    background: white !important;
+    color: #333 !important;
+    border: 2px solid #ccc !important;
     border-radius: 8px !important;
 }
 
@@ -713,52 +635,6 @@ ul[role="listbox"] li:hover,
 .block-container {
     padding-top: 0.5rem !important;
     padding-bottom: 7rem !important;
-    max-width: 1400px !important;
-    margin: 0 auto !important;
-}
-
-/* 功能頁面容器居中 */
-[data-testid="stMain"] > .block-container {
-    max-width: 1400px !important;
-    margin: 0 auto !important;
-    padding-left: 2rem !important;
-    padding-right: 2rem !important;
-}
-
-/* 內容區域對齊步驟條 */
-[data-testid="stMain"] .stSelectbox,
-[data-testid="stMain"] .stTextArea,
-[data-testid="stMain"] .stFileUploader,
-[data-testid="stMain"] .stRadio {
-    max-width: 1200px !important;
-    margin-left: auto !important;
-    margin-right: auto !important;
-}
-
-[data-testid="stMain"] .stMarkdown {
-    max-width: 1200px !important;
-    margin-left: auto !important;
-    margin-right: auto !important;
-}
-
-/* 大螢幕優化 */
-@media (min-width: 1600px) {
-    [data-testid="stMain"] > .block-container {
-        max-width: 1500px !important;
-        padding-left: 3rem !important;
-        padding-right: 3rem !important;
-    }
-    
-    .page-title-embed, .page-title-extract {
-        font-size: 56px !important;
-    }
-}
-
-/* 全螢幕模式優化 */
-@media (min-height: 900px) {
-    .block-container {
-        padding-top: 1rem !important;
-    }
 }
 
 .stMarkdown hr { margin: 0.5rem 0 !important; }
@@ -767,9 +643,6 @@ ul[role="listbox"] li:hover,
 [data-testid="stHorizontalBlock"] {
     flex-wrap: nowrap !important;
     gap: 0.5rem !important;
-    max-width: 1200px !important;
-    margin-left: auto !important;
-    margin-right: auto !important;
 }
 </style>
 """, unsafe_allow_html=True)
@@ -784,7 +657,7 @@ if st.session_state.current_mode is not None:
         st.markdown("""
         <style>
         section[data-testid="stSidebar"] details summary span p { font-size: 22px !important; }
-        #built-contacts-title { font-size: 28px !important; font-weight: bold !important; margin-bottom: 10px !important; text-align: center !important; }
+        #built-contacts-title { font-size: 28px !important; font-weight: bold !important; margin-bottom: 10px !important; }
         </style>
         <div id="sidebar-close-btn" style="position: absolute; top: 5px; right: 10px; 
             width: 30px; height: 30px; background: #e0e0e0; border-radius: 50%; 
@@ -798,7 +671,7 @@ if st.session_state.current_mode is not None:
         style_options = ["選擇"] + list(STYLE_CATEGORIES.keys())
         
         # 新增對象
-        with st.expander("新增對象", expanded=False):
+        with st.expander("➕ 新增對象", expanded=False):
             add_counter = st.session_state.get('add_contact_counter', 0)
             new_name = st.text_input("名稱", key=f"sidebar_new_name_{add_counter}", placeholder="例如：小明、老媽、閨蜜")
             new_style = st.selectbox("綁定風格", style_options, key=f"sidebar_new_style_{add_counter}")
@@ -812,7 +685,7 @@ if st.session_state.current_mode is not None:
                 st.rerun()
         
         st.markdown("---")
-        st.markdown('<div id="built-contacts-title">已建立的對象</div>', unsafe_allow_html=True)
+        st.markdown('<div id="built-contacts-title">已建立的對象：</div>', unsafe_allow_html=True)
         
         if contacts:
             for name, style in contacts.items():
@@ -849,16 +722,12 @@ if st.session_state.current_mode is None:
     <style>
     html, body, [data-testid="stAppViewContainer"], .main, [data-testid="stMain"] {
         overflow: hidden !important;
-        height: 100vh !important;
+        max-height: 100vh !important;
     }
     .block-container {
         padding-bottom: 0 !important;
-        height: 100vh !important;
+        max-height: 100vh !important;
         overflow: hidden !important;
-    }
-    iframe {
-        height: calc(100vh - 20px) !important;
-        min-height: 700px !important;
     }
     </style>
     """, unsafe_allow_html=True)
@@ -874,30 +743,24 @@ if st.session_state.current_mode is None:
     <head>
     <style>
     * {{ margin: 0; padding: 0; box-sizing: border-box; }}
-    html, body {{ 
-        height: 100%;
-        min-height: 100vh;
-    }}
     body {{ 
         font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
         background: transparent;
         overflow: hidden;
+        height: 100vh;
         display: flex;
         justify-content: center;
-        align-items: center;
+        align-items: flex-start;
     }}
     
     .home-fullscreen {{
         width: 100%;
-        max-width: 1920px;
-        margin: 0 auto;
-        height: 100%;
-        min-height: 100vh;
+        height: 100vh;
         display: flex;
         flex-direction: column;
         justify-content: space-between;
         align-items: center;
-        padding: 5vh 2vw 3vh 2vw;
+        padding: 3vh 2vw;
     }}
     
     .welcome-container {{
@@ -922,10 +785,9 @@ if st.session_state.current_mode is None:
         display: flex;
         justify-content: center;
         align-items: center;
-        gap: clamp(40px, 6vw, 100px);
-        flex-wrap: nowrap;
+        gap: clamp(20px, 4vw, 70px);
+        flex-wrap: wrap;
         padding: 0 2vw;
-        max-width: 1600px;
     }}
     
     .anim-card {{
@@ -997,7 +859,6 @@ if st.session_state.current_mode is None:
         color: #5D5D5D;
         font-size: clamp(20px, 3vw, 50px);
         font-weight: 500;
-        padding-bottom: 2vh;
     }}
     
     /* 統一脈動動畫 - 排除載體圖（第2張） */
@@ -1069,38 +930,25 @@ if st.session_state.current_mode is None:
             '[class*="StatusWidget"]',
             '[data-testid="manage-app-button"]',
             '.stAppDeployButton',
+            'button[kind="manage-app"]',
             'section[data-testid="stStatusWidget"]',
             '[class*="stDeployButton"]',
-            '[class*="AppDeployButton"]'
+            '[class*="AppDeployButton"]',
+            '[data-testid="stDecoration"]'
         ];
         selectors.forEach(sel => {{
             parentDoc.querySelectorAll(sel).forEach(el => {{
-                el.style.display = 'none';
+                el.style.cssText = 'display:none!important;visibility:hidden!important;opacity:0!important;position:absolute!important;top:-9999px!important;left:-9999px!important;height:0!important;width:0!important;';
             }});
         }});
     }}
     
     hideStreamlitBadges();
-    setTimeout(hideStreamlitBadges, 500);
-    setTimeout(hideStreamlitBadges, 1000);
-    setTimeout(hideStreamlitBadges, 2000);
+    setInterval(hideStreamlitBadges, 500);
     </script>
     </body>
     </html>
-    """, height=900, scrolling=False)
-    
-    # 動態調整 iframe 高度
-    components.html("""
-    <script>
-    (function() {
-        const iframe = window.frameElement;
-        if (iframe) {
-            iframe.style.height = 'calc(100vh - 50px)';
-            iframe.style.minHeight = '700px';
-        }
-    })();
-    </script>
-    """, height=0)
+    """, height=850, scrolling=False)
     
     # 隱藏的按鈕
     col1, col2 = st.columns(2)
@@ -1277,7 +1125,7 @@ elif st.session_state.current_mode == 'embed':
 </script>
 """, height=0)
         
-        st.markdown('<div class="page-title-embed" style="text-align: center; margin-bottom: 20px; margin-top: 1rem;">嵌入機密</div>', unsafe_allow_html=True)
+        st.markdown('<div class="page-title-embed" style="text-align: center; margin-bottom: 20px; margin-top: -4rem;">嵌入機密</div>', unsafe_allow_html=True)
         
         embed_text, embed_image, secret_bits_needed = None, None, 0
         embed_image_choice, selected_size = None, None
@@ -1290,10 +1138,10 @@ elif st.session_state.current_mode == 'embed':
         
         current_step = st.session_state.embed_step
         st.markdown(f"""
-        <div style="display: flex; justify-content: space-between; margin-bottom: 20px; max-width: 1200px; margin-left: auto; margin-right: auto;">
-            <div style="flex: 1; text-align: center; padding: 15px 10px; border-bottom: {'4px solid #4A6B8A' if current_step == 1 else '2px solid #B8C8D8'}; color: {'#4A6B8A' if current_step == 1 else '#7A8A9A'}; font-size: clamp(20px, 2.5vw, 30px); font-weight: 700;">第一步: 選擇對象</div>
-            <div style="flex: 1; text-align: center; padding: 15px 10px; border-bottom: {'4px solid #4A6B8A' if current_step == 2 else '2px solid #B8C8D8'}; color: {'#4A6B8A' if current_step == 2 else '#7A8A9A'}; font-size: clamp(20px, 2.5vw, 30px); font-weight: 700;">第二步: 機密內容</div>
-            <div style="flex: 1; text-align: center; padding: 15px 10px; border-bottom: {'4px solid #4A6B8A' if current_step == 3 else '2px solid #B8C8D8'}; color: {'#4A6B8A' if current_step == 3 else '#7A8A9A'}; font-size: clamp(20px, 2.5vw, 30px); font-weight: 700;">第三步: 載體圖像</div>
+        <div style="display: flex; justify-content: space-between; margin-bottom: 20px;">
+            <div style="flex: 1; text-align: center; padding: 15px 10px; border-bottom: {'4px solid #4A6B8A' if current_step == 1 else '2px solid #B8C8D8'}; color: {'#4A6B8A' if current_step == 1 else '#7A8A9A'}; font-size: 24px; font-weight: 700;">第一步: 選擇對象</div>
+            <div style="flex: 1; text-align: center; padding: 15px 10px; border-bottom: {'4px solid #4A6B8A' if current_step == 2 else '2px solid #B8C8D8'}; color: {'#4A6B8A' if current_step == 2 else '#7A8A9A'}; font-size: 24px; font-weight: 700;">第二步: 機密內容</div>
+            <div style="flex: 1; text-align: center; padding: 15px 10px; border-bottom: {'4px solid #4A6B8A' if current_step == 3 else '2px solid #B8C8D8'}; color: {'#4A6B8A' if current_step == 3 else '#7A8A9A'}; font-size: 24px; font-weight: 700;">第三步: 載體圖像</div>
         </div>
         """, unsafe_allow_html=True)
         
@@ -1303,7 +1151,7 @@ elif st.session_state.current_mode == 'embed':
         next_step = 1
         
         if st.session_state.embed_step == 1:
-            st.markdown('<p style="font-size: 30px; font-weight: bold; margin-bottom: 10px; color: #443C3C;">選擇對象</p>', unsafe_allow_html=True)
+            st.markdown('<p style="font-size: 30px; font-weight: bold; margin-bottom: 10px;">選擇對象</p>', unsafe_allow_html=True)
             if contact_names:
                 options = ["選擇"] + contact_names
                 saved_contact = st.session_state.get('selected_contact_saved', None)
@@ -1449,20 +1297,8 @@ elif st.session_state.current_mode == 'embed':
                     
                     components.html("""
                     <script>
-                    function fixButtons() {
-                        const buttons = window.parent.document.querySelectorAll('button');
-                        for (let btn of buttons) { 
-                            if (btn.innerText === '開始嵌入') {
-                                let container = btn.closest('.stButton') || btn.parentElement.parentElement.parentElement;
-                                if (container) {
-                                    container.style.cssText = 'position:fixed!important;bottom:50px!important;right:30px!important;left:auto!important;width:auto!important;z-index:1000!important;';
-                                }
-                            }
-                        }
-                    }
-                    fixButtons();
-                    setTimeout(fixButtons, 100);
-                    setTimeout(fixButtons, 300);
+                    const buttons = window.parent.document.querySelectorAll('button');
+                    for (let btn of buttons) { if (btn.innerText === '開始嵌入') btn.id = 'next-step-fixed'; }
                     </script>
                     """, height=0)
                     
@@ -1533,27 +1369,11 @@ elif st.session_state.current_mode == 'embed':
         
         components.html("""
         <script>
-        function fixButtons() {
-            const buttons = window.parent.document.querySelectorAll('button');
-            for (let btn of buttons) { 
-                if (btn.innerText.includes('下一步')) {
-                    // 找到 .stButton 容器
-                    let container = btn.closest('.stButton') || btn.parentElement.parentElement.parentElement;
-                    if (container) {
-                        container.style.cssText = 'position:fixed!important;bottom:50px!important;right:30px!important;left:auto!important;width:auto!important;z-index:1000!important;';
-                    }
-                }
-                if (btn.innerText.includes('返回') && !btn.innerText.includes('首頁')) {
-                    let container = btn.closest('.stButton') || btn.parentElement.parentElement.parentElement;
-                    if (container) {
-                        container.style.cssText = 'position:fixed!important;bottom:50px!important;left:30px!important;right:auto!important;width:auto!important;z-index:1000!important;';
-                    }
-                }
-            }
+        const buttons = window.parent.document.querySelectorAll('button');
+        for (let btn of buttons) { 
+            if (btn.innerText.includes('下一步')) btn.id = 'next-step-fixed';
+            if (btn.innerText.includes('返回')) btn.id = 'back-step-fixed';
         }
-        fixButtons();
-        setTimeout(fixButtons, 100);
-        setTimeout(fixButtons, 300);
         </script>
         """, height=0)
 
@@ -1660,7 +1480,7 @@ else:
 </script>
 """, height=0)
         
-        st.markdown('<div class="page-title-extract" style="text-align: center; margin-bottom: 20px; margin-top: 1rem;">提取機密</div>', unsafe_allow_html=True)
+        st.markdown('<div class="page-title-extract" style="text-align: center; margin-bottom: 20px; margin-top: -4rem;">提取機密</div>', unsafe_allow_html=True)
         
         extract_z_text, extract_img_num, extract_img_size = None, None, None
         
@@ -1672,9 +1492,9 @@ else:
         
         current_step = st.session_state.extract_step
         st.markdown(f"""
-        <div style="display: flex; justify-content: space-between; margin-bottom: 20px; max-width: 1200px; margin-left: auto; margin-right: auto;">
-            <div style="flex: 1; text-align: center; padding: 15px 10px; border-bottom: {'4px solid #7D5A6B' if current_step == 1 else '2px solid #D8C0C8'}; color: {'#7D5A6B' if current_step == 1 else '#A08090'}; font-size: clamp(20px, 2.5vw, 30px); font-weight: 700;">第一步: 選擇對象</div>
-            <div style="flex: 1; text-align: center; padding: 15px 10px; border-bottom: {'4px solid #7D5A6B' if current_step == 2 else '2px solid #D8C0C8'}; color: {'#7D5A6B' if current_step == 2 else '#A08090'}; font-size: clamp(20px, 2.5vw, 30px); font-weight: 700;">第二步: 上傳 Z碼圖</div>
+        <div style="display: flex; justify-content: space-between; margin-bottom: 20px;">
+            <div style="flex: 1; text-align: center; padding: 15px 10px; border-bottom: {'4px solid #7D5A6B' if current_step == 1 else '2px solid #D8C0C8'}; color: {'#7D5A6B' if current_step == 1 else '#A08090'}; font-size: 24px; font-weight: 700;">第一步: 選擇對象</div>
+            <div style="flex: 1; text-align: center; padding: 15px 10px; border-bottom: {'4px solid #7D5A6B' if current_step == 2 else '2px solid #D8C0C8'}; color: {'#7D5A6B' if current_step == 2 else '#A08090'}; font-size: 24px; font-weight: 700;">第二步: 上傳 Z碼圖</div>
         </div>
         """, unsafe_allow_html=True)
         
@@ -1685,7 +1505,7 @@ else:
         style_name = None
         
         if st.session_state.extract_step == 1:
-            st.markdown('<p style="font-size: 30px; font-weight: bold; margin-bottom: 10px; color: #443C3C;">選擇對象</p>', unsafe_allow_html=True)
+            st.markdown('<p style="font-size: 30px; font-weight: bold; margin-bottom: 10px;">選擇對象</p>', unsafe_allow_html=True)
             if contact_names:
                 options = ["選擇"] + contact_names
                 saved_contact = st.session_state.get('extract_contact_saved', None)
@@ -1825,25 +1645,10 @@ else:
         
         components.html("""
         <script>
-        function fixButtons() {
-            const buttons = window.parent.document.querySelectorAll('button');
-            for (let btn of buttons) { 
-                if (btn.innerText.includes('下一步') || btn.innerText.includes('開始提取')) {
-                    let container = btn.closest('.stButton') || btn.parentElement.parentElement.parentElement;
-                    if (container) {
-                        container.style.cssText = 'position:fixed!important;bottom:50px!important;right:30px!important;left:auto!important;width:auto!important;z-index:1000!important;';
-                    }
-                }
-                if (btn.innerText.includes('返回') && !btn.innerText.includes('首頁')) {
-                    let container = btn.closest('.stButton') || btn.parentElement.parentElement.parentElement;
-                    if (container) {
-                        container.style.cssText = 'position:fixed!important;bottom:50px!important;left:30px!important;right:auto!important;width:auto!important;z-index:1000!important;';
-                    }
-                }
-            }
+        const buttons = window.parent.document.querySelectorAll('button');
+        for (let btn of buttons) { 
+            if (btn.innerText.includes('下一步') || btn.innerText.includes('開始提取')) btn.id = 'next-step-fixed';
+            if (btn.innerText.includes('返回')) btn.id = 'back-step-fixed';
         }
-        fixButtons();
-        setTimeout(fixButtons, 100);
-        setTimeout(fixButtons, 300);
         </script>
         """, height=0)
