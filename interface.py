@@ -585,7 +585,7 @@ h3 { font-size: clamp(28px, 3vw, 36px) !important; font-weight: bold !important;
 
 [data-testid="stMain"] .stSelectbox [data-baseweb="select"] span,
 [data-testid="stMain"] .stSelectbox [data-baseweb="select"] div {
-    font-size: 30px !important;
+    font-size: 20px !important;
     font-weight: bold !important;
     color: #333 !important;
 }
