@@ -960,6 +960,40 @@ body [data-baseweb="select"] ~ div *::-webkit-scrollbar-track,
 </style>
 """, unsafe_allow_html=True)
 
+# JavaScript 強制修改下拉選單滾動條顏色
+components.html("""
+<script>
+function injectScrollbarStyle() {
+    const css = `
+        *::-webkit-scrollbar { width: 8px !important; }
+        *::-webkit-scrollbar-track { background: #f5f0e6 !important; border-radius: 4px !important; }
+        *::-webkit-scrollbar-thumb { background: #b8a88a !important; border-radius: 4px !important; }
+        *::-webkit-scrollbar-thumb:hover { background: #9a8b6e !important; }
+        * { scrollbar-width: thin !important; scrollbar-color: #b8a88a #f5f0e6 !important; }
+    `;
+    
+    // 注入到當前 document
+    const style1 = document.createElement('style');
+    style1.textContent = css;
+    document.head.appendChild(style1);
+    
+    // 注入到 parent document (Streamlit 主頁面)
+    if (window.parent && window.parent.document && window.parent.document.head) {
+        const style2 = document.createElement('style');
+        style2.textContent = css;
+        style2.id = 'custom-scrollbar-style';
+        if (!window.parent.document.getElementById('custom-scrollbar-style')) {
+            window.parent.document.head.appendChild(style2);
+        }
+    }
+}
+
+injectScrollbarStyle();
+setTimeout(injectScrollbarStyle, 300);
+setTimeout(injectScrollbarStyle, 1000);
+</script>
+""", height=0)
+
 # ==================== 初始化狀態 ====================
 if 'current_mode' not in st.session_state:
     st.session_state.current_mode = None
