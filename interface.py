@@ -1427,7 +1427,7 @@ if st.session_state.current_mode is None:
     }}
     
     .welcome-title {{
-        font-size: 84px;
+        font-size: 100px;
         font-weight: bold;
         letter-spacing: 0.18em;
         padding-left: 0.5em;
@@ -1446,8 +1446,8 @@ if st.session_state.current_mode is None:
     }}
     
     .anim-card {{
-        width: 550px;
-        height: 380px;
+        width: 620px;
+        height: 420px;
         padding: 35px 50px;
         border-radius: 20px;
         text-align: center;
@@ -1480,30 +1480,30 @@ if st.session_state.current_mode is None:
         align-items: center;
         justify-content: center;
         gap: 10px;
-        margin-bottom: 28px;
+        margin-bottom: 32px;
         font-size: 36px;
-        height: 130px;
+        height: 150px;
     }}
     
     .anim-flow img {{
-        width: 115px;
-        height: 95px;
+        width: 130px;
+        height: 110px;
         object-fit: contain;
     }}
     
     .anim-flow img.arrow {{
-        width: 88px;
-        height: 72px;
+        width: 100px;
+        height: 85px;
     }}
     
     .anim-flow span {{
-        font-size: 44px;
+        font-size: 52px;
         color: white;
         font-weight: bold;
     }}
     
     .anim-title {{
-        font-size: 56px;
+        font-size: 68px;
         font-weight: bold;
         color: white;
         margin-bottom: 22px;
@@ -1511,7 +1511,7 @@ if st.session_state.current_mode is None:
     }}
     
     .anim-desc {{
-        font-size: 46px;
+        font-size: 52px;
         color: rgba(255,255,255,0.9);
         line-height: 1.4;
         white-space: nowrap;
@@ -1520,7 +1520,7 @@ if st.session_state.current_mode is None:
     .footer-credits {{
         text-align: center;
         color: #5D5D5D;
-        font-size: 55px;
+        font-size: 50px;
         font-weight: 500;
     }}
     
