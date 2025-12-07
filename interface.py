@@ -1606,7 +1606,7 @@ elif st.session_state.current_mode == 'embed':
         
         with col_left:
             # 嵌入成功 - 無框版
-            st.markdown(f'<p style="font-size: 32px; font-weight: bold; color: #443C3C; margin-bottom: 25px;">✅ 嵌入成功！({r["elapsed_time"]:.2f} 秒)</p>', unsafe_allow_html=True)
+            st.markdown(f'<p style="font-size: 32px; font-weight: bold; color: #443C3C; margin-bottom: 25px;">嵌入成功！({r["elapsed_time"]:.2f} 秒)</p>', unsafe_allow_html=True)
             
             img_num = r["embed_image_choice"].split("-")[1]
             img_name = r.get("image_name", "")
@@ -1684,29 +1684,44 @@ elif st.session_state.current_mode == 'embed':
                 st.download_button("下載 Z碼圖", buf.getvalue(), "z_code.png", "image/png", key="dl_z_img")
                 st.markdown('<p style="font-size: 30px; color: #443C3C;">傳送 Z碼圖給對方</p>', unsafe_allow_html=True)
         
-        # 返回首頁按鈕置中
-        st.markdown("<div style='height: 50px;'></div>", unsafe_allow_html=True)
+        # 返回首頁按鈕 - 與標題垂直對齊
+        st.markdown("<div style='height: 30px;'></div>", unsafe_allow_html=True)
         
-        col_left, col_center, col_right = st.columns([1, 1, 1])
-        with col_center:
-            if st.button("返回首頁", key="back_to_home_from_embed", type="primary"):
+        # 使用全寬容器讓按鈕置中
+        st.markdown("""
+        <style>
+        .center-btn-container {
+            display: flex;
+            justify-content: center;
+            width: 100%;
+        }
+        </style>
+        """, unsafe_allow_html=True)
+        
+        _, btn_col, _ = st.columns([2, 1, 2])
+        with btn_col:
+            if st.button("返回首頁", key="back_to_home_from_embed", type="primary", use_container_width=True):
                 st.session_state.embed_page = 'input'
                 st.session_state.embed_result = None
                 st.session_state.embed_step = 1
                 st.session_state.current_mode = None
                 st.rerun()
         
-        # 置中按鈕的 CSS
+        # 強制置中對齊標題
         components.html("""
         <script>
         function centerBackButton() {
             const buttons = window.parent.document.querySelectorAll('button');
             for (let btn of buttons) { 
                 if (btn.innerText === '返回首頁') {
-                    btn.style.cssText = 'writing-mode:horizontal-tb!important;white-space:nowrap!important;text-align:center!important;';
-                    let container = btn.closest('[data-testid="column"]');
-                    if (container) {
-                        container.style.cssText = 'display:flex!important;justify-content:center!important;';
+                    // 找到按鈕的最外層容器
+                    let stButton = btn.closest('.stButton');
+                    if (stButton) {
+                        stButton.style.cssText = 'display:flex!important;justify-content:center!important;';
+                    }
+                    let column = btn.closest('[data-testid="column"]');
+                    if (column) {
+                        column.style.cssText = 'display:flex!important;justify-content:center!important;align-items:center!important;';
                     }
                 }
             }
