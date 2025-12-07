@@ -647,7 +647,7 @@ h3 { font-size: clamp(28px, 3vw, 36px) !important; font-weight: bold !important;
     color: white !important;
     border: none !important;
     border-radius: 8px !important;
-    font-size: 40px !important;
+    font-size: 50px !important;
     padding: 12px 40px !important;
     min-width: 100px !important;
 }
@@ -1832,7 +1832,7 @@ elif st.session_state.current_mode == 'embed':
                     if (btn.innerText === '開始嵌入') {
                         let container = btn.closest('.stButton') || btn.parentElement.parentElement.parentElement;
                         if (container) {
-                            container.style.cssText = 'position:fixed!important;bottom:30px!important;left:50%!important;transform:translateX(-50%)!important;width:auto!important;z-index:1000!important;';
+                            container.style.cssText = 'position:fixed!important;bottom:30px!important;left:46%!important;transform:translateX(-50%)!important;width:auto!important;z-index:1000!important;';
                         }
                     }
                 }
