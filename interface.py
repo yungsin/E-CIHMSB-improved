@@ -432,7 +432,7 @@ section[data-testid="stSidebar"] button[kind="header"],
 }
 
 [data-testid="stSidebar"] .stSelectbox [data-baseweb="select"] > div {
-    padding-top: 0 !important;
+    padding-top: 3 !important;
     padding-bottom: 6px !important;
 }
 
