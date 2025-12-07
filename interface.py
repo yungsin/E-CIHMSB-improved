@@ -275,25 +275,12 @@ st.markdown("""
 <style>
 /* 背景圖片 */
 .stApp {
-    background-color: #a89a8a;
+    background-color: #5c4a3a;
     background-image: url('https://i.pinimg.com/736x/53/1a/01/531a01457eca178f01c83ac2ede3f102.jpg');
-    background-size: cover;
+    background-size: contain;
     background-position: center;
     background-repeat: no-repeat;
     background-attachment: fixed;
-}
-
-/* 暗角效果 (vignette) */
-.stApp::before {
-    content: '';
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: radial-gradient(ellipse at center, transparent 50%, rgba(60, 40, 30, 0.4) 100%);
-    pointer-events: none;
-    z-index: 0;
 }
 
 /* 隱藏 Streamlit 預設元素 */
