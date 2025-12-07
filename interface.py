@@ -769,7 +769,7 @@ h3 { font-size: clamp(28px, 3vw, 36px) !important; font-weight: bold !important;
     background: transparent !important;
 }
 
-/* 只有 textarea 元素本身可以滾動 - 但也隱藏滾動條 */
+/* textarea 本身也隱藏滾動條但可滾動 */
 .stTextArea textarea {
     overflow: auto !important;
     overflow-y: auto !important;
@@ -779,6 +779,22 @@ h3 { font-size: clamp(28px, 3vw, 36px) !important; font-weight: bold !important;
 
 /* 隱藏 textarea 本身的滾動條 */
 .stTextArea textarea::-webkit-scrollbar {
+    display: none !important;
+    width: 0 !important;
+    height: 0 !important;
+}
+
+/* 額外強制：所有 stTextArea 相關元素的滾動條 */
+[data-testid="stTextAreaRootContainer"],
+[data-testid="stTextAreaRootContainer"] *,
+.stTextArea [class*="TextArea"],
+.stTextArea [class*="textarea"] {
+    scrollbar-width: none !important;
+    -ms-overflow-style: none !important;
+}
+
+[data-testid="stTextAreaRootContainer"]::-webkit-scrollbar,
+[data-testid="stTextAreaRootContainer"] *::-webkit-scrollbar {
     display: none !important;
     width: 0 !important;
     height: 0 !important;
@@ -1081,12 +1097,34 @@ components.html("""
 <script>
 function injectScrollbarStyle() {
     const css = `
-        /* 下拉選單滾動條 - 米色風格 */
-        *::-webkit-scrollbar { width: 8px !important; }
-        *::-webkit-scrollbar-track { background: #f5f0e6 !important; border-radius: 4px !important; }
-        *::-webkit-scrollbar-thumb { background: #b8a88a !important; border-radius: 4px !important; }
-        *::-webkit-scrollbar-thumb:hover { background: #9a8b6e !important; }
-        * { scrollbar-width: thin !important; scrollbar-color: #b8a88a #f5f0e6 !important; }
+        /* 下拉選單滾動條 - 米色風格（排除 textarea）*/
+        [data-baseweb="popover"] *::-webkit-scrollbar,
+        [data-baseweb="menu"]::-webkit-scrollbar,
+        ul[role="listbox"]::-webkit-scrollbar { 
+            width: 8px !important; 
+        }
+        [data-baseweb="popover"] *::-webkit-scrollbar-track,
+        [data-baseweb="menu"]::-webkit-scrollbar-track,
+        ul[role="listbox"]::-webkit-scrollbar-track { 
+            background: #f5f0e6 !important; 
+            border-radius: 4px !important; 
+        }
+        [data-baseweb="popover"] *::-webkit-scrollbar-thumb,
+        [data-baseweb="menu"]::-webkit-scrollbar-thumb,
+        ul[role="listbox"]::-webkit-scrollbar-thumb { 
+            background: #b8a88a !important; 
+            border-radius: 4px !important; 
+        }
+        [data-baseweb="popover"] *::-webkit-scrollbar-thumb:hover,
+        [data-baseweb="menu"]::-webkit-scrollbar-thumb:hover,
+        ul[role="listbox"]::-webkit-scrollbar-thumb:hover { 
+            background: #9a8b6e !important; 
+        }
+        [data-baseweb="popover"], [data-baseweb="popover"] > div, [data-baseweb="popover"] ul,
+        [data-baseweb="menu"], ul[role="listbox"] { 
+            scrollbar-width: thin !important; 
+            scrollbar-color: #b8a88a #f5f0e6 !important; 
+        }
     `;
     
     // 注入到當前 document
@@ -1113,15 +1151,23 @@ function fixTextareaScrollbar() {
             const style = document.createElement('style');
             style.id = styleId;
             style.textContent = `
-                /* 隱藏 textarea 外層所有滾動條 */
+                /* 隱藏 textarea 所有層級滾動條 */
+                .stTextArea,
+                .stTextArea > div,
+                .stTextArea > div > div,
+                .stTextArea > div > div > div,
+                .stTextArea [data-baseweb="textarea"],
+                .stTextArea [data-testid="stTextAreaRootContainer"],
+                .stTextArea [data-testid="stTextAreaRootContainer"] > div,
+                .stTextArea [data-testid="stTextAreaRootContainer"] > div > div {
+                    overflow: hidden !important;
+                    scrollbar-width: none !important;
+                    -ms-overflow-style: none !important;
+                }
                 .stTextArea *::-webkit-scrollbar {
                     display: none !important;
                     width: 0 !important;
                     height: 0 !important;
-                }
-                .stTextArea * {
-                    scrollbar-width: none !important;
-                    -ms-overflow-style: none !important;
                 }
                 /* textarea 本身可滾動但隱藏滾動條 */
                 .stTextArea textarea {
@@ -1133,17 +1179,26 @@ function fixTextareaScrollbar() {
                     display: none !important;
                     width: 0 !important;
                 }
-                /* 外層容器禁止滾動 */
-                .stTextArea,
-                .stTextArea > div,
-                .stTextArea > div > div,
-                .stTextArea [data-baseweb="textarea"],
-                .stTextArea [data-testid="stTextAreaRootContainer"] {
-                    overflow: hidden !important;
+                /* 額外強制隱藏 */
+                [data-testid="stTextAreaRootContainer"] *::-webkit-scrollbar {
+                    display: none !important;
+                    width: 0 !important;
                 }
             `;
             window.parent.document.head.appendChild(style);
         }
+        
+        // 直接操作 DOM 元素
+        const textareas = window.parent.document.querySelectorAll('.stTextArea');
+        textareas.forEach(ta => {
+            const allElements = ta.querySelectorAll('*');
+            allElements.forEach(el => {
+                if (el.tagName !== 'TEXTAREA') {
+                    el.style.overflow = 'hidden';
+                    el.style.scrollbarWidth = 'none';
+                }
+            });
+        });
     }
 }
 
@@ -1819,7 +1874,7 @@ elif st.session_state.current_mode == 'embed':
                 
                 if embed_secret_type == "文字":
                     saved_text = st.session_state.get('embed_text_saved', '')
-                    embed_text_raw = st.text_area("輸入機密", value=saved_text, placeholder="輸入機密訊息...", height=200, key="embed_text_h", label_visibility="collapsed")
+                    embed_text_raw = st.text_area("輸入機密", value=saved_text, placeholder="輸入機密訊息...", height=160, key="embed_text_h", label_visibility="collapsed")
                     if embed_text_raw and embed_text_raw.strip():
                         embed_text = embed_text_raw.strip()
                         secret_bits_needed = len(text_to_binary(embed_text))
