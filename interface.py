@@ -851,7 +851,7 @@ if st.session_state.current_mode is not None:
                 st.rerun()
         
         st.markdown("---")
-        st.markdown('<div id="built-contacts-title">已建立的對象</div>', unsafe_allow_html=True)
+        st.markdown('<div id="built-contacts-title">對象列表</div>', unsafe_allow_html=True)
         
         if contacts:
             for name, style in contacts.items():
