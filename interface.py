@@ -1813,7 +1813,7 @@ elif st.session_state.current_mode == 'embed':
         with col1:
             st.markdown(f"""
             <div style="text-align: center; padding: 10px; border-bottom: 4px solid #4A6B8A; margin-bottom: 15px;">
-                <span style="font-size: 30px; font-weight: bold; color: #4A6B8A;">第一步: 選擇對象</span>
+                <span style="font-size: 32px; font-weight: bold; color: #4A6B8A;">第一步: 選擇對象</span>
             </div>
             """, unsafe_allow_html=True)
             
