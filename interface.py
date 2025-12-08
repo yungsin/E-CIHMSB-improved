@@ -563,7 +563,7 @@ section[data-testid="stSidebar"] button[kind="header"],
     font-size: 56px;
     font-weight: bold;
     color: #FFFFFF;
-    margin-bottom: 20px;
+    margin-bottom: 15px;
     text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
 }
 
@@ -1347,7 +1347,7 @@ if st.session_state.current_mode is None:
     /* 區塊3: 組員 - 用 bottom 控制位置 */
     .footer-credits {{
         position: absolute;
-        bottom: 8%;
+        bottom: 3%;
         left: 50%;
         transform: translateX(-50%);
         text-align: center;
