@@ -1700,10 +1700,10 @@ elif st.session_state.current_mode == 'embed':
                     qr_pil.save(buf, format='PNG')
                     qr_bytes = buf.getvalue()
                     
-                    st.markdown('<p style="font-size: 34px; font-weight: bold; color: #443C3C;">Z碼圖</p>', unsafe_allow_html=True)
+                    st.markdown('<p style="font-size: 34px; font-weight: bold; color: #443C3C; margin-bottom: 15px;">Z碼圖</p>', unsafe_allow_html=True)
                     st.image(qr_bytes, width=150)
                     st.download_button("下載 Z碼圖", qr_bytes, "z_code.png", "image/png", key="dl_z_qr")
-                    st.markdown('<p style="font-size: 34px; color: #443C3C;">傳送 Z碼圖給對方</p>', unsafe_allow_html=True)
+                    st.markdown('<p style="font-size: 34px; color: #443C3C; margin-top: 20px;">傳送 Z碼圖給對方</p>', unsafe_allow_html=True)
                     st.markdown('<p style="font-size: 26px; color: #888; white-space: nowrap;">接收方需要此 Z碼圖才能提取機密</p>', unsafe_allow_html=True)
                 except:
                     style_num_int = int(style_num)
@@ -1711,12 +1711,12 @@ elif st.session_state.current_mode == 'embed':
                     img_size_int = int(img_size)
                     z_img, _ = encode_z_as_image_with_header(r['z_bits'], style_num_int, img_num_int, img_size_int)
                     
-                    st.markdown('<p style="font-size: 34px; font-weight: bold; color: #443C3C;">Z碼圖</p>', unsafe_allow_html=True)
+                    st.markdown('<p style="font-size: 34px; font-weight: bold; color: #443C3C; margin-bottom: 15px;">Z碼圖</p>', unsafe_allow_html=True)
                     st.image(z_img, width=150)
                     buf = BytesIO()
                     z_img.save(buf, format='PNG')
                     st.download_button("下載 Z碼圖", buf.getvalue(), "z_code.png", "image/png", key="dl_z_img_fallback")
-                    st.markdown('<p style="font-size: 34px; color: #443C3C;">傳送 Z碼圖給對方</p>', unsafe_allow_html=True)
+                    st.markdown('<p style="font-size: 34px; color: #443C3C; margin-top: 20px;">傳送 Z碼圖給對方</p>', unsafe_allow_html=True)
                     st.markdown('<p style="font-size: 26px; color: #888; white-space: nowrap;">接收方需要此 Z碼圖才能提取機密</p>', unsafe_allow_html=True)
             else:
                 style_num = r.get("style_num", 1)
@@ -1724,12 +1724,12 @@ elif st.session_state.current_mode == 'embed':
                 img_size = int(r["embed_image_choice"].split("-")[2])
                 z_img, _ = encode_z_as_image_with_header(r['z_bits'], style_num, img_num, img_size)
                 
-                st.markdown('<p style="font-size: 34px; font-weight: bold; color: #443C3C;">Z碼圖</p>', unsafe_allow_html=True)
+                st.markdown('<p style="font-size: 34px; font-weight: bold; color: #443C3C; margin-bottom: 15px;">Z碼圖</p>', unsafe_allow_html=True)
                 st.image(z_img, width=150)
                 buf = BytesIO()
                 z_img.save(buf, format='PNG')
                 st.download_button("下載 Z碼圖", buf.getvalue(), "z_code.png", "image/png", key="dl_z_img")
-                st.markdown('<p style="font-size: 34px; color: #443C3C;">傳送 Z碼圖給對方</p>', unsafe_allow_html=True)
+                st.markdown('<p style="font-size: 34px; color: #443C3C; margin-top: 20px;">傳送 Z碼圖給對方</p>', unsafe_allow_html=True)
                 st.markdown('<p style="font-size: 26px; color: #888; white-space: nowrap;">接收方需要此 Z碼圖才能提取機密</p>', unsafe_allow_html=True)
         
         # 返回首頁按鈕 - 和開始嵌入按鈕一樣固定在底部
