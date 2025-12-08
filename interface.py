@@ -1227,7 +1227,7 @@ if st.session_state.current_mode is not None:
             cursor: pointer; font-size: 18px; color: #666; z-index: 9999;">✕</div>
         """, unsafe_allow_html=True)
         
-        st.markdown('<h3 style="font-size: 36px; margin-bottom: 15px; color: #b28084;">對象管理</h3>', unsafe_allow_html=True)
+        st.markdown('<div style="font-size: 36px; margin-bottom: 15px; color: #b28084; font-weight: bold;">對象管理</div>', unsafe_allow_html=True)
         
         contacts = st.session_state.contacts
         style_options = ["選擇"] + list(STYLE_CATEGORIES.keys())
@@ -2321,17 +2321,27 @@ else:
                 for (let btn of buttons) { 
                     if (btn.innerText === '開始提取') {
                         // 按鈕顏色
-                        btn.style.cssText = 'background-color:#b28084!important;border-color:#b28084!important;color:white!important;';
-                        // 固定定位到底部中央（和開始嵌入按鈕一樣）
+                        btn.style.setProperty('background-color', '#b28084', 'important');
+                        btn.style.setProperty('border-color', '#b28084', 'important');
+                        btn.style.setProperty('color', 'white', 'important');
+                        // 固定定位到底部中央
                         let container = btn.closest('.stButton') || btn.parentElement.parentElement.parentElement;
                         if (container) {
-                            container.style.cssText = 'position:fixed!important;bottom:25px!important;left:50%!important;transform:translateX(-50%)!important;width:auto!important;z-index:1000!important;';
+                            container.style.setProperty('position', 'fixed', 'important');
+                            container.style.setProperty('bottom', '25px', 'important');
+                            container.style.setProperty('left', '50%', 'important');
+                            container.style.setProperty('transform', 'translateX(-50%)', 'important');
+                            container.style.setProperty('width', 'auto', 'important');
+                            container.style.setProperty('z-index', '1000', 'important');
+                            container.style.setProperty('margin-left', '0', 'important');
                         }
                     }
                 }
             }
             fixExtractButtons();
             setTimeout(fixExtractButtons, 100);
+            setTimeout(fixExtractButtons, 300);
+            setTimeout(fixExtractButtons, 500);
             </script>
             """, height=0)
             
