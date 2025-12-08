@@ -491,8 +491,8 @@ section[data-testid="stSidebar"] button[kind="header"],
     justify-content: flex-start;
     align-items: center;
     padding: 35px 0;
-    padding-top: 5px;
-    gap: 25px;
+    padding-top: 20px;
+    gap: 30px;
     box-sizing: border-box;
 }
 
@@ -506,7 +506,6 @@ section[data-testid="stSidebar"] button[kind="header"],
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
-    margin-bottom: 30px;
 }
 
 .cards-container {
@@ -514,7 +513,6 @@ section[data-testid="stSidebar"] button[kind="header"],
     justify-content: center;
     align-items: center;
     gap: 40px;
-    margin-bottom: 40px;
 }
 
 .footer-credits {
@@ -522,7 +520,7 @@ section[data-testid="stSidebar"] button[kind="header"],
     color: #5D5D5D;
     font-size: 28px;
     font-weight: 500;
-    margin-top: 20px;
+    margin-top: auto;
 }
 
 /* 動畫卡片 */
