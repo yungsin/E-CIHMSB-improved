@@ -2068,7 +2068,7 @@ else:
         
         st.markdown('<div class="page-title-extract" style="text-align: center; margin-bottom: 30px;">提取結果</div>', unsafe_allow_html=True)
         
-        spacer_left, col_left, col_gap, col_right, spacer_right = st.columns([0.4, 3.2, 0.6, 2, 0.1])
+        spacer_left, col_left, col_gap, col_right, spacer_right = st.columns([0.4, 3.2, 0.3, 2, 0.1])
         with col_left:
             st.markdown(f'<p style="font-size: 32px; font-weight: bold; color: #443C3C; margin-bottom: 25px;">提取成功！({r["elapsed_time"]:.2f} 秒)</p>', unsafe_allow_html=True)
             
@@ -2129,6 +2129,9 @@ else:
             const buttons = window.parent.document.querySelectorAll('button');
             for (let btn of buttons) { 
                 if (btn.innerText === '返回首頁') {
+                    // 按鈕顏色改成提取結果標題顏色
+                    btn.style.setProperty('background-color', '#7D5A6B', 'important');
+                    btn.style.setProperty('border-color', '#7D5A6B', 'important');
                     let container = btn.closest('.stButton') || btn.parentElement.parentElement.parentElement;
                     if (container) {
                         container.style.cssText = 'position:fixed!important;bottom:25px!important;left:50%!important;transform:translateX(-50%)!important;width:auto!important;z-index:1000!important;';
