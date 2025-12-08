@@ -1746,7 +1746,7 @@ elif st.session_state.current_mode == 'embed':
                     qr_bytes = buf.getvalue()
                     
                     st.markdown('<p style="font-size: 38px; font-weight: bold; color: #443C3C; margin-bottom: 25px;">Z碼圖</p>', unsafe_allow_html=True)
-                    st.image(qr_bytes, width=150)
+                    st.image(qr_bytes, width=200)
                     st.download_button("下載 Z碼圖", qr_bytes, "z_code.png", "image/png", key="dl_z_qr")
                     st.markdown('<p style="font-size: 38px; color: #443C3C; margin-top: 35px;">傳送 Z碼圖給對方</p>', unsafe_allow_html=True)
                     st.markdown('<p style="font-size: 30px; color: #888; margin-top: 15px; white-space: nowrap;">接收方需要此 Z碼圖才能提取機密</p>', unsafe_allow_html=True)
@@ -1757,7 +1757,7 @@ elif st.session_state.current_mode == 'embed':
                     z_img, _ = encode_z_as_image_with_header(r['z_bits'], style_num_int, img_num_int, img_size_int)
                     
                     st.markdown('<p style="font-size: 38px; font-weight: bold; color: #443C3C; margin-bottom: 25px;">Z碼圖</p>', unsafe_allow_html=True)
-                    st.image(z_img, width=150)
+                    st.image(z_img, width=200)
                     buf = BytesIO()
                     z_img.save(buf, format='PNG')
                     st.download_button("下載 Z碼圖", buf.getvalue(), "z_code.png", "image/png", key="dl_z_img_fallback")
@@ -1770,7 +1770,7 @@ elif st.session_state.current_mode == 'embed':
                 z_img, _ = encode_z_as_image_with_header(r['z_bits'], style_num, img_num, img_size)
                 
                 st.markdown('<p style="font-size: 38px; font-weight: bold; color: #443C3C; margin-bottom: 25px;">Z碼圖</p>', unsafe_allow_html=True)
-                st.image(z_img, width=150)
+                st.image(z_img, width=200)
                 buf = BytesIO()
                 z_img.save(buf, format='PNG')
                 st.download_button("下載 Z碼圖", buf.getvalue(), "z_code.png", "image/png", key="dl_z_img")
