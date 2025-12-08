@@ -323,7 +323,7 @@ section[data-testid="stSidebar"] button[kind="header"],
     position: fixed;
     top: 148px;
     left: 0;
-    background: #4A6B8A;
+    background: #b28084;
     color: white;
     writing-mode: vertical-rl;
     padding: 15px 8px;
@@ -337,7 +337,7 @@ section[data-testid="stSidebar"] button[kind="header"],
 }
 #sidebar-toggle-label:hover {
     padding-left: 12px;
-    background: #5C8AAD;
+    background: #9a6a6e;
 }
 
 /* 主內容區 */
@@ -1227,7 +1227,7 @@ if st.session_state.current_mode is not None:
             cursor: pointer; font-size: 18px; color: #666; z-index: 9999;">✕</div>
         """, unsafe_allow_html=True)
         
-        st.markdown('<h3 style="font-size: 36px; margin-bottom: 15px;">對象管理</h3>', unsafe_allow_html=True)
+        st.markdown('<h3 style="font-size: 36px; margin-bottom: 15px; color: #b28084;">對象管理</h3>', unsafe_allow_html=True)
         
         contacts = st.session_state.contacts
         style_options = ["選擇"] + list(STYLE_CATEGORIES.keys())
