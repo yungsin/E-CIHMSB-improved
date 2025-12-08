@@ -1347,7 +1347,7 @@ if st.session_state.current_mode is None:
     /* 區塊3: 組員 - 用 bottom 控制位置 */
     .footer-credits {{
         position: absolute;
-        bottom: 3%;
+        bottom: -12%;
         left: 50%;
         transform: translateX(-50%);
         text-align: center;
