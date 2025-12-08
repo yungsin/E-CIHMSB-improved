@@ -1610,7 +1610,7 @@ elif st.session_state.current_mode == 'embed':
         
         with col_left:
             # 嵌入成功 - 無框版
-            st.markdown(f'<p style="font-size: 32px; font-weight: bold; color: #443C3C; margin-bottom: 25px;">嵌入成功！({r["elapsed_time"]:.2f} 秒)</p>', unsafe_allow_html=True)
+            st.markdown(f'<p style="font-size: 30px; font-weight: bold; color: #443C3C; margin-bottom: 25px;">嵌入成功！({r["elapsed_time"]:.2f} 秒)</p>', unsafe_allow_html=True)
             
             img_num = r["embed_image_choice"].split("-")[1]
             img_name = r.get("image_name", "")
@@ -1809,7 +1809,7 @@ elif st.session_state.current_mode == 'embed':
         with col1:
             st.markdown(f"""
             <div style="text-align: center; padding: 10px; border-bottom: 4px solid #4A6B8A; margin-bottom: 15px;">
-                <span style="font-size: 28px; font-weight: bold; color: #4A6B8A;">第一步: 選擇對象</span>
+                <span style="font-size: 30px; font-weight: bold; color: #4A6B8A;">第一步: 選擇對象</span>
             </div>
             """, unsafe_allow_html=True)
             
@@ -1836,7 +1836,7 @@ elif st.session_state.current_mode == 'embed':
         with col2:
             st.markdown(f"""
             <div style="text-align: center; padding: 10px; border-bottom: {'4px solid #B8C8D8' if not step1_done else '4px solid #4A6B8A'}; margin-bottom: 15px;">
-                <span style="font-size: 28px; font-weight: bold; color: {'#B8C8D8' if not step1_done else '#4A6B8A'};">第二步: 機密內容</span>
+                <span style="font-size: 30px; font-weight: bold; color: {'#B8C8D8' if not step1_done else '#4A6B8A'};">第二步: 機密內容</span>
             </div>
             """, unsafe_allow_html=True)
             
@@ -1909,7 +1909,7 @@ elif st.session_state.current_mode == 'embed':
         with col3:
             st.markdown(f"""
             <div style="text-align: center; padding: 10px; border-bottom: {'4px solid #B8C8D8' if not step2_done else '4px solid #4A6B8A'}; margin-bottom: 15px;">
-                <span style="font-size: 28px; font-weight: bold; color: {'#B8C8D8' if not step2_done else '#4A6B8A'};">第三步: 載體圖像</span>
+                <span style="font-size: 30px; font-weight: bold; color: {'#B8C8D8' if not step2_done else '#4A6B8A'};">第三步: 載體圖像</span>
             </div>
             """, unsafe_allow_html=True)
             
@@ -2067,13 +2067,13 @@ else:
         
         spacer_left, col_left, col_gap, col_right, spacer_right = st.columns([0.4, 2.5, 0.1, 2.2, 0.1])
         with col_left:
-            st.markdown(f'<p style="font-size: 32px; font-weight: bold; color: #443C3C; margin-bottom: 25px;">提取成功！({r["elapsed_time"]:.2f} 秒)</p>', unsafe_allow_html=True)
+            st.markdown(f'<p style="font-size: 30px; font-weight: bold; color: #443C3C; margin-bottom: 25px;">提取成功！({r["elapsed_time"]:.2f} 秒)</p>', unsafe_allow_html=True)
             
             if r['type'] == 'text':
-                st.markdown('<p style="font-size: 32px; font-weight: bold; color: #443C3C;">機密文字:</p>', unsafe_allow_html=True)
+                st.markdown('<p style="font-size: 30px; font-weight: bold; color: #443C3C;">機密文字:</p>', unsafe_allow_html=True)
                 st.markdown(f'<p style="font-size: 24px; color: #443C3C; white-space: pre-wrap; line-height: 1.8;">{r["content"]}</p>', unsafe_allow_html=True)
             else:
-                st.markdown('<p style="font-size: 32px; font-weight: bold; color: #443C3C;">機密圖片:</p>', unsafe_allow_html=True)
+                st.markdown('<p style="font-size: 30px; font-weight: bold; color: #443C3C;">機密圖片:</p>', unsafe_allow_html=True)
                 st.image(Image.open(BytesIO(r['image_data'])), width=200)
                 st.download_button("下載圖片", r['image_data'], "recovered.png", "image/png", key="dl_rec")
         
@@ -2243,7 +2243,7 @@ else:
         with col1:
             st.markdown(f"""
             <div style="text-align: center; padding: 10px; border-bottom: 4px solid #7D5A6B; margin-bottom: 15px;">
-                <span style="font-size: 28px; font-weight: bold; color: #7D5A6B;">第一步: 選擇對象</span>
+                <span style="font-size: 30px; font-weight: bold; color: #7D5A6B;">第一步: 選擇對象</span>
             </div>
             """, unsafe_allow_html=True)
             
@@ -2276,7 +2276,7 @@ else:
         with col2:
             st.markdown(f"""
             <div style="text-align: center; padding: 10px; border-bottom: {'4px solid #D8C0C8' if not step1_done else '4px solid #7D5A6B'}; margin-bottom: 15px;">
-                <span style="font-size: 28px; font-weight: bold; color: {'#D8C0C8' if not step1_done else '#7D5A6B'};">第二步: 上傳 Z碼圖</span>
+                <span style="font-size: 30px; font-weight: bold; color: {'#D8C0C8' if not step1_done else '#7D5A6B'};">第二步: 上傳 Z碼圖</span>
             </div>
             """, unsafe_allow_html=True)
             
