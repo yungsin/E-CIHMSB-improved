@@ -1630,39 +1630,50 @@ elif st.session_state.current_mode == 'embed':
         spacer_left, col_left, col_gap, col_right, spacer_right = st.columns([0.4, 3.2, 0.6, 2, 0.1])
         
         with col_left:
-            # 嵌入成功 - 無框版
-            st.markdown(f'<p style="font-size: 32px; font-weight: bold; color: #443C3C; margin-bottom: 25px;">嵌入成功！({r["elapsed_time"]:.2f} 秒)</p>', unsafe_allow_html=True)
-            
-            img_num = r["embed_image_choice"].split("-")[1]
-            img_name = r.get("image_name", "")
-            img_size = r.get("image_size", "")
-            secret_filename = r.get("secret_filename", "")
-            secret_bits = r.get("secret_bits", 0)
-            capacity = r.get("capacity", 0)
-            usage_percent = r.get("usage_percent", 0)
-            
-            if r['embed_secret_type'] == "文字":
-                # 截斷顯示：超過30字顯示省略號
-                original_text = r["secret_desc"].replace('文字: "', '').rstrip('"')
-                if len(original_text) > 30:
-                    truncated_text = original_text[:30] + "..."
-                    secret_display = f'文字："{truncated_text}"'
-                else:
-                    secret_display = f'文字："{original_text}"'
-            else:
-                size_info = r["secret_desc"].replace("圖像: ", "")
-                secret_display = f'圖像：{secret_filename} ({size_info})' if secret_filename else r["secret_desc"]
-            
-            # 嵌入資訊 - 無框版
-            st.markdown(f'''
-            <div style="font-size: 28px; color: #443C3C; line-height: 2;">
-                <p style="font-weight: bold; font-size: 32px; margin-bottom: 15px;">嵌入資訊</p>
-                <b>載體圖像編號：{img_num}（{img_name}）</b><br>
-                <b>載體圖像尺寸：{img_size}×{img_size}</b><br>
-                <b>機密內容：</b><br>
-                <b>{secret_display}</b>
-            </div>
-            ''', unsafe_allow_html=True)
+    # 嵌入成功 - 無框版
+    st.markdown(f'<p style="font-size: 32px; font-weight: bold; color: #443C3C; margin-bottom: 25px;">嵌入成功！({r["elapsed_time"]:.2f} 秒)</p>', unsafe_allow_html=True)
+    
+    img_num = r["embed_image_choice"].split("-")[1]
+    img_name = r.get("image_name", "")
+    img_size = r.get("image_size", "")
+    secret_filename = r.get("secret_filename", "")
+    secret_bits = r.get("secret_bits", 0)
+    capacity = r.get("capacity", 0)
+    usage_percent = r.get("usage_percent", 0)
+    
+    # 載體圖和資訊並排顯示
+    img_col, info_col = st.columns([1, 2])
+    
+    with img_col:
+        # 顯示載體圖（放大到 280px）
+        style_name = r["embed_image_choice"].split("-")[0]
+        images = IMAGE_LIBRARY.get(style_name, [])
+        img_idx = int(img_num) - 1
+        if img_idx < len(images):
+            selected_image = images[img_idx]
+            preview_size = 280
+            img_display, _ = download_image_by_id(selected_image["id"], preview_size)
+            st.image(img_display, width=280)
+    
+    with info_col:
+        if r['embed_secret_type'] == "文字":
+            # 不截斷文字，完整顯示
+            original_text = r["secret_desc"].replace('文字: "', '').rstrip('"')
+            secret_display = f'文字："{original_text}"'
+        else:
+            size_info = r["secret_desc"].replace("圖像: ", "")
+            secret_display = f'圖像：{secret_filename} ({size_info})' if secret_filename else r["secret_desc"]
+        
+        # 嵌入資訊 - 無框版，與載體圖水平對齊
+        st.markdown(f'''
+        <div style="font-size: 28px; color: #443C3C; line-height: 2; margin-top: 20px;">
+            <p style="font-weight: bold; font-size: 32px; margin-bottom: 15px;">嵌入資訊</p>
+            <b>載體圖像編號：{img_num}（{img_name}）</b><br>
+            <b>載體圖像尺寸：{img_size}×{img_size}</b><br>
+            <b>機密內容：</b><br>
+            <b style="word-wrap: break-word; white-space: pre-wrap;">{secret_display}</b>
+        </div>
+        ''', unsafe_allow_html=True)
         
         with col_right:
             if r['embed_secret_type'] == "文字":
