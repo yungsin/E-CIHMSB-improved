@@ -2203,7 +2203,7 @@ else:
         step1_done = saved_contact is not None and saved_contact in contact_names
         style_name = STYLE_CATEGORIES.get(saved_style, "建築") if saved_style else None
         
-        col1, col2 = st.columns([1, 1.4], gap="large")
+        col1, col2 = st.columns([1, 1], gap="large")
         
         # ===== 第一步：選擇對象 =====
         with col1:
