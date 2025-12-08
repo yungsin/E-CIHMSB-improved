@@ -1332,9 +1332,10 @@ if st.session_state.current_mode is None:
         min-height: 100vh;
         display: flex;
         flex-direction: column;
-        justify-content: space-between;
+        justify-content: center;
         align-items: center;
-        padding: 3vh 2vw 2vh 2vw;
+        padding: 2vh 2vw;
+        gap: 5vh;
     }}
     
     .welcome-container {{
