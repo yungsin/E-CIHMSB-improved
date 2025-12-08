@@ -1588,16 +1588,16 @@ elif st.session_state.current_mode == 'embed':
         <style>
         /* 下載 Z碼圖 按鈕樣式 */
         [data-testid="stDownloadButton"] button {
-            background-color: #e9ded0 !important;
+            background-color: #c9b89a !important;
             color: #443C3C !important;
             border: none !important;
         }
         [data-testid="stDownloadButton"] button:hover {
-            background-color: #d9cec0 !important;
+            background-color: #b8a788 !important;
         }
         [data-testid="stDownloadButton"] button:active,
         [data-testid="stDownloadButton"] button:focus {
-            background-color: #f7f3ec !important;
+            background-color: #d9c8aa !important;
         }
         </style>
         """, unsafe_allow_html=True)
