@@ -1330,7 +1330,7 @@ if st.session_state.current_mode is None:
     /* 區塊1: 標題 - 用 top 控制位置 */
     .welcome-container {{
         position: absolute;
-        top: 5%;
+        top: 1%;
         left: 50%;
         transform: translateX(-50%);
         text-align: center;
@@ -1339,7 +1339,7 @@ if st.session_state.current_mode is None:
     /* 區塊2: 卡片 - 用 top 控制位置 */
     .cards-container {{
         position: absolute;
-        top: 28%;
+        top: 23%;
         left: 50%;
         transform: translateX(-50%);
         display: flex;
@@ -1351,7 +1351,7 @@ if st.session_state.current_mode is None:
     /* 區塊3: 組員 - 用 bottom 控制位置 */
     .footer-credits {{
         position: absolute;
-        bottom: 2%;
+        bottom: 5%;
         left: 50%;
         transform: translateX(-50%);
         text-align: center;
