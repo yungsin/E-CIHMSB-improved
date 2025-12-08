@@ -1320,35 +1320,40 @@ if st.session_state.current_mode is None:
     .home-fullscreen {{
         width: 100%;
         height: 100%;
-        max-width: 1920px;
-        margin: 0 auto;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        padding: 3vh 2vw;
+        position: relative;
     }}
     
+    /* 區塊1: 標題 - 用 top 控制位置 */
     .welcome-container {{
-        display: flex;
-        flex-direction: column;
-        align-items: center;
+        position: absolute;
+        top: 5%;
+        left: 50%;
+        transform: translateX(-50%);
         text-align: center;
-        margin-bottom: 5vh;  /* 標題 ↔ 卡片 間距 */
     }}
     
+    /* 區塊2: 卡片 - 用 top 控制位置 */
     .cards-container {{
+        position: absolute;
+        top: 22%;
+        left: 50%;
+        transform: translateX(-50%);
         display: flex;
         justify-content: center;
         align-items: center;
         gap: clamp(40px, 6vw, 100px);
-        flex-wrap: nowrap;
-        padding: 0 2vw;
-        max-width: 1600px;
     }}
     
+    /* 區塊3: 組員 - 用 bottom 控制位置 */
     .footer-credits {{
-        margin-top: 5vh;  /* 卡片 ↔ 組員 間距 */
-        padding-bottom: 2vh;
+        position: absolute;
+        bottom: 8%;
+        left: 50%;
+        transform: translateX(-50%);
+        text-align: center;
+        color: #5D5D5D;
+        font-size: clamp(24px, 3.5vw, 60px);
+        font-weight: 500;
     }}
     
     .welcome-title {{
@@ -1424,15 +1429,6 @@ if st.session_state.current_mode is None:
         color: rgba(255,255,255,0.9);
         line-height: 1.4;
         white-space: nowrap;
-    }}
-    
-    .footer-credits {{
-        text-align: center;
-        color: #5D5D5D;
-        font-size: clamp(24px, 3.5vw, 60px);
-        font-weight: 500;
-        margin-top: 5vh;  /* 卡片 ↔ 組員 間距 */
-        padding-bottom: 2vh;
     }}
     
     /* 統一脈動動畫 - 排除載體圖（第2張） */
