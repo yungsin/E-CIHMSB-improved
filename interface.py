@@ -972,7 +972,7 @@ h3 { font-size: clamp(28px, 3vw, 36px) !important; font-weight: bold !important;
 [data-testid="stMain"] .stSelectbox > div > div {
     background-color: #ecefef !important;
     border-radius: 8px !important;
-    min-height: 52px !important;
+    min-height: 50px !important;
     border: 1px solid #ccc !important;
 }
 
