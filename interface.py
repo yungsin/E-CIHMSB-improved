@@ -1285,7 +1285,7 @@ if 'current_mode' not in st.session_state:
 # ==================== 側邊欄 - 對象管理 ====================
 if st.session_state.current_mode is not None:
     # 根據當前模式設定顏色
-    sidebar_title_color = "#4A6B8A" if st.session_state.current_mode == 'embed' else "#7D5A6B"
+    sidebar_title_color = "#5c8aad" if st.session_state.current_mode == 'embed' else "#a67b85"
     
     with st.sidebar:
         st.markdown(f"""
