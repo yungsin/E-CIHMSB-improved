@@ -2294,7 +2294,7 @@ else:
     # 輸入頁
     else:
         st.session_state.extract_page = 'input'
-        st.markdown('<div id="sidebar-toggle-label" style="background: #b28084 !important;">對象管理</div>', unsafe_allow_html=True)
+        st.markdown('<div id="sidebar-toggle-label" style="background: #7D5A6B !important;">對象管理</div>', unsafe_allow_html=True)
         
         components.html("""
 <script>
@@ -2302,7 +2302,7 @@ else:
     const doc = window.parent.document;
     const label = doc.getElementById('sidebar-toggle-label');
     if (label) {
-        label.style.setProperty('background', '#b28084', 'important');
+        label.style.setProperty('background', '#7D5A6B', 'important');
     }
     
     function closeSidebar() {
