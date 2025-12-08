@@ -491,8 +491,8 @@ section[data-testid="stSidebar"] button[kind="header"],
     justify-content: flex-start;
     align-items: center;
     padding: 35px 0;
-    padding-top: 20px;
-    gap: 30px;
+    padding-top: 5px;
+    gap: 25px;
     box-sizing: border-box;
 }
 
