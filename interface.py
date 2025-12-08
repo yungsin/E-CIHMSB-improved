@@ -488,11 +488,9 @@ section[data-testid="stSidebar"] button[kind="header"],
     min-height: 100vh;
     display: flex;
     flex-direction: column;
-    justify-content: flex-start;
+    justify-content: space-between;
     align-items: center;
-    padding: 35px 0;
-    padding-top: 20px;
-    gap: 30px;
+    padding: 20px 0;
     box-sizing: border-box;
 }
 
@@ -508,6 +506,13 @@ section[data-testid="stSidebar"] button[kind="header"],
     background-clip: text;
 }
 
+.bottom-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 40px;
+}
+
 .cards-container {
     display: flex;
     justify-content: center;
@@ -520,7 +525,6 @@ section[data-testid="stSidebar"] button[kind="header"],
     color: #5D5D5D;
     font-size: 28px;
     font-weight: 500;
-    margin-top: auto;
 }
 
 /* 動畫卡片 */
@@ -1334,7 +1338,7 @@ if st.session_state.current_mode is None:
         flex-direction: column;
         justify-content: space-between;
         align-items: center;
-        padding: 5vh 2vw 3vh 2vw;
+        padding: 3vh 2vw 2vh 2vw;
     }}
     
     .welcome-container {{
@@ -1348,7 +1352,7 @@ if st.session_state.current_mode is None:
         display: flex;
         flex-direction: column;
         align-items: center;
-        gap: 40px;
+        gap: 5vh;
     }}
     
     .cards-container {{
