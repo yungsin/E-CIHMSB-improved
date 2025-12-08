@@ -1631,7 +1631,7 @@ elif st.session_state.current_mode == 'embed':
         
         with col_left:
     # 嵌入成功 - 無框版
-    st.markdown(f'<p style="font-size: 32px; font-weight: bold; color: #443C3C; margin-bottom: 25px;">嵌入成功！({r["elapsed_time"]:.2f} 秒)</p>', unsafe_allow_html=True)
+        st.markdown(f'<p style="font-size: 32px; font-weight: bold; color: #443C3C; margin-bottom: 25px;">嵌入成功！({r["elapsed_time"]:.2f} 秒)</p>', unsafe_allow_html=True)
     
     img_num = r["embed_image_choice"].split("-")[1]
     img_name = r.get("image_name", "")
