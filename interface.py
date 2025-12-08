@@ -1330,7 +1330,7 @@ if st.session_state.current_mode is None:
     /* 區塊1: 標題 - 用 top 控制位置 */
     .welcome-container {{
         position: absolute;
-        top: 5%;
+        top: 1%;
         left: 50%;
         transform: translateX(-50%);
         text-align: center;
