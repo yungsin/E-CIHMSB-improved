@@ -2243,7 +2243,7 @@ else:
         with col1:
             st.markdown(f"""
             <div style="text-align: center; padding: 10px; border-bottom: 4px solid #7D5A6B; margin-bottom: 15px;">
-                <span style="font-size: 30px; font-weight: bold; color: #7D5A6B;">第一步: 選擇對象</span>
+                <span style="font-size: 50px; font-weight: bold; color: #7D5A6B;">第一步: 選擇對象</span>
             </div>
             """, unsafe_allow_html=True)
             
