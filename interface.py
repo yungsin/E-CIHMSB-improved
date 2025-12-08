@@ -1437,8 +1437,7 @@ if st.session_state.current_mode is None:
         color: #5D5D5D;
         font-size: clamp(24px, 3.5vw, 60px);
         font-weight: 500;
-        padding-bottom: 2vh;
-        margin-top: auto;
+        margin-top: 3vh;
     }}
     
     /* 統一脈動動畫 - 排除載體圖（第2張） */
