@@ -688,6 +688,64 @@ h3 { font-size: clamp(28px, 3vw, 36px) !important; font-weight: bold !important;
     align-items: center !important;
 }
 
+/* Radio 改成勾選框樣式 */
+.stRadio [role="radiogroup"] label > div:first-child > div {
+    width: 22px !important;
+    height: 22px !important;
+    border-radius: 4px !important;
+    border: 2px solid #443C3C !important;
+    background-color: transparent !important;
+    position: relative !important;
+}
+
+/* 隱藏原本的圓點 */
+.stRadio [role="radiogroup"] label > div:first-child > div::before {
+    display: none !important;
+}
+
+/* 選中時顯示勾勾 */
+.stRadio [role="radiogroup"] label[data-checked="true"] > div:first-child > div::after,
+.stRadio [role="radiogroup"] [aria-checked="true"] > div:first-child > div::after {
+    content: "✓" !important;
+    position: absolute !important;
+    top: 50% !important;
+    left: 50% !important;
+    transform: translate(-50%, -50%) !important;
+    font-size: 16px !important;
+    font-weight: bold !important;
+    color: #443C3C !important;
+}
+
+/* 強制覆蓋 Radio 按鈕外觀 - 方形 */
+.stRadio [data-baseweb="radio"] > div:first-child {
+    width: 22px !important;
+    height: 22px !important;
+    border-radius: 4px !important;
+    border: 2px solid #443C3C !important;
+    background-color: #ecefef !important;
+}
+
+/* 隱藏 Radio 內部的圓點 */
+.stRadio [data-baseweb="radio"] > div:first-child > div {
+    display: none !important;
+}
+
+/* 選中狀態 - 顯示勾勾 */
+.stRadio [data-baseweb="radio"][aria-checked="true"] > div:first-child::after {
+    content: "✓" !important;
+    position: absolute !important;
+    font-size: 14px !important;
+    font-weight: bold !important;
+    color: #443C3C !important;
+    top: 50% !important;
+    left: 50% !important;
+    transform: translate(-50%, -50%) !important;
+}
+
+.stRadio [data-baseweb="radio"] > div:first-child {
+    position: relative !important;
+}
+
 .stTextArea textarea {
     font-size: 24px !important;
     background-color: #ecefef !important;
