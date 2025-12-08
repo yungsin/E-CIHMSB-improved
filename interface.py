@@ -2083,7 +2083,7 @@ else:
         with col_right:
             st.markdown('<p style="font-size: 34px; font-weight: bold; color: #443C3C;">驗證結果</p>', unsafe_allow_html=True)
             if r['type'] == 'text':
-                verify_input = st.text_area("輸入原始機密", key="verify_text_input", height=150, placeholder="貼上嵌入時的原始機密內容...")
+                verify_input = st.text_area("輸入原始機密", key="verify_text_input", height=180, placeholder="貼上嵌入時的原始機密內容...")
                 if st.button("驗證", key="verify_btn"):
                     if verify_input:
                         if verify_input == r['content']:
