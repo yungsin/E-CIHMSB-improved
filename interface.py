@@ -1788,15 +1788,9 @@ elif st.session_state.current_mode == 'embed':
             gap: 2rem !important;
         }
         
-        /* 頁面不滾動，內容剛好一屏 */
-        html, body, [data-testid="stAppViewContainer"], .main, [data-testid="stMain"] {
-            overflow: hidden !important;
-            height: 100vh !important;
-        }
+        /* 頁面可滾動 */
         .block-container {
-            padding-bottom: 80px !important;
-            height: calc(100vh - 80px) !important;
-            overflow: hidden !important;
+            padding-bottom: 100px !important;
         }
         </style>
         """, unsafe_allow_html=True)
@@ -1948,12 +1942,12 @@ elif st.session_state.current_mode == 'embed':
                     selected_image = images[img_idx]
                     preview_size = 150
                     img_display, _ = download_image_by_id(selected_image["id"], preview_size)
-                    st.image(img_display, width=150)
+                    st.image(img_display, width=120)
                     
                     capacity = calculate_image_capacity(selected_size)
                     usage = secret_bits_needed / capacity * 100
                     color = "#ffa726" if usage > 90 else "#28a745"
-                    st.markdown(f'<div class="bits-info" style="color: {color};">機密容量：{secret_bits_needed:,} bits<br>圖像容量：{capacity:,} bits<br>使用率：{usage:.1f}%</div>', unsafe_allow_html=True)
+                    st.markdown(f'<div class="bits-info" style="color: {color}; font-size: 22px;">機密容量：{secret_bits_needed:,} bits<br>圖像容量：{capacity:,} bits<br>使用率：{usage:.1f}%</div>', unsafe_allow_html=True)
                     
                     st.session_state.embed_image_id = selected_image["id"]
                     st.session_state.embed_image_size = selected_size
