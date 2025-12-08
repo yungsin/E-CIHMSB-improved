@@ -1344,6 +1344,13 @@ if st.session_state.current_mode is None:
         text-align: center;
     }}
     
+    .bottom-section {{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 40px;
+    }}
+    
     .cards-container {{
         display: flex;
         justify-content: center;
@@ -1455,34 +1462,36 @@ if st.session_state.current_mode is None:
             <div class="welcome-title">高效能無載體之機密編碼技術</div>
         </div>
         
-        <div class="cards-container">
-            <div class="anim-card anim-card-embed" onclick="clickEmbed()">
-                <div class="anim-flow">
-                    <img src="{icon_secret}" alt="secret">
-                    <span>+</span>
-                    <img src="{icon_image}" alt="image">
-                    <img src="{icon_arrow}" class="arrow" alt="arrow">
-                    <img src="{icon_zcode}" alt="zcode">
+        <div class="bottom-section">
+            <div class="cards-container">
+                <div class="anim-card anim-card-embed" onclick="clickEmbed()">
+                    <div class="anim-flow">
+                        <img src="{icon_secret}" alt="secret">
+                        <span>+</span>
+                        <img src="{icon_image}" alt="image">
+                        <img src="{icon_arrow}" class="arrow" alt="arrow">
+                        <img src="{icon_zcode}" alt="zcode">
+                    </div>
+                    <div class="anim-title">嵌入機密</div>
+                    <div class="anim-desc">基於載體圖像<br>生成編碼圖像</div>
                 </div>
-                <div class="anim-title">嵌入機密</div>
-                <div class="anim-desc">基於載體圖像<br>生成編碼圖像</div>
+                
+                <div class="anim-card anim-card-extract" onclick="clickExtract()">
+                    <div class="anim-flow">
+                        <img src="{icon_zcode}" alt="zcode">
+                        <span>+</span>
+                        <img src="{icon_image}" alt="image">
+                        <img src="{icon_arrow}" class="arrow" alt="arrow">
+                        <img src="{icon_secret}" alt="secret">
+                    </div>
+                    <div class="anim-title">提取機密</div>
+                    <div class="anim-desc">參考相同載體圖像<br>重建機密訊息</div>
+                </div>
             </div>
             
-            <div class="anim-card anim-card-extract" onclick="clickExtract()">
-                <div class="anim-flow">
-                    <img src="{icon_zcode}" alt="zcode">
-                    <span>+</span>
-                    <img src="{icon_image}" alt="image">
-                    <img src="{icon_arrow}" class="arrow" alt="arrow">
-                    <img src="{icon_secret}" alt="secret">
-                </div>
-                <div class="anim-title">提取機密</div>
-                <div class="anim-desc">參考相同載體圖像<br>重建機密訊息</div>
+            <div class="footer-credits">
+                組員：鄭凱譽、劉佳典、王于婕
             </div>
-        </div>
-        
-        <div class="footer-credits">
-            組員：鄭凱譽、劉佳典、王于婕
         </div>
     </div>
     
