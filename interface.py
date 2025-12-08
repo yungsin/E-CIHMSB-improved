@@ -1635,8 +1635,7 @@ elif st.session_state.current_mode == 'embed':
                 載體圖像編號：<strong>{img_num}</strong>（{img_name}）<br>
                 載體圖像尺寸：{img_size}×{img_size}<br>
                 機密內容：<br>
-                {secret_display}<br>
-                機密 / 容量：{secret_bits:,} / {capacity:,} bits ({usage_percent:.1f}%)
+                {secret_display}
             </div>
             ''', unsafe_allow_html=True)
         
