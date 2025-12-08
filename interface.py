@@ -323,7 +323,6 @@ section[data-testid="stSidebar"] button[kind="header"],
     position: fixed;
     top: 148px;
     left: 0;
-    background: #4A6B8A;
     color: white;
     writing-mode: vertical-rl;
     padding: 15px 8px;
