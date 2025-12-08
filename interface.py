@@ -1317,7 +1317,7 @@ if st.session_state.current_mode is not None:
                         "key": new_key
                     }
                     save_contacts(st.session_state.contacts)
-                    st.toast(f"✅ 已新增「{new_name.strip()}」")
+                    st.toast(f"✅ 已新增「{new_name.strip()}」(key: {new_key[:8]}...)")
                     st.session_state.add_contact_counter = add_counter + 1
                     st.rerun()
                 except Exception as e:
@@ -2130,6 +2130,12 @@ elif st.session_state.current_mode == 'embed':
                     selected_contact = st.session_state.get('selected_contact_saved', None)
                     contact_key = get_contact_key(st.session_state.contacts, selected_contact) if selected_contact else None
                     
+                    # DEBUG: 顯示使用的密鑰
+                    if contact_key:
+                        st.toast(f"🔑 嵌入密鑰: {contact_key[:8]}...")
+                    else:
+                        st.toast(f"⚠️ 嵌入沒有密鑰！對象: {selected_contact}")
+                    
                     embed_secret_type = st.session_state.get('embed_secret_type_saved', '文字')
                     embed_text = st.session_state.get('embed_text_saved', None)
                     
@@ -2517,6 +2523,12 @@ else:
                     # 取得對象密鑰
                     selected_contact = st.session_state.get('extract_contact_saved', None)
                     contact_key = get_contact_key(st.session_state.contacts, selected_contact) if selected_contact else None
+                    
+                    # DEBUG: 顯示使用的密鑰
+                    if contact_key:
+                        st.toast(f"🔑 使用密鑰: {contact_key[:8]}...")
+                    else:
+                        st.toast(f"⚠️ 沒有密鑰！對象: {selected_contact}")
                     
                     if Z:
                         style_name = NUM_TO_STYLE.get(extract_style_num, "建築")

@@ -19,8 +19,8 @@ def generate_Q_from_block(block, q_length=7, contact_key=None):
     
     原理:
         1. 取區塊第一行前 7 個像素值
-        2. 如果有 contact_key，用它產生擾動值並加到像素值上
-        3. 按擾動後的值排序，得到 Q
+        2. 如果有 contact_key，用它對最終的 Q 進行額外置換
+        3. 按值排序，得到 Q
     """
     # 取出圖片
     block = np.array(block)
@@ -34,21 +34,25 @@ def generate_Q_from_block(block, q_length=7, contact_key=None):
     # 只取前 q_length 個像素
     first_row = first_row[:q_length]
     
-    # 如果有 contact_key，加入擾動
-    if contact_key:
-        # 將 contact_key 轉成穩定的數字序列
-        key_hash = hashlib.sha256(contact_key.encode('utf-8')).digest()
-        # 取前 q_length 個 byte 作為擾動值（範圍 0-255）
-        perturbation = np.array([key_hash[i % len(key_hash)] for i in range(q_length)], dtype=np.float64)
-        # 將擾動值縮放到 0-0.9 範圍，加到原始值上
-        # 這樣可以在相同像素值時產生不同排序，但不會大幅改變整體排序
-        first_row = first_row + perturbation / 256.0 * 0.9
-    
     # 排序後得到每個數值在排序中的位置 (0-based)
     sorted_indices = np.argsort(first_row)
     
     # 轉換成 1-based 索引
     Q = (sorted_indices + 1).tolist()
+    
+    # 如果有 contact_key，對 Q 進行額外的確定性置換
+    if contact_key:
+        # 用 contact_key 生成一個固定的置換種子
+        key_hash = hashlib.sha256(contact_key.encode('utf-8')).digest()
+        perm_seed = int.from_bytes(key_hash[:4], 'big')
+        
+        # 用這個種子生成一個固定的置換
+        rng = np.random.default_rng(perm_seed)
+        perm_order = list(range(q_length))
+        rng.shuffle(perm_order)
+        
+        # 對 Q 應用這個置換
+        Q = [Q[i] for i in perm_order]
     
     return Q
 
