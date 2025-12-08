@@ -2086,17 +2086,24 @@ else:
                 verify_input = st.text_area("輸入原始機密", key="verify_text_input", height=200, placeholder="貼上嵌入時的原始機密內容...")
                 if st.button("驗證", key="verify_btn"):
                     if verify_input:
-                        if verify_input == r['content']:
-                            st.markdown('<p style="font-size: 22px; font-weight: bold; color: #2E7D32;">完全一致！</p>', unsafe_allow_html=True)
-                        else:
-                            st.markdown('<p style="font-size: 22px; font-weight: bold; color: #C62828;">不一致！</p>', unsafe_allow_html=True)
-                            col_orig, col_ext = st.columns(2)
-                            with col_orig:
-                                st.markdown('<p style="font-size: 18px; color: #443C3C;"><b>原始輸入：</b></p>', unsafe_allow_html=True)
-                                st.markdown(f'<p style="font-size: 16px; color: #666; white-space: pre-wrap; line-height: 1.8;">{verify_input}</p>', unsafe_allow_html=True)
-                            with col_ext:
-                                st.markdown('<p style="font-size: 18px; color: #443C3C;"><b>提取結果：</b></p>', unsafe_allow_html=True)
-                                st.markdown(f'<p style="font-size: 16px; color: #666; white-space: pre-wrap; line-height: 1.8;">{r["content"]}</p>', unsafe_allow_html=True)
+                        st.session_state.verify_result = {
+                            'input': verify_input,
+                            'match': verify_input == r['content']
+                        }
+                
+                if 'verify_result' in st.session_state and st.session_state.verify_result:
+                    vr = st.session_state.verify_result
+                    if vr['match']:
+                        st.markdown('<p style="font-size: 22px; font-weight: bold; color: #2E7D32;">完全一致！</p>', unsafe_allow_html=True)
+                    else:
+                        st.markdown('<p style="font-size: 22px; font-weight: bold; color: #C62828;">不一致！</p>', unsafe_allow_html=True)
+                    col_orig, col_ext = st.columns(2)
+                    with col_orig:
+                        st.markdown('<p style="font-size: 18px; color: #443C3C;"><b>原始輸入：</b></p>', unsafe_allow_html=True)
+                        st.markdown(f'<p style="font-size: 16px; color: #666; white-space: nowrap;">{vr["input"]}</p>', unsafe_allow_html=True)
+                    with col_ext:
+                        st.markdown('<p style="font-size: 18px; color: #443C3C;"><b>提取結果：</b></p>', unsafe_allow_html=True)
+                        st.markdown(f'<p style="font-size: 16px; color: #666; white-space: nowrap;">{r["content"]}</p>', unsafe_allow_html=True)
             else:
                 verify_img = st.file_uploader("上傳原始機密圖片", type=["png", "jpg", "jpeg"], key="verify_img_upload")
                 if verify_img:
@@ -2128,6 +2135,7 @@ else:
                 st.session_state.extract_page = 'input'
                 st.session_state.extract_result = None
                 st.session_state.current_mode = None
+                st.session_state.verify_result = None
                 st.rerun()
         
         components.html("""
