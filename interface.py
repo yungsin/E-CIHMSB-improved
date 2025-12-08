@@ -375,7 +375,7 @@ section[data-testid="stSidebar"] button[kind="header"],
 /* 自訂標籤：可點擊 */
 #sidebar-toggle-label {
     position: fixed;
-    top: 70px;
+    top: 75px;
     left: 0;
     color: white;
     writing-mode: vertical-rl;
