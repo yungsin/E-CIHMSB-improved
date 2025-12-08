@@ -703,21 +703,21 @@ h3 { font-size: clamp(28px, 3vw, 36px) !important; font-weight: bold !important;
     justify-content: center !important;
 }
 
-/* 隱藏內部圓點 */
+/* 內部圓點改成勾勾 - 利用 scale 動畫 */
 .stRadio [data-baseweb="radio"] > div:first-child > div {
-    display: none !important;
+    width: auto !important;
+    height: auto !important;
+    background: transparent !important;
+    border: none !important;
+    border-radius: 0 !important;
 }
 
-/* 只有選中時才顯示勾勾 */
-.stRadio [data-baseweb="radio"][aria-checked="true"] > div:first-child::after {
+/* 用 ::after 顯示勾勾 */
+.stRadio [data-baseweb="radio"] > div:first-child > div::after {
     content: "✓" !important;
     font-size: 16px !important;
     font-weight: bold !important;
     color: #443C3C !important;
-    position: absolute !important;
-    top: 50% !important;
-    left: 50% !important;
-    transform: translate(-50%, -50%) !important;
 }
 
 .stTextArea textarea {
