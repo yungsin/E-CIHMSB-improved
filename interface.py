@@ -488,11 +488,9 @@ section[data-testid="stSidebar"] button[kind="header"],
     min-height: 100vh;
     display: flex;
     flex-direction: column;
-    justify-content: flex-start;
+    justify-content: space-between;
     align-items: center;
     padding: 35px 0;
-    padding-top: 20px;
-    gap: 30px;
     box-sizing: border-box;
 }
 
@@ -520,7 +518,6 @@ section[data-testid="stSidebar"] button[kind="header"],
     color: #5D5D5D;
     font-size: 28px;
     font-weight: 500;
-    margin-top: auto;
 }
 
 /* 動畫卡片 */
@@ -1326,22 +1323,41 @@ if st.session_state.current_mode is None:
     
     .home-fullscreen {{
         width: 100%;
-        max-width: 1920px;
-        margin: 0 auto;
         height: 100%;
-        min-height: 100vh;
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
-        align-items: center;
-        padding: 5vh 2vw 3vh 2vw;
+        position: relative;
     }}
     
+    /* 區塊1: 標題 - 用 top 控制位置 */
     .welcome-container {{
-        display: flex;
-        flex-direction: column;
-        align-items: center;
+        position: absolute;
+        top: 5%;
+        left: 50%;
+        transform: translateX(-50%);
         text-align: center;
+    }}
+    
+    /* 區塊2: 卡片 - 用 top 控制位置 */
+    .cards-container {{
+        position: absolute;
+        top: 28%;
+        left: 50%;
+        transform: translateX(-50%);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: clamp(40px, 6vw, 100px);
+    }}
+    
+    /* 區塊3: 組員 - 用 bottom 控制位置 */
+    .footer-credits {{
+        position: absolute;
+        bottom: 2%;
+        left: 50%;
+        transform: translateX(-50%);
+        text-align: center;
+        color: #5D5D5D;
+        font-size: clamp(24px, 3.5vw, 60px);
+        font-weight: 500;
     }}
     
     .welcome-title {{
@@ -1353,16 +1369,6 @@ if st.session_state.current_mode is None:
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
         background-clip: text;
-    }}
-    
-    .cards-container {{
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        gap: clamp(40px, 6vw, 100px);
-        flex-wrap: nowrap;
-        padding: 0 2vw;
-        max-width: 1600px;
     }}
     
     .anim-card {{
@@ -1427,14 +1433,6 @@ if st.session_state.current_mode is None:
         color: rgba(255,255,255,0.9);
         line-height: 1.4;
         white-space: nowrap;
-    }}
-    
-    .footer-credits {{
-        text-align: center;
-        color: #5D5D5D;
-        font-size: clamp(24px, 3.5vw, 60px);
-        font-weight: 500;
-        padding-bottom: 2vh;
     }}
     
     /* 統一脈動動畫 - 排除載體圖（第2張） */
@@ -1616,7 +1614,7 @@ elif st.session_state.current_mode == 'embed':
         
         with col_left:
             # 嵌入成功 - 無框版
-            st.markdown(f'<p style="font-size: 32px; font-weight: bold; color: #443C3C; margin-bottom: 25px;">嵌入成功！({r["elapsed_time"]:.2f} 秒)</p>', unsafe_allow_html=True)
+            st.markdown(f'<p style="font-size: 28px; font-weight: bold; color: #443C3C; margin-bottom: 25px;">嵌入成功！({r["elapsed_time"]:.2f} 秒)</p>', unsafe_allow_html=True)
             
             img_num = r["embed_image_choice"].split("-")[1]
             img_name = r.get("image_name", "")
@@ -2073,13 +2071,13 @@ else:
         
         spacer_left, col_left, col_gap, col_right, spacer_right = st.columns([0.4, 2.5, 0.1, 2.2, 0.1])
         with col_left:
-            st.markdown(f'<p style="font-size: 32px; font-weight: bold; color: #443C3C; margin-bottom: 25px;">提取成功！({r["elapsed_time"]:.2f} 秒)</p>', unsafe_allow_html=True)
+            st.markdown(f'<p style="font-size: 28px; font-weight: bold; color: #443C3C; margin-bottom: 25px;">提取成功！({r["elapsed_time"]:.2f} 秒)</p>', unsafe_allow_html=True)
             
             if r['type'] == 'text':
-                st.markdown('<p style="font-size: 32px; font-weight: bold; color: #443C3C;">機密文字:</p>', unsafe_allow_html=True)
+                st.markdown('<p style="font-size: 28px; font-weight: bold; color: #443C3C;">機密文字:</p>', unsafe_allow_html=True)
                 st.markdown(f'<p style="font-size: 24px; color: #443C3C; white-space: pre-wrap; line-height: 1.8;">{r["content"]}</p>', unsafe_allow_html=True)
             else:
-                st.markdown('<p style="font-size: 32px; font-weight: bold; color: #443C3C;">機密圖片:</p>', unsafe_allow_html=True)
+                st.markdown('<p style="font-size: 28px; font-weight: bold; color: #443C3C;">機密圖片:</p>', unsafe_allow_html=True)
                 st.image(Image.open(BytesIO(r['image_data'])), width=200)
                 st.download_button("下載圖片", r['image_data'], "recovered.png", "image/png", key="dl_rec")
         
