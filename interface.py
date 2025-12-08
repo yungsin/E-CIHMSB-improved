@@ -1323,40 +1323,41 @@ if st.session_state.current_mode is None:
     
     .home-fullscreen {{
         width: 100%;
-        max-width: 1920px;
-        margin: 0 auto;
         height: 100%;
-        min-height: 100vh;
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
-        align-items: center;
-        padding: 5vh 2vw 3vh 2vw;
+        position: relative;
     }}
     
+    /* 區塊1: 標題 - 用 top 控制位置 */
     .welcome-container {{
-        display: flex;
-        flex-direction: column;
-        align-items: center;
+        position: absolute;
+        top: 5%;
+        left: 50%;
+        transform: translateX(-50%);
         text-align: center;
     }}
     
+    /* 區塊2: 卡片 - 用 top 控制位置 */
     .cards-container {{
+        position: absolute;
+        top: 20%;
+        left: 50%;
+        transform: translateX(-50%);
         display: flex;
         justify-content: center;
         align-items: center;
         gap: clamp(40px, 6vw, 100px);
-        flex-wrap: nowrap;
-        padding: 0 2vw;
-        max-width: 1600px;
     }}
     
+    /* 區塊3: 組員 - 用 bottom 控制位置 */
     .footer-credits {{
+        position: absolute;
+        bottom: 5%;
+        left: 50%;
+        transform: translateX(-50%);
         text-align: center;
         color: #5D5D5D;
         font-size: clamp(24px, 3.5vw, 60px);
         font-weight: 500;
-        padding-bottom: 2vh;
     }}
     
     .welcome-title {{
