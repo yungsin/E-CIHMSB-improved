@@ -1342,7 +1342,7 @@ if st.session_state.current_mode is None:
         flex-direction: column;
         align-items: center;
         text-align: center;
-        margin-bottom: 8vh;
+        margin-bottom: 10vh;
     }}
     
     .bottom-section {{
