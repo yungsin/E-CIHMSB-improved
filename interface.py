@@ -1387,6 +1387,7 @@ if st.session_state.current_mode is None:
     icon_arrow = get_icon_base64("arrow")
     icon_zcode = get_icon_base64("z-code")
     
+    # 使用 Flexbox 佈局的首頁
     components.html(f"""
     <!DOCTYPE html>
     <html>
@@ -1406,43 +1407,39 @@ if st.session_state.current_mode is None:
         align-items: center;
     }}
     
+    /* ===== Flexbox 佈局 ===== */
     .home-fullscreen {{
         width: 100%;
         height: 100%;
-        position: relative;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: center;
+        padding: 2vh 0 6vh 0;
     }}
     
-    /* 區塊1: 標題 - 用 top 控制位置 */
+    /* 區塊1: 標題 */
     .welcome-container {{
-        position: absolute;
-        top: 1%;
-        left: 50%;
-        transform: translateX(-50%);
         text-align: center;
+        flex-shrink: 0;
     }}
     
-    /* 區塊2: 卡片 - 用 top 控制位置 */
+    /* 區塊2: 卡片 */
     .cards-container {{
-        position: absolute;
-        top: 23%;
-        left: 50%;
-        transform: translateX(-50%);
         display: flex;
         justify-content: center;
         align-items: center;
         gap: clamp(40px, 6vw, 100px);
+        flex-shrink: 0;
     }}
     
-    /* 區塊3: 組員 - 用 bottom 控制位置 */
+    /* 區塊3: 組員 */
     .footer-credits {{
-        position: absolute;
-        bottom: 15%;
-        left: 50%;
-        transform: translateX(-50%);
         text-align: center;
         color: #5D5D5D;
         font-size: clamp(24px, 3.5vw, 60px);
         font-weight: 500;
+        flex-shrink: 0;
     }}
     
     .welcome-title {{
