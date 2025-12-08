@@ -1788,9 +1788,15 @@ elif st.session_state.current_mode == 'embed':
             gap: 2rem !important;
         }
         
-        /* 頁面可滾動 */
+        /* 頁面不滾動，內容剛好一屏 */
+        html, body, [data-testid="stAppViewContainer"], .main, [data-testid="stMain"] {
+            overflow: hidden !important;
+            height: 100vh !important;
+        }
         .block-container {
-            padding-bottom: 3rem !important;
+            padding-bottom: 80px !important;
+            height: calc(100vh - 80px) !important;
+            overflow: hidden !important;
         }
         </style>
         """, unsafe_allow_html=True)
@@ -1975,7 +1981,7 @@ elif st.session_state.current_mode == 'embed':
                     if (btn.innerText === '開始嵌入') {
                         let container = btn.closest('.stButton') || btn.parentElement.parentElement.parentElement;
                         if (container) {
-                            container.style.cssText = 'display:flex!important;justify-content:center!important;';
+                            container.style.cssText = 'position:fixed!important;bottom:25px!important;left:50%!important;transform:translateX(-50%)!important;width:auto!important;z-index:1000!important;';
                         }
                     }
                 }
