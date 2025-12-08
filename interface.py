@@ -1314,6 +1314,8 @@ if st.session_state.current_mode is None:
     html, body {{ 
         height: 100%;
         min-height: 100vh;
+        margin: 0;
+        padding: 0;
     }}
     body {{ 
         font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
@@ -1321,7 +1323,7 @@ if st.session_state.current_mode is None:
         overflow: hidden;
         display: flex;
         justify-content: center;
-        align-items: center;
+        align-items: flex-start;
     }}
     
     .home-fullscreen {{
@@ -1332,9 +1334,10 @@ if st.session_state.current_mode is None:
         min-height: 100vh;
         display: flex;
         flex-direction: column;
-        justify-content: space-between;
+        justify-content: flex-start;
         align-items: center;
-        padding: 5vh 2vw 3vh 2vw;
+        padding: 1vh 2vw 3vh 2vw;
+        gap: 3vh;
     }}
     
     .welcome-container {{
@@ -1435,6 +1438,7 @@ if st.session_state.current_mode is None:
         font-size: clamp(24px, 3.5vw, 60px);
         font-weight: 500;
         padding-bottom: 2vh;
+        margin-top: auto;
     }}
     
     /* 統一脈動動畫 - 排除載體圖（第2張） */
