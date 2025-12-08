@@ -1602,7 +1602,7 @@ elif st.session_state.current_mode == 'embed':
         </style>
         """, unsafe_allow_html=True)
         
-        spacer_left, col_left, col_gap, col_right, spacer_right = st.columns([1.8, 2.5, 0.4, 2.5, 0.1])
+        spacer_left, col_left, col_gap, col_right, spacer_right = st.columns([1.8, 2.5, 0.8, 2.5, 0.1])
         
         with col_left:
             # 嵌入成功 - 無框版
