@@ -974,6 +974,8 @@ h3 { font-size: clamp(28px, 3vw, 36px) !important; font-weight: bold !important;
     border-radius: 8px !important;
     min-height: 55px !important;
     border: 1px solid #ccc !important;
+    padding-top: 4px !important;
+    padding-bottom: 4px !important;
 }
 
 [data-testid="stMain"] .stSelectbox [data-baseweb="select"] span,
@@ -981,6 +983,8 @@ h3 { font-size: clamp(28px, 3vw, 36px) !important; font-weight: bold !important;
     font-size: 22px !important;
     font-weight: bold !important;
     color: #333 !important;
+    overflow: visible !important;
+    line-height: 1.4 !important;
 }
 
 [data-baseweb="popover"] li {
