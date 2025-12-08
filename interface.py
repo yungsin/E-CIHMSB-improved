@@ -2310,8 +2310,8 @@ else:
         
         # ===== 開始提取按鈕 =====
         if step1_done and extract_z_text and extract_img_num and extract_img_size:
-            _, btn_col, _ = st.columns([1, 1, 1])
-            with btn_col:
+            btn_col1, btn_col2, btn_col3 = st.columns([1, 0.5, 1])
+            with btn_col2:
                 extract_btn = st.button("開始提取", type="primary", key="extract_start_btn")
             
             components.html("""
@@ -2320,19 +2320,18 @@ else:
                 const buttons = window.parent.document.querySelectorAll('button');
                 for (let btn of buttons) { 
                     if (btn.innerText === '開始提取') {
-                        // 按鈕樣式
+                        // 按鈕顏色
                         btn.style.cssText = 'background-color:#b28084!important;border-color:#b28084!important;color:white!important;';
-                        // 容器置中
+                        // 固定定位到底部中央（和開始嵌入按鈕一樣）
                         let container = btn.closest('.stButton') || btn.parentElement.parentElement.parentElement;
                         if (container) {
-                            container.style.cssText = 'display:flex!important;justify-content:center!important;margin-top:20px!important;';
+                            container.style.cssText = 'position:fixed!important;bottom:25px!important;left:50%!important;transform:translateX(-50%)!important;width:auto!important;z-index:1000!important;';
                         }
                     }
                 }
             }
             fixExtractButtons();
             setTimeout(fixExtractButtons, 100);
-            setTimeout(fixExtractButtons, 300);
             </script>
             """, height=0)
             
