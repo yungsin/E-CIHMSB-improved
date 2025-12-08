@@ -1591,7 +1591,11 @@ elif st.session_state.current_mode == 'embed':
             background-color: #c9b89a !important;
             color: #443C3C !important;
             border: none !important;
-            font-weight: bold !important;
+            font-weight: 700 !important;
+        }
+        [data-testid="stDownloadButton"] button p,
+        [data-testid="stDownloadButton"] button span {
+            font-weight: 700 !important;
         }
         [data-testid="stDownloadButton"] button:hover {
             background-color: #b8a788 !important;
