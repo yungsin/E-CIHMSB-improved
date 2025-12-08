@@ -1292,7 +1292,7 @@ if st.session_state.current_mode is not None:
         <style>
         section[data-testid="stSidebar"] details summary span p {{ font-size: 22px !important; }}
         #built-contacts-title {{ font-size: 28px !important; font-weight: bold !important; margin-bottom: 10px !important; text-align: center !important; }}
-        .sidebar-title {{ font-size: 36px !important; margin-bottom: 15px !important; color: {sidebar_title_color} !important; font-weight: bold !important; text-align: center !important; }}
+        [data-testid="stSidebar"] .sidebar-title {{ font-size: 36px !important; margin-bottom: 15px !important; color: {sidebar_title_color} !important; font-weight: bold !important; text-align: center !important; }}
         </style>
         <div id="sidebar-close-btn" style="position: absolute; top: -15px; right: 0px; 
             width: 30px; height: 30px; background: #e0e0e0; border-radius: 50%; 
@@ -1300,7 +1300,7 @@ if st.session_state.current_mode is not None:
             cursor: pointer; font-size: 18px; color: #666; z-index: 9999;">✕</div>
         """, unsafe_allow_html=True)
         
-        st.markdown('<div class="sidebar-title">對象管理</div>', unsafe_allow_html=True)
+        st.markdown(f'<div class="sidebar-title" style="color: {sidebar_title_color} !important;">對象管理</div>', unsafe_allow_html=True)
         
         contacts = st.session_state.contacts
         style_options = ["選擇"] + list(STYLE_CATEGORIES.keys())
