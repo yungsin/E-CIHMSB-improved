@@ -1415,7 +1415,7 @@ if st.session_state.current_mode is None:
         flex-direction: column;
         justify-content: space-between;
         align-items: center;
-        padding: 2.3vh 0 10vh 0;
+        padding: 2.1vh 0 13vh 0;
     }}
     
     /* 區塊1: 標題 */
