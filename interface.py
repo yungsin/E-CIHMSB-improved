@@ -1337,7 +1337,7 @@ if st.session_state.current_mode is None:
         justify-content: flex-start;
         align-items: center;
         padding: 1vh 2vw 3vh 2vw;
-        gap: 3vh;
+        gap: 5vh;
     }}
     
     .welcome-container {{
