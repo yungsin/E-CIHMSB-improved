@@ -479,7 +479,7 @@ section[data-testid="stSidebar"] button[kind="header"],
 [data-testid="stSidebar"] .stSelectbox [data-baseweb="select"] span,
 [data-testid="stSidebar"] .stSelectbox [data-baseweb="select"] div {
     color: #333 !important;
-    font-size: 18px !important;
+    font-size: 20px !important;
     overflow: visible !important;
 }
 
@@ -509,7 +509,7 @@ section[data-testid="stSidebar"] button[kind="header"],
 [data-testid="stSidebar"] input,
 [data-testid="stSidebar"] select,
 [data-testid="stSidebar"] button {
-    font-size: 18px !important;
+    font-size: 20px !important;
 }
 
 /* 側邊欄按鈕白色背景 */
@@ -734,6 +734,26 @@ h3 { font-size: clamp(28px, 3vw, 36px) !important; font-weight: bold !important;
     font-size: 22px !important;
     font-weight: bold !important;
     color: #443C3C !important;
+}
+
+/* 側邊欄輸入框文字 */
+[data-testid="stSidebar"] .stTextInput input {
+    font-size: 20px !important;
+}
+
+/* 側邊欄下拉選單文字 */
+[data-testid="stSidebar"] .stSelectbox [data-baseweb="select"] span,
+[data-testid="stSidebar"] .stSelectbox [data-baseweb="select"] div {
+    font-size: 20px !important;
+}
+
+/* 側邊欄按鈕文字 */
+[data-testid="stSidebar"] .stButton button {
+    font-size: 20px !important;
+}
+[data-testid="stSidebar"] .stButton button span,
+[data-testid="stSidebar"] .stButton button p {
+    font-size: 20px !important;
 }
 
 .stRadio [role="radiogroup"] label,
