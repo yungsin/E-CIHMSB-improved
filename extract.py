@@ -1,5 +1,4 @@
-
-# extract.py → 提取模組（支援文字和圖片）
+# extract.py → 提取模組（支援文字和圖片，含對象密鑰）
 
 import numpy as np
 
@@ -10,7 +9,7 @@ from binary_operations import get_msbs
 from mapping import map_from_z
 from secret_encoding import binary_to_text, binary_to_image
 
-def extract_secret(cover_image, z_bits, secret_type='text'):
+def extract_secret(cover_image, z_bits, secret_type='text', contact_key=None):
     """
     功能:
         從 Z 碼和無載體圖片提取機密內容
@@ -19,6 +18,7 @@ def extract_secret(cover_image, z_bits, secret_type='text'):
         cover_image: numpy array，灰階圖片 (H×W) 或彩色圖片 (H×W×3)
         z_bits: Z 碼位元列表
         secret_type: 'text' 或 'image'
+        contact_key: 對象專屬密鑰（字串），用於解密
     
     返回:
         secret: 還原的機密內容（字串或 PIL Image）
@@ -27,7 +27,7 @@ def extract_secret(cover_image, z_bits, secret_type='text'):
     流程:
         1. 圖片預處理（彩色轉灰階、檢查尺寸）
         2. 計算 8×8 區塊數量
-        3. 對每個 8×8 區塊進行提取
+        3. 對每個 8×8 區塊進行提取（使用 contact_key 生成 Q）
         4. 跳過類型標記，將機密位元轉回原始內容
     """
     cover_image = np.array(cover_image)
@@ -73,8 +73,8 @@ def extract_secret(cover_image, z_bits, secret_type='text'):
             end_col = start_col + BLOCK_SIZE
             block = cover_image[start_row:end_row, start_col:end_col]
             
-            # 3.2 生成這個區塊專屬的排列密鑰 Q
-            Q = generate_Q_from_block(block, Q_LENGTH)
+            # 3.2 生成這個區塊專屬的排列密鑰 Q（加入 contact_key）
+            Q = generate_Q_from_block(block, Q_LENGTH, contact_key=contact_key)
             
             # 3.3 計算 21 個多層次平均值
             averages_21 = calculate_hierarchical_averages(block)
@@ -129,7 +129,7 @@ def extract_secret(cover_image, z_bits, secret_type='text'):
     return secret, info
 
 
-def detect_and_extract(cover_image, z_bits):
+def detect_and_extract(cover_image, z_bits, contact_key=None):
     """
     功能:
         自動偵測機密類型並提取
@@ -137,6 +137,7 @@ def detect_and_extract(cover_image, z_bits):
     參數:
         cover_image: 無載體圖片
         z_bits: Z 碼
+        contact_key: 對象專屬密鑰（字串），用於解密
     
     返回:
         secret: 機密內容
@@ -174,7 +175,8 @@ def detect_and_extract(cover_image, z_bits):
                 break
             
             block = cover_image[i*BLOCK_SIZE:(i+1)*BLOCK_SIZE, j*BLOCK_SIZE:(j+1)*BLOCK_SIZE]
-            Q = generate_Q_from_block(block, Q_LENGTH)
+            # 使用 contact_key 生成 Q
+            Q = generate_Q_from_block(block, Q_LENGTH, contact_key=contact_key)
             averages_21 = calculate_hierarchical_averages(block)
             reordered = apply_Q_three_rounds(averages_21, Q)
             msbs = get_msbs(reordered)

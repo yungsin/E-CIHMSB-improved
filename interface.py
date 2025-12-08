@@ -61,12 +61,30 @@ if 'extract_result' not in st.session_state:
 # ==================== 對象管理 ====================
 CONTACTS_FILE = "contacts.json"
 
+def generate_contact_key():
+    """生成對象專屬密鑰（32 字元隨機字串）"""
+    import secrets
+    return secrets.token_hex(16)  # 32 字元的十六進位字串
+
 def load_contacts():
-    """讀取對象資料"""
+    """讀取對象資料（支援新舊格式）"""
     try:
         if os.path.exists(CONTACTS_FILE):
             with open(CONTACTS_FILE, 'r', encoding='utf-8') as f:
-                return json.load(f)
+                data = json.load(f)
+                # 檢查是否為舊格式並轉換
+                converted = {}
+                for name, value in data.items():
+                    if isinstance(value, dict):
+                        # 新格式: {"style": "...", "key": "..."}
+                        converted[name] = value
+                    else:
+                        # 舊格式: "style" → 轉換為新格式
+                        converted[name] = {
+                            "style": value,
+                            "key": generate_contact_key()
+                        }
+                return converted
     except:
         pass
     return {}
@@ -75,6 +93,23 @@ def save_contacts(contacts):
     """儲存對象資料"""
     with open(CONTACTS_FILE, 'w', encoding='utf-8') as f:
         json.dump(contacts, f, ensure_ascii=False, indent=2)
+
+def get_contact_style(contacts, name):
+    """取得對象的風格"""
+    if name in contacts:
+        data = contacts[name]
+        if isinstance(data, dict):
+            return data.get("style")
+        return data  # 舊格式兼容
+    return None
+
+def get_contact_key(contacts, name):
+    """取得對象的密鑰"""
+    if name in contacts:
+        data = contacts[name]
+        if isinstance(data, dict):
+            return data.get("key")
+    return None
 
 if 'contacts' not in st.session_state:
     st.session_state.contacts = load_contacts()
@@ -1270,7 +1305,10 @@ if st.session_state.current_mode is not None:
             
             can_add = new_name and new_name.strip() and new_style != "選擇"
             if st.button("新增", key="sidebar_add_btn", use_container_width=True, disabled=not can_add, type="primary" if can_add else "secondary"):
-                st.session_state.contacts[new_name.strip()] = new_style
+                st.session_state.contacts[new_name.strip()] = {
+                    "style": new_style,
+                    "key": generate_contact_key()
+                }
                 save_contacts(st.session_state.contacts)
                 st.toast(f"✅ 已新增「{new_name.strip()}」")
                 st.session_state.add_contact_counter = add_counter + 1
@@ -1280,7 +1318,9 @@ if st.session_state.current_mode is not None:
         st.markdown('<div id="built-contacts-title">對象列表</div>', unsafe_allow_html=True)
         
         if contacts:
-            for name, style in contacts.items():
+            for name, contact_data in contacts.items():
+                # 取得風格（支援新舊格式）
+                style = get_contact_style(contacts, name)
                 style_display = STYLE_CATEGORIES.get(style, style) if style else "未綁定"
                 display_text = f"{name}（{style_display}）"
                 
@@ -1293,9 +1333,14 @@ if st.session_state.current_mode is not None:
                     has_change = (new_nickname.strip() != name) or (new_style_edit != style)
                     
                     if st.button("儲存修改", key=f"save_{name}", use_container_width=True, type="primary" if has_change else "secondary"):
+                        # 保留原有的密鑰
+                        old_key = get_contact_key(contacts, name)
                         if new_nickname.strip() != name:
                             del st.session_state.contacts[name]
-                        st.session_state.contacts[new_nickname.strip()] = new_style_edit if new_style_edit != "選擇" else None
+                        st.session_state.contacts[new_nickname.strip()] = {
+                            "style": new_style_edit if new_style_edit != "選擇" else None,
+                            "key": old_key or generate_contact_key()
+                        }
                         save_contacts(st.session_state.contacts)
                         st.rerun()
                     
@@ -1700,37 +1745,37 @@ elif st.session_state.current_mode == 'embed':
                     qr_pil.save(buf, format='PNG')
                     qr_bytes = buf.getvalue()
                     
-                    st.markdown('<p style="font-size: 34px; font-weight: bold; color: #443C3C; margin-bottom: 15px;">Z碼圖</p>', unsafe_allow_html=True)
+                    st.markdown('<p style="font-size: 38px; font-weight: bold; color: #443C3C; margin-bottom: 25px;">Z碼圖</p>', unsafe_allow_html=True)
                     st.image(qr_bytes, width=150)
                     st.download_button("下載 Z碼圖", qr_bytes, "z_code.png", "image/png", key="dl_z_qr")
-                    st.markdown('<p style="font-size: 34px; color: #443C3C; margin-top: 20px;">傳送 Z碼圖給對方</p>', unsafe_allow_html=True)
-                    st.markdown('<p style="font-size: 26px; color: #888; white-space: nowrap;">接收方需要此 Z碼圖才能提取機密</p>', unsafe_allow_html=True)
+                    st.markdown('<p style="font-size: 38px; color: #443C3C; margin-top: 35px;">傳送 Z碼圖給對方</p>', unsafe_allow_html=True)
+                    st.markdown('<p style="font-size: 30px; color: #888; margin-top: 15px; white-space: nowrap;">接收方需要此 Z碼圖才能提取機密</p>', unsafe_allow_html=True)
                 except:
                     style_num_int = int(style_num)
                     img_num_int = int(img_num)
                     img_size_int = int(img_size)
                     z_img, _ = encode_z_as_image_with_header(r['z_bits'], style_num_int, img_num_int, img_size_int)
                     
-                    st.markdown('<p style="font-size: 34px; font-weight: bold; color: #443C3C; margin-bottom: 15px;">Z碼圖</p>', unsafe_allow_html=True)
+                    st.markdown('<p style="font-size: 38px; font-weight: bold; color: #443C3C; margin-bottom: 25px;">Z碼圖</p>', unsafe_allow_html=True)
                     st.image(z_img, width=150)
                     buf = BytesIO()
                     z_img.save(buf, format='PNG')
                     st.download_button("下載 Z碼圖", buf.getvalue(), "z_code.png", "image/png", key="dl_z_img_fallback")
-                    st.markdown('<p style="font-size: 34px; color: #443C3C; margin-top: 20px;">傳送 Z碼圖給對方</p>', unsafe_allow_html=True)
-                    st.markdown('<p style="font-size: 26px; color: #888; white-space: nowrap;">接收方需要此 Z碼圖才能提取機密</p>', unsafe_allow_html=True)
+                    st.markdown('<p style="font-size: 38px; color: #443C3C; margin-top: 35px;">傳送 Z碼圖給對方</p>', unsafe_allow_html=True)
+                    st.markdown('<p style="font-size: 30px; color: #888; margin-top: 15px; white-space: nowrap;">接收方需要此 Z碼圖才能提取機密</p>', unsafe_allow_html=True)
             else:
                 style_num = r.get("style_num", 1)
                 img_num = int(r["embed_image_choice"].split("-")[1])
                 img_size = int(r["embed_image_choice"].split("-")[2])
                 z_img, _ = encode_z_as_image_with_header(r['z_bits'], style_num, img_num, img_size)
                 
-                st.markdown('<p style="font-size: 34px; font-weight: bold; color: #443C3C; margin-bottom: 15px;">Z碼圖</p>', unsafe_allow_html=True)
+                st.markdown('<p style="font-size: 38px; font-weight: bold; color: #443C3C; margin-bottom: 25px;">Z碼圖</p>', unsafe_allow_html=True)
                 st.image(z_img, width=150)
                 buf = BytesIO()
                 z_img.save(buf, format='PNG')
                 st.download_button("下載 Z碼圖", buf.getvalue(), "z_code.png", "image/png", key="dl_z_img")
-                st.markdown('<p style="font-size: 34px; color: #443C3C; margin-top: 20px;">傳送 Z碼圖給對方</p>', unsafe_allow_html=True)
-                st.markdown('<p style="font-size: 26px; color: #888; white-space: nowrap;">接收方需要此 Z碼圖才能提取機密</p>', unsafe_allow_html=True)
+                st.markdown('<p style="font-size: 38px; color: #443C3C; margin-top: 35px;">傳送 Z碼圖給對方</p>', unsafe_allow_html=True)
+                st.markdown('<p style="font-size: 30px; color: #888; margin-top: 15px; white-space: nowrap;">接收方需要此 Z碼圖才能提取機密</p>', unsafe_allow_html=True)
         
         # 返回首頁按鈕 - 和開始嵌入按鈕一樣固定在底部
         _, btn_col, _ = st.columns([1, 1, 1])
@@ -1961,7 +2006,7 @@ elif st.session_state.current_mode == 'embed':
                 selected_contact = st.session_state.get('selected_contact_saved', '選擇')
                 
                 style_list = list(STYLE_CATEGORIES.keys())
-                auto_style = contacts.get(selected_contact, None)
+                auto_style = get_contact_style(contacts, selected_contact)
                 # 找到對應的帶編號風格
                 default_style_index = 0
                 if auto_style:
@@ -2072,6 +2117,10 @@ elif st.session_state.current_mode == 'embed':
                     _, img_process = download_image_by_id(image_id, image_size)
                     capacity = calculate_image_capacity(image_size)
                     
+                    # 取得對象密鑰
+                    selected_contact = st.session_state.get('selected_contact_saved', None)
+                    contact_key = get_contact_key(st.session_state.contacts, selected_contact) if selected_contact else None
+                    
                     embed_secret_type = st.session_state.get('embed_secret_type_saved', '文字')
                     embed_text = st.session_state.get('embed_text_saved', None)
                     
@@ -2088,7 +2137,8 @@ elif st.session_state.current_mode == 'embed':
                             secret_desc = f"圖像: {secret_content.size[0]}×{secret_content.size[1]} px"
                             secret_filename = st.session_state.get('embed_secret_image_name', 'image.png')
                     
-                    z_bits, used_capacity, info = embed_secret(img_process, secret_content, secret_type=secret_type_flag)
+                    # 傳入 contact_key 進行嵌入
+                    z_bits, used_capacity, info = embed_secret(img_process, secret_content, secret_type=secret_type_flag, contact_key=contact_key)
                     processing_placeholder.empty()
                     
                     st.session_state.embed_result = {
@@ -2455,6 +2505,10 @@ else:
                     clean = ''.join(c for c in extract_z_text.strip() if c in '01')
                     Z = [int(b) for b in clean] if clean else None
                     
+                    # 取得對象密鑰
+                    selected_contact = st.session_state.get('extract_contact_saved', None)
+                    contact_key = get_contact_key(st.session_state.contacts, selected_contact) if selected_contact else None
+                    
                     if Z:
                         style_name = NUM_TO_STYLE.get(extract_style_num, "建築")
                         images = IMAGE_LIBRARY.get(style_name, [])
@@ -2464,7 +2518,8 @@ else:
                             selected_image = images[img_idx]
                             _, img_process = download_image_by_id(selected_image["id"], extract_img_size)
                             
-                            secret, secret_type, info = detect_and_extract(img_process, Z)
+                            # 傳入 contact_key 進行提取
+                            secret, secret_type, info = detect_and_extract(img_process, Z, contact_key=contact_key)
                             processing_placeholder.empty()
                             
                             if secret_type == 'text':
