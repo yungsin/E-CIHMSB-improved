@@ -1319,6 +1319,9 @@ if st.session_state.current_mode is None:
         font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
         background: transparent;
         overflow: hidden;
+        display: flex;
+        justify-content: center;
+        align-items: center;
     }}
     
     .home-fullscreen {{
@@ -1329,9 +1332,9 @@ if st.session_state.current_mode is None:
         min-height: 100vh;
         display: flex;
         flex-direction: column;
-        justify-content: flex-start;
+        justify-content: space-between;
         align-items: center;
-        padding-top: 30px;
+        padding: 5vh 2vw 3vh 2vw;
     }}
     
     .welcome-container {{
@@ -1339,7 +1342,6 @@ if st.session_state.current_mode is None:
         flex-direction: column;
         align-items: center;
         text-align: center;
-        padding-bottom: 60px;
     }}
     
     .cards-container {{
@@ -1350,7 +1352,6 @@ if st.session_state.current_mode is None:
         flex-wrap: nowrap;
         padding: 0 2vw;
         max-width: 1600px;
-        padding-bottom: 60px;
     }}
     
     .welcome-title {{
@@ -1450,11 +1451,11 @@ if st.session_state.current_mode is None:
     </head>
     <body>
     <div class="home-fullscreen">
-        <div class="welcome-container" style="padding-bottom: 80px;">
+        <div class="welcome-container">
             <div class="welcome-title">高效能無載體之機密編碼技術</div>
         </div>
         
-        <div class="cards-container" style="padding-bottom: 80px;">
+        <div class="cards-container">
             <div class="anim-card anim-card-embed" onclick="clickEmbed()">
                 <div class="anim-flow">
                     <img src="{icon_secret}" alt="secret">
