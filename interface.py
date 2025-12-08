@@ -1859,7 +1859,7 @@ elif st.session_state.current_mode == 'embed':
 </script>
 """, height=0)
         
-        st.markdown('<div class="page-title-embed" style="text-align: center; margin-bottom: 20px; margin-top: 1rem;">嵌入機密</div>', unsafe_allow_html=True)
+        st.markdown('<div class="page-title-embed" style="text-align: center; margin-bottom: 20px; margin-top: -1rem;">嵌入機密</div>', unsafe_allow_html=True)
         
         embed_text, embed_image, secret_bits_needed = None, None, 0
         embed_image_choice, selected_size = None, None
@@ -2330,7 +2330,7 @@ else:
 </script>
 """, height=0)
         
-        st.markdown('<div class="page-title-extract" style="text-align: center; margin-bottom: 20px; margin-top: 1rem;">提取機密</div>', unsafe_allow_html=True)
+        st.markdown('<div class="page-title-extract" style="text-align: center; margin-bottom: 20px; margin-top: -1rem;">提取機密</div>', unsafe_allow_html=True)
         
         extract_z_text, extract_style_num, extract_img_num, extract_img_size = None, None, None, None
         
