@@ -678,7 +678,7 @@ p.hint-text,
 div.hint-text {
     font-size: 20px !important;
     font-weight: normal !important;
-    color: #888 !important;
+    color: #999 !important;
 }
 
 /* bits 資訊專用樣式 */
@@ -978,7 +978,7 @@ h3 { font-size: clamp(28px, 3vw, 36px) !important; font-weight: bold !important;
 
 [data-testid="stMain"] .stSelectbox [data-baseweb="select"] span,
 [data-testid="stMain"] .stSelectbox [data-baseweb="select"] div {
-    font-size: 26px !important;
+    font-size: 24px !important;
     font-weight: bold !important;
     color: #333 !important;
 }
