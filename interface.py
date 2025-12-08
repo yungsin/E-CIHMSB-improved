@@ -2203,6 +2203,11 @@ else:
         step1_done = saved_contact is not None and saved_contact in contact_names
         style_name = STYLE_CATEGORIES.get(saved_style, "建築") if saved_style else None
         
+        # 初始化提取變量
+        extract_z_text = None
+        extract_img_num = None
+        extract_img_size = None
+        
         col1, col2 = st.columns([1, 1], gap="large")
         
         # ===== 第一步：選擇對象 =====
@@ -2253,7 +2258,9 @@ else:
                     uploaded_img = Image.open(extract_file)
                     detected = False
                     success_msg = ""
+                    error_msg = ""
                     
+                    # 先嘗試 QR Code
                     try:
                         decode_qr = load_pyzbar()
                         decoded = decode_qr(uploaded_img)
@@ -2270,9 +2277,10 @@ else:
                                     img_name = images[extract_img_num - 1]['name'] if extract_img_num <= len(images) else str(extract_img_num)
                                     success_msg = f"QR Code：圖片 {extract_img_num}（{img_name}），尺寸 {extract_img_size}×{extract_img_size}"
                                     detected = True
-                    except:
-                        pass
+                    except Exception as e:
+                        error_msg = f"QR: {str(e)}"
                     
+                    # 如果 QR 失敗，嘗試 Z碼圖
                     if not detected:
                         try:
                             z_bits, img_num, img_size = decode_image_to_z_with_header(uploaded_img)
@@ -2283,15 +2291,20 @@ else:
                             img_name = images[extract_img_num - 1]['name'] if extract_img_num <= len(images) else str(extract_img_num)
                             success_msg = f"Z碼圖：圖片 {extract_img_num}（{img_name}），尺寸 {extract_img_size}×{extract_img_size}"
                             detected = True
-                        except:
-                            pass
+                        except Exception as e:
+                            if error_msg:
+                                error_msg += f", Z碼: {str(e)}"
+                            else:
+                                error_msg = f"Z碼: {str(e)}"
                     
                     # 顯示上傳的圖片和識別結果
                     st.image(uploaded_img, width=120)
                     if detected:
                         st.markdown(f'<p style="font-size: 22px; color: #443C3C; margin-top: 10px;">{success_msg}</p>', unsafe_allow_html=True)
                     else:
-                        st.markdown('<p style="font-size: 22px; color: #C62828; margin-top: 10px;">❌ 無法識別</p>', unsafe_allow_html=True)
+                        st.markdown(f'<p style="font-size: 22px; color: #C62828; margin-top: 10px;">❌ 無法識別</p>', unsafe_allow_html=True)
+                        if error_msg:
+                            st.markdown(f'<p style="font-size: 14px; color: #999;">{error_msg}</p>', unsafe_allow_html=True)
             else:
                 st.markdown('<p style="font-size: 24px; color: #999; text-align: center;">請先完成第一步</p>', unsafe_allow_html=True)
         
