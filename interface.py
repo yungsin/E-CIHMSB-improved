@@ -1684,28 +1684,49 @@ elif st.session_state.current_mode == 'embed':
                 st.download_button("下載 Z碼圖", buf.getvalue(), "z_code.png", "image/png", key="dl_z_img")
                 st.markdown('<p style="font-size: 30px; color: #443C3C;">傳送 Z碼圖給對方</p>', unsafe_allow_html=True)
         
-        # 返回首頁按鈕 - 正常流動置中
-        st.markdown("<div style='height: 30px;'></div>", unsafe_allow_html=True)
+        # 返回首頁按鈕 - 使用 HTML/CSS 絕對置中
+        st.markdown("""
+        <style>
+        .center-back-btn {
+            display: flex;
+            justify-content: center;
+            width: 100%;
+            margin-top: 20px;
+        }
+        </style>
+        """, unsafe_allow_html=True)
         
-        _, btn_col, _ = st.columns([1, 1, 1])
-        with btn_col:
-            if st.button("返回首頁", key="back_to_home_from_embed", type="primary"):
+        # 用全寬 container 置中
+        back_col1, back_col2, back_col3 = st.columns([1, 1, 1])
+        with back_col2:
+            if st.button("返回首頁", key="back_to_home_from_embed", type="primary", use_container_width=True):
                 st.session_state.embed_page = 'input'
                 st.session_state.embed_result = None
                 st.session_state.embed_step = 1
                 st.session_state.current_mode = None
                 st.rerun()
         
-        # 置中按鈕
+        # 強制置中
         components.html("""
         <script>
         function fixBackButton() {
             const buttons = window.parent.document.querySelectorAll('button');
             for (let btn of buttons) { 
                 if (btn.innerText === '返回首頁') {
-                    let container = btn.closest('.stButton') || btn.parentElement.parentElement.parentElement;
+                    // 找到最外層的 stElementContainer
+                    let container = btn.closest('[data-testid="stHorizontalBlock"]');
                     if (container) {
-                        container.style.cssText = 'display:flex!important;justify-content:center!important;';
+                        container.style.cssText = 'display:flex!important;justify-content:center!important;width:100%!important;';
+                    }
+                    // 找到 column
+                    let column = btn.closest('[data-testid="column"]');
+                    if (column) {
+                        column.style.cssText = 'display:flex!important;justify-content:center!important;';
+                    }
+                    // 找到 stButton
+                    let stBtn = btn.closest('.stButton');
+                    if (stBtn) {
+                        stBtn.style.cssText = 'display:flex!important;justify-content:center!important;';
                     }
                 }
             }
@@ -1713,6 +1734,7 @@ elif st.session_state.current_mode == 'embed':
         fixBackButton();
         setTimeout(fixBackButton, 100);
         setTimeout(fixBackButton, 300);
+        setTimeout(fixBackButton, 500);
         </script>
         """, height=0)
     
