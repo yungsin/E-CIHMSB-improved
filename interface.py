@@ -2206,7 +2206,7 @@ elif st.session_state.current_mode == 'embed':
                     if (btn.innerText === '開始嵌入') {
                         let container = btn.closest('.stButton') || btn.parentElement.parentElement.parentElement;
                         if (container) {
-                            container.style.cssText = 'position:fixed!important;bottom:115px!important;left:50%!important;transform:translateX(-50%)!important;width:auto!important;z-index:1000!important;';
+                            container.style.cssText = 'position:fixed!important;bottom:85px!important;left:50%!important;transform:translateX(-50%)!important;width:auto!important;z-index:1000!important;';
                         }
                     }
                 }
