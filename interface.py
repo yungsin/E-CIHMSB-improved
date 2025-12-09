@@ -2475,12 +2475,17 @@ else:
                     btn.style.setProperty('background-color', '#c9b89a', 'important');
                     btn.style.setProperty('border-color', '#c9b89a', 'important');
                     btn.style.setProperty('color', '#443C3C', 'important');
+                    btn.style.setProperty('font-size', '24px', 'important');
+                    btn.style.setProperty('font-weight', '700', 'important');
+                    btn.style.setProperty('padding', '8px 18px', 'important');
+                    btn.style.setProperty('min-width', '120px', 'important');
                 }
             }
         }
         fixExtractBackButton();
         setTimeout(fixExtractBackButton, 100);
         setTimeout(fixExtractBackButton, 300);
+        setTimeout(fixExtractBackButton, 500);
         </script>
         """, height=0)
     
