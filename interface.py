@@ -2675,4 +2675,3 @@ else:
         setTimeout(fixButtons, 300);
         </script>
         """, height=0)
-
