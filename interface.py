@@ -2076,10 +2076,9 @@ elif st.session_state.current_mode == 'embed':
                         st.session_state.embed_text_saved = embed_text
                         st.session_state.embed_secret_type_saved = "文字"
                         
-                        # 計算中文和英文/符號數量
-                        chinese_count = sum(1 for c in embed_text if ord(c) > 127)
-                        other_count = len(embed_text) - chinese_count
-                        st.markdown(f'<div class="bits-info">機密文字：{chinese_count} 中文 + {other_count} 英文/符號<br>所需容量：{secret_bits_needed:,} bits</div>', unsafe_allow_html=True)
+                        # 計算字數
+                        char_count = len(embed_text)
+                        st.markdown(f'<div class="bits-info">機密文字：{char_count} 字<br>所需容量：{secret_bits_needed:,} bits</div>', unsafe_allow_html=True)
                         step2_done = True
                     else:
                         st.session_state.secret_bits_saved = 0
