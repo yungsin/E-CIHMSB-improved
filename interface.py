@@ -2191,7 +2191,7 @@ elif st.session_state.current_mode == 'embed':
         all_done = step1_done and step2_done and st.session_state.get('embed_image_id')
         
         if all_done:
-            st.markdown("<div style='margin-top: 20px;'></div>", unsafe_allow_html=True)
+            st.markdown("<div style='margin-top: 10px;'></div>", unsafe_allow_html=True)
             btn_col1, btn_col2, btn_col3 = st.columns([1, 0.5, 1])
             with btn_col2:
                 if st.button("開始嵌入", type="primary", key="embed_btn_horizontal", use_container_width=True):
