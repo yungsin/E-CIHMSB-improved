@@ -706,7 +706,7 @@ section[data-testid="stSidebar"] button[kind="header"],
 
 /* 機密文字顯示 - 中等字體 */
 [data-testid="stMain"] .stMarkdown div.secret-content {
-    font-size: 16px !important;
+    font-size: 20px !important;
     font-weight: normal !important;
     color: #4f7343 !important;
     line-height: 1.5 !important;
