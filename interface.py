@@ -1800,7 +1800,7 @@ elif st.session_state.current_mode == 'embed':
         
         with col_left:
             # 嵌入成功 - 無框版
-            st.markdown(f'<p style="font-size: 32px; font-weight: bold; color: #443C3C; margin-bottom: 25px;">嵌入成功！({r["elapsed_time"]:.2f} 秒)</p>', unsafe_allow_html=True)
+            st.markdown(f'<p style="font-size: 32px; font-weight: bold; color: #4f7343; margin-bottom: 25px;">嵌入成功！({r["elapsed_time"]:.2f} 秒)</p>', unsafe_allow_html=True)
             
             style_num = r.get("style_num", 1)
             style_name = NUM_TO_STYLE.get(style_num, "建築")
@@ -1826,8 +1826,8 @@ elif st.session_state.current_mode == 'embed':
             
             # 嵌入資訊 - 無框版
             st.markdown(f'''
-            <div style="font-size: 28px; color: #443C3C; line-height: 2;">
-                <p style="font-weight: bold; font-size: 32px; margin-bottom: 8px;">嵌入資訊</p>
+            <div style="font-size: 28px; color: #4f7343; line-height: 2;">
+                <p style="font-weight: bold; font-size: 32px; margin-bottom: 8px; color: #4f7343;">嵌入資訊</p>
                 <b>載體風格：{style_num}. {style_name}</b><br>
                 <b>載體圖像編號：{img_num}（{img_name}）</b><br>
                 <b>載體圖像尺寸：{img_size}×{img_size}</b><br>
@@ -1858,7 +1858,7 @@ elif st.session_state.current_mode == 'embed':
                     st.markdown('<p style="font-size: 38px; font-weight: bold; color: #443C3C; margin-bottom: 25px;">Z碼圖</p>', unsafe_allow_html=True)
                     st.image(qr_bytes, width=200)
                     st.download_button("下載 Z碼圖", qr_bytes, "z_code.png", "image/png", key="dl_z_qr")
-                    st.markdown('<p style="font-size: 38px; color: #443C3C; margin-top: 35px;">傳送 Z碼圖給對方</p>', unsafe_allow_html=True)
+                    st.markdown('<p style="font-size: 38px; color: #443C3C; margin-top: 25px; margin-bottom: 0;">傳送 Z碼圖給對方</p>', unsafe_allow_html=True)
                     st.markdown('<p style="font-size: 30px; color: #888; margin-top: 5px; white-space: nowrap;">接收方需要此 Z碼圖才能提取機密</p>', unsafe_allow_html=True)
                 except:
                     style_num_int = int(style_num)
@@ -1871,7 +1871,7 @@ elif st.session_state.current_mode == 'embed':
                     buf = BytesIO()
                     z_img.save(buf, format='PNG')
                     st.download_button("下載 Z碼圖", buf.getvalue(), "z_code.png", "image/png", key="dl_z_img_fallback")
-                    st.markdown('<p style="font-size: 38px; color: #443C3C; margin-top: 35px;">傳送 Z碼圖給對方</p>', unsafe_allow_html=True)
+                    st.markdown('<p style="font-size: 38px; color: #443C3C; margin-top: 25px; margin-bottom: 0;">傳送 Z碼圖給對方</p>', unsafe_allow_html=True)
                     st.markdown('<p style="font-size: 30px; color: #888; margin-top: 5px; white-space: nowrap;">接收方需要此 Z碼圖才能提取機密</p>', unsafe_allow_html=True)
             else:
                 style_num = r.get("style_num", 1)
@@ -1884,7 +1884,7 @@ elif st.session_state.current_mode == 'embed':
                 buf = BytesIO()
                 z_img.save(buf, format='PNG')
                 st.download_button("下載 Z碼圖", buf.getvalue(), "z_code.png", "image/png", key="dl_z_img")
-                st.markdown('<p style="font-size: 38px; color: #443C3C; margin-top: 35px;">傳送 Z碼圖給對方</p>', unsafe_allow_html=True)
+                st.markdown('<p style="font-size: 38px; color: #443C3C; margin-top: 25px; margin-bottom: 0;">傳送 Z碼圖給對方</p>', unsafe_allow_html=True)
                 st.markdown('<p style="font-size: 30px; color: #888; margin-top: 5px; white-space: nowrap;">接收方需要此 Z碼圖才能提取機密</p>', unsafe_allow_html=True)
         
         # 返回首頁按鈕 - 和開始嵌入按鈕一樣固定在底部
