@@ -1778,14 +1778,14 @@ elif st.session_state.current_mode == 'embed':
             color: #443C3C !important;
             border: none !important;
             font-weight: 700 !important;
-            font-size: 28px !important;
-            min-width: 140px !important;
-            padding: 12px 24px !important;
+            font-size: 24px !important;
+            min-width: 120px !important;
+            padding: 8px 18px !important;
         }
         [data-testid="stDownloadButton"] button p,
         [data-testid="stDownloadButton"] button span {
             font-weight: 700 !important;
-            font-size: 28px !important;
+            font-size: 24px !important;
         }
         [data-testid="stDownloadButton"] button:hover {
             background-color: #b8a788 !important;
@@ -2596,7 +2596,7 @@ else:
                             <div style="flex-shrink: 0;">
                                 <img src="data:image/png;base64,{img_b64}" style="width: 150px; border-radius: 8px;">
                             </div>
-                            <div style="font-size: 22px; color: #4f7343; font-weight: bold; line-height: 1.6;">
+                            <div style="font-size: 26px; color: #4f7343; font-weight: bold; line-height: 1.6;">
                                 {success_msg}
                             </div>
                         </div>
