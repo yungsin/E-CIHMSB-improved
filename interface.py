@@ -676,7 +676,7 @@ section[data-testid="stSidebar"] button[kind="header"],
 [data-testid="stMain"] .stMarkdown div.hint-text,
 p.hint-text,
 div.hint-text {
-    font-size: 18px !important;
+    font-size: 22px !important;
     font-weight: bold !important;
     color: #4f7343 !important;
 }
@@ -2042,7 +2042,7 @@ elif st.session_state.current_mode == 'embed':
                     st.session_state.selected_contact_saved = None
                     step1_done = False
                     # 未選擇時顯示提示
-                    st.markdown('<div class="hint-text" style="margin-top: 10px; font-size: 18px !important;">💡 點擊「對象管理」可修改資料</div>', unsafe_allow_html=True)
+                    st.markdown('<div class="hint-text" style="margin-top: 10px; font-size: 22px !important;">💡 點擊「對象管理」可修改資料</div>', unsafe_allow_html=True)
             else:
                 st.markdown("""<div style="background: #fff2cc; border: none; border-radius: 8px; padding: 15px; text-align: center;">
                     <div style="font-size: 24px; font-weight: bold; color: #856404;">⚠️ 尚無對象</div>
@@ -2362,10 +2362,10 @@ else:
                     
                     col_orig, col_ext = st.columns(2)
                     with col_orig:
-                        st.markdown('<p style="font-size: 20px; font-weight: bold;">原始圖像</p>', unsafe_allow_html=True)
+                        st.markdown('<p style="font-size: 20px; font-weight: bold; color: #443C3C;">原始圖像</p>', unsafe_allow_html=True)
                         st.image(orig_img, width=150)
                     with col_ext:
-                        st.markdown('<p style="font-size: 20px; font-weight: bold;">提取結果</p>', unsafe_allow_html=True)
+                        st.markdown('<p style="font-size: 20px; font-weight: bold; color: #443C3C;">提取結果</p>', unsafe_allow_html=True)
                         st.image(extracted_img, width=150)
                     
                     orig_arr = np.array(orig_img.convert('RGB'))
@@ -2529,7 +2529,7 @@ else:
                     step1_done = True
                 else:
                     # 未選擇時顯示提示
-                    st.markdown('<div class="hint-text" style="margin-top: 10px; font-size: 18px !important;">💡 點擊「對象管理」可修改資料</div>', unsafe_allow_html=True)
+                    st.markdown('<div class="hint-text" style="margin-top: 10px; font-size: 22px !important;">💡 點擊「對象管理」可修改資料</div>', unsafe_allow_html=True)
             else:
                 st.markdown("""<div style="background: #fff2cc; border: none; border-radius: 8px; padding: 15px; text-align: center;">
                     <div style="font-size: 24px; font-weight: bold; color: #856404;">⚠️ 尚無對象</div>
@@ -2624,7 +2624,7 @@ else:
                         st.image(uploaded_img, width=150)
                         st.markdown(f'<p style="font-size: 22px; color: #C62828; margin-top: 10px;">無法識別</p>', unsafe_allow_html=True)
                         if error_msg:
-                            st.markdown(f'<p style="font-size: 14px; color: #999;">{error_msg}</p>', unsafe_allow_html=True)
+                            st.markdown(f'<p style="font-size: 14px; color: #443C3C;">{error_msg}</p>', unsafe_allow_html=True)
             else:
                 st.markdown('<p style="font-size: 24px; color: #999; text-align: center;">請先完成第一步</p>', unsafe_allow_html=True)
         
