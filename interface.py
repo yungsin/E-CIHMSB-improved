@@ -2428,11 +2428,11 @@ else:
                         st.markdown('<p style="font-size: 22px; font-weight: bold; color: #C62828;">不一致！</p>', unsafe_allow_html=True)
                     col_orig, col_gap, col_ext = st.columns([1, 0.1, 1])
                     with col_orig:
-                        st.markdown('<p style="font-size: 16px; color: #443C3C;"><b>原始輸入：</b></p>', unsafe_allow_html=True)
-                        st.markdown(f'<p style="font-size: 12px; color: #666; white-space: pre-wrap; line-height: 2;">{vr["input"]}</p>', unsafe_allow_html=True)
+                        st.markdown('<p style="font-size: 14px; color: #443C3C;"><b>原始輸入：</b></p>', unsafe_allow_html=True)
+                        st.markdown(f'<p style="font-size: 10px; color: #666; white-space: pre-wrap; line-height: 1.8;">{vr["input"]}</p>', unsafe_allow_html=True)
                     with col_ext:
-                        st.markdown('<p style="font-size: 16px; color: #443C3C;"><b>提取結果：</b></p>', unsafe_allow_html=True)
-                        st.markdown(f'<p style="font-size: 12px; color: #666; white-space: pre-wrap; line-height: 2;">{r["content"]}</p>', unsafe_allow_html=True)
+                        st.markdown('<p style="font-size: 14px; color: #443C3C;"><b>提取結果：</b></p>', unsafe_allow_html=True)
+                        st.markdown(f'<p style="font-size: 10px; color: #666; white-space: pre-wrap; line-height: 1.8;">{r["content"]}</p>', unsafe_allow_html=True)
             else:
                 verify_img = st.file_uploader("上傳原始機密圖像", type=["png", "jpg", "jpeg"], key="verify_img_upload")
                 if verify_img:
