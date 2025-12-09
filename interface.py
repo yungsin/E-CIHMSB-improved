@@ -704,6 +704,19 @@ section[data-testid="stSidebar"] button[kind="header"],
     font-weight: bold !important;
 }
 
+/* 驗證對比文字 - 小字體 */
+[data-testid="stMain"] .stMarkdown p.verify-label {
+    font-size: 14px !important;
+    font-weight: bold !important;
+    color: #443C3C !important;
+}
+
+[data-testid="stMain"] .stMarkdown p.verify-content {
+    font-size: 12px !important;
+    font-weight: normal !important;
+    color: #666 !important;
+}
+
 /* 小提示文字樣式 */
 [data-testid="stMain"] .stMarkdown p.hint-text,
 [data-testid="stMain"] .stMarkdown div.hint-text,
@@ -2428,11 +2441,11 @@ else:
                         st.markdown('<p style="font-size: 22px; font-weight: bold; color: #C62828;">不一致！</p>', unsafe_allow_html=True)
                     col_orig, col_gap, col_ext = st.columns([1, 0.1, 1])
                     with col_orig:
-                        st.markdown('<p style="font-size: 14px; color: #443C3C;"><b>原始輸入：</b></p>', unsafe_allow_html=True)
-                        st.markdown(f'<p style="font-size: 10px; color: #666; white-space: pre-wrap; line-height: 1.8;">{vr["input"]}</p>', unsafe_allow_html=True)
+                        st.markdown('<p class="verify-label"><b>原始輸入：</b></p>', unsafe_allow_html=True)
+                        st.markdown(f'<p class="verify-content" style="white-space: pre-wrap; line-height: 1.8;">{vr["input"]}</p>', unsafe_allow_html=True)
                     with col_ext:
-                        st.markdown('<p style="font-size: 14px; color: #443C3C;"><b>提取結果：</b></p>', unsafe_allow_html=True)
-                        st.markdown(f'<p style="font-size: 10px; color: #666; white-space: pre-wrap; line-height: 1.8;">{r["content"]}</p>', unsafe_allow_html=True)
+                        st.markdown('<p class="verify-label"><b>提取結果：</b></p>', unsafe_allow_html=True)
+                        st.markdown(f'<p class="verify-content" style="white-space: pre-wrap; line-height: 1.8;">{r["content"]}</p>', unsafe_allow_html=True)
             else:
                 verify_img = st.file_uploader("上傳原始機密圖像", type=["png", "jpg", "jpeg"], key="verify_img_upload")
                 if verify_img:
