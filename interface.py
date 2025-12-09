@@ -2381,8 +2381,8 @@ else:
         st.markdown('<div class="page-title-extract" style="text-align: center; margin-bottom: 30px;">提取結果</div>', unsafe_allow_html=True)
         
         if r['type'] == 'text':
-            # 文字驗證 - 三個水平區塊
-            col1, col2, col3 = st.columns([1.2, 1.2, 1.4])
+            # 文字驗證 - 三個水平區塊（加大間距）
+            col1, gap1, col2, gap2, col3 = st.columns([1.2, 0.15, 1.2, 0.15, 1.4])
             
             # 區塊1：提取完成
             with col1:
