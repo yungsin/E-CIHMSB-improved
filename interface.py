@@ -617,7 +617,7 @@ section[data-testid="stSidebar"] button[kind="header"],
     font-size: 56px;
     font-weight: bold;
     color: #FFFFFF;
-    margin-bottom: 15px;
+    margin-bottom: 8px;
     text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
 }
 
@@ -685,7 +685,7 @@ div.hint-text {
 .tab-container {
     display: flex;
     gap: 10px;
-    margin-bottom: 15px;
+    margin-bottom: 8px;
 }
 .tab-btn {
     flex: 1;
@@ -1199,7 +1199,7 @@ body [data-baseweb="select"] ~ div *::-webkit-scrollbar-track,
 /* 間距調整 */
 .block-container {
     padding-top: 0.5rem !important;
-    padding-bottom: 7rem !important;
+    padding-bottom: 3rem !important;
     max-width: 1400px !important;
     margin: 0 auto !important;
 }
@@ -1827,7 +1827,7 @@ elif st.session_state.current_mode == 'embed':
             # 嵌入資訊 - 無框版
             st.markdown(f'''
             <div style="font-size: 28px; color: #443C3C; line-height: 2;">
-                <p style="font-weight: bold; font-size: 32px; margin-bottom: 15px;">嵌入資訊</p>
+                <p style="font-weight: bold; font-size: 32px; margin-bottom: 8px;">嵌入資訊</p>
                 <b>載體風格：{style_num}. {style_name}</b><br>
                 <b>載體圖像編號：{img_num}（{img_name}）</b><br>
                 <b>載體圖像尺寸：{img_size}×{img_size}</b><br>
@@ -1963,7 +1963,7 @@ elif st.session_state.current_mode == 'embed':
 </script>
 """, height=0)
         
-        st.markdown('<div class="page-title-embed" style="text-align: center; margin-bottom: 20px; margin-top: -0.8rem;">嵌入機密</div>', unsafe_allow_html=True)
+        st.markdown('<div class="page-title-embed" style="text-align: center; margin-bottom: 10px; margin-top: -0.8rem;">嵌入機密</div>', unsafe_allow_html=True)
         
         embed_text, embed_image, secret_bits_needed = None, None, 0
         embed_image_choice, selected_size = None, None
@@ -2005,7 +2005,7 @@ elif st.session_state.current_mode == 'embed':
         # ===== 第一步：選擇對象 =====
         with col1:
             st.markdown(f"""
-            <div style="text-align: center; padding: 10px; border-bottom: 4px solid #4A6B8A; margin-bottom: 15px;">
+            <div style="text-align: center; padding: 10px; border-bottom: 4px solid #4A6B8A; margin-bottom: 8px;">
                 <span style="font-size: 32px; font-weight: bold; color: #4A6B8A;">第一步：選擇對象</span>
             </div>
             """, unsafe_allow_html=True)
@@ -2035,7 +2035,7 @@ elif st.session_state.current_mode == 'embed':
         # ===== 第二步：機密內容 =====
         with col2:
             st.markdown(f"""
-            <div style="text-align: center; padding: 10px; border-bottom: {'4px solid #B8C8D8' if not step1_done else '4px solid #4A6B8A'}; margin-bottom: 15px;">
+            <div style="text-align: center; padding: 10px; border-bottom: {'4px solid #B8C8D8' if not step1_done else '4px solid #4A6B8A'}; margin-bottom: 8px;">
                 <span style="font-size: 32px; font-weight: bold; color: {'#B8C8D8' if not step1_done else '#4A6B8A'};">第二步：機密內容</span>
             </div>
             """, unsafe_allow_html=True)
@@ -2113,7 +2113,7 @@ elif st.session_state.current_mode == 'embed':
         # ===== 第三步：載體圖像 =====
         with col3:
             st.markdown(f"""
-            <div style="text-align: center; padding: 10px; border-bottom: {'4px solid #B8C8D8' if not step2_done else '4px solid #4A6B8A'}; margin-bottom: 15px;">
+            <div style="text-align: center; padding: 10px; border-bottom: {'4px solid #B8C8D8' if not step2_done else '4px solid #4A6B8A'}; margin-bottom: 8px;">
                 <span style="font-size: 32px; font-weight: bold; color: {'#B8C8D8' if not step2_done else '#4A6B8A'};">第三步：載體圖像</span>
             </div>
             """, unsafe_allow_html=True)
@@ -2458,7 +2458,7 @@ else:
         # ===== 第一步：選擇對象 =====
         with col1:
             st.markdown(f"""
-            <div style="text-align: center; padding: 10px; border-bottom: 4px solid #7D5A6B; margin-bottom: 15px;">
+            <div style="text-align: center; padding: 10px; border-bottom: 4px solid #7D5A6B; margin-bottom: 8px;">
                 <span style="font-size: 32px; font-weight: bold; color: #7D5A6B;">第一步：選擇對象</span>
             </div>
             """, unsafe_allow_html=True)
@@ -2485,7 +2485,7 @@ else:
         # ===== 第二步：上傳 Z碼圖 =====
         with col2:
             st.markdown(f"""
-            <div style="text-align: center; padding: 10px; border-bottom: {'4px solid #D8C0C8' if not step1_done else '4px solid #7D5A6B'}; margin-bottom: 15px;">
+            <div style="text-align: center; padding: 10px; border-bottom: {'4px solid #D8C0C8' if not step1_done else '4px solid #7D5A6B'}; margin-bottom: 8px;">
                 <span style="font-size: 32px; font-weight: bold; color: {'#D8C0C8' if not step1_done else '#7D5A6B'};">第二步：上傳 Z碼圖</span>
             </div>
             """, unsafe_allow_html=True)
