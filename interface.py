@@ -742,7 +742,7 @@ h3 { font-size: clamp(28px, 3vw, 36px) !important; font-weight: bold !important;
     color: white !important;
     border: none !important;
     border-radius: 8px !important;
-    font-size: 20px !important;
+    font-size: 24px !important;
     padding: 8px 20px !important;
     min-width: 80px !important;
 }
@@ -752,7 +752,7 @@ h3 { font-size: clamp(28px, 3vw, 36px) !important; font-weight: bold !important;
     color: #666 !important;
     border: 2px solid #ccc !important;
     border-radius: 8px !important;
-    font-size: 20px !important;
+    font-size: 24px !important;
     padding: 8px 20px !important;
     min-width: 80px !important;
 }
@@ -764,12 +764,12 @@ h3 { font-size: clamp(28px, 3vw, 36px) !important; font-weight: bold !important;
 
 [data-testid="stMain"] .stButton button[kind="primary"] span,
 [data-testid="stMain"] .stButton button[kind="primary"] p {
-    font-size: 20px !important;
+    font-size: 24px !important;
 }
 
 [data-testid="stMain"] .stButton button[kind="secondary"] span,
 [data-testid="stMain"] .stButton button[kind="secondary"] p {
-    font-size: 20px !important;
+    font-size: 24px !important;
 }
 
 [data-testid="stSidebar"] .stButton button[kind="primary"] {
