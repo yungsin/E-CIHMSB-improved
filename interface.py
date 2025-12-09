@@ -15,6 +15,7 @@ import time
 import base64
 import json
 import qrcode
+import html
 
 # 延遲載入 pyzbar（較慢的套件）
 @st.cache_resource
@@ -2420,7 +2421,9 @@ else:
             with col1:
                 st.markdown(f'<p style="font-size: 28px; font-weight: bold; color: #4f7343; margin-bottom: 15px;">提取完成！({r["elapsed_time"]:.2f} 秒)</p>', unsafe_allow_html=True)
                 st.markdown('<p style="font-size: 26px; font-weight: bold; color: #4f7343;">機密文字:</p>', unsafe_allow_html=True)
-                st.markdown(f'<p style="font-size: 18px; color: #4f7343; white-space: pre-wrap; line-height: 1.6;">{r["content"]}</p>', unsafe_allow_html=True)
+                # 將換行符轉成 <br>，並 escape 特殊字符
+                content_html = html.escape(r["content"]).replace('\n', '<br>')
+                st.markdown(f'<p style="font-size: 18px; color: #4f7343; line-height: 1.8;">{content_html}</p>', unsafe_allow_html=True)
             
             # 區塊2：輸入區
             with col2:
@@ -2466,16 +2469,18 @@ else:
                     else:
                         st.markdown('<p style="font-size: 22px; font-weight: bold; color: #C62828; margin-bottom: 10px;">不一致！</p>', unsafe_allow_html=True)
                     
-                    # 對比結果 - 無白框
+                    # 對比結果 - 無白框，escape 特殊字符並轉換換行
+                    input_html = html.escape(vr["input"]).replace('\n', '<br>')
+                    result_html = html.escape(r["content"]).replace('\n', '<br>')
                     st.markdown(f'''
                     <div style="display: flex; gap: 10px;">
                         <div style="flex: 1;">
                             <p style="font-size: 12px; font-weight: bold; color: #443C3C; margin-bottom: 3px;">原始輸入：</p>
-                            <p style="font-size: 10px; color: #666; white-space: pre-wrap; line-height: 1.4;">{vr["input"]}</p>
+                            <p style="font-size: 10px; color: #666; line-height: 1.6;">{input_html}</p>
                         </div>
                         <div style="flex: 1;">
                             <p style="font-size: 12px; font-weight: bold; color: #443C3C; margin-bottom: 3px;">提取結果：</p>
-                            <p style="font-size: 10px; color: #666; white-space: pre-wrap; line-height: 1.4;">{r["content"]}</p>
+                            <p style="font-size: 10px; color: #666; line-height: 1.6;">{result_html}</p>
                         </div>
                     </div>
                     ''', unsafe_allow_html=True)
