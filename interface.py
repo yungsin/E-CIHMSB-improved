@@ -1199,7 +1199,7 @@ body [data-baseweb="select"] ~ div *::-webkit-scrollbar-track,
 /* 間距調整 */
 .block-container {
     padding-top: 0.3rem !important;
-    padding-bottom: 2rem !important;
+    padding-bottom: 1.5rem !important;
     max-width: 1400px !important;
     margin: 0 auto !important;
 }
