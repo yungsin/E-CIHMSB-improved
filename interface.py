@@ -2414,21 +2414,21 @@ else:
         st.markdown('<div class="page-title-extract" style="text-align: center; margin-bottom: 30px;">提取結果</div>', unsafe_allow_html=True)
         
         if r['type'] == 'text':
-            # 文字驗證 - 三個水平區塊（加大間距）
-            col1, gap1, col2, gap2, col3 = st.columns([1.2, 0.15, 1.2, 0.15, 1.4])
+            # 文字驗證 - 三個水平區塊
+            col1, col2, col3 = st.columns([1.6, 1.2, 1.2])
             
             # 區塊1：提取完成
             with col1:
                 st.markdown(f'<p style="font-size: 28px; font-weight: bold; color: #4f7343; margin-bottom: 15px;">提取完成！({r["elapsed_time"]:.2f} 秒)</p>', unsafe_allow_html=True)
-                st.markdown('<p style="font-size: 26px; font-weight: bold; color: #4f7343;">機密文字:</p>', unsafe_allow_html=True)
+                st.markdown('<p style="font-size: 24px; font-weight: bold; color: #4f7343;">機密文字:</p>', unsafe_allow_html=True)
                 # 將換行符轉成 <br>，並 escape 特殊字符
                 content_html = html.escape(r["content"]).replace('\n', '<br>')
-                st.markdown(f'<p style="font-size: 18px; color: #4f7343; line-height: 1.8;">{content_html}</p>', unsafe_allow_html=True)
+                st.markdown(f'<p style="font-size: 20px; color: #4f7343; line-height: 2.0; white-space: nowrap;">{content_html}</p>', unsafe_allow_html=True)
             
             # 區塊2：輸入區
             with col2:
-                st.markdown('<p style="font-size: 28px; font-weight: bold; color: #443C3C;">驗證</p>', unsafe_allow_html=True)
-                verify_input = st.text_area("輸入原始機密", key="verify_text_input", height=150, placeholder="貼上嵌入時的原始機密內容...", label_visibility="collapsed")
+                st.markdown('<p style="font-size: 24px; font-weight: bold; color: #443C3C;">驗證</p>', unsafe_allow_html=True)
+                verify_input = st.text_area("輸入原始機密", key="verify_text_input", height=180, placeholder="貼上嵌入時的原始機密內容...", label_visibility="collapsed")
                 verify_clicked = st.button("驗證", key="verify_btn")
                 if verify_clicked and verify_input:
                     st.session_state.verify_result = {
@@ -2461,7 +2461,7 @@ else:
             
             # 區塊3：結果區
             with col3:
-                st.markdown('<p style="font-size: 28px; font-weight: bold; color: #443C3C;">結果</p>', unsafe_allow_html=True)
+                st.markdown('<p style="font-size: 24px; font-weight: bold; color: #443C3C;">結果</p>', unsafe_allow_html=True)
                 if 'verify_result' in st.session_state and st.session_state.verify_result:
                     vr = st.session_state.verify_result
                     if vr['match']:
@@ -2469,19 +2469,15 @@ else:
                     else:
                         st.markdown('<p style="font-size: 22px; font-weight: bold; color: #C62828; margin-bottom: 10px;">不一致！</p>', unsafe_allow_html=True)
                     
-                    # 對比結果 - 無白框，escape 特殊字符並轉換換行
+                    # 對比結果 - 上下排列，escape 特殊字符並轉換換行
                     input_html = html.escape(vr["input"]).replace('\n', '<br>')
                     result_html = html.escape(r["content"]).replace('\n', '<br>')
                     st.markdown(f'''
-                    <div style="display: flex; gap: 10px;">
-                        <div style="flex: 1;">
-                            <p style="font-size: 12px; font-weight: bold; color: #443C3C; margin-bottom: 3px;">原始輸入：</p>
-                            <p style="font-size: 10px; color: #666; line-height: 1.6;">{input_html}</p>
-                        </div>
-                        <div style="flex: 1;">
-                            <p style="font-size: 12px; font-weight: bold; color: #443C3C; margin-bottom: 3px;">提取結果：</p>
-                            <p style="font-size: 10px; color: #666; line-height: 1.6;">{result_html}</p>
-                        </div>
+                    <div>
+                        <p style="font-size: 14px; font-weight: bold; color: #443C3C; margin-bottom: 3px;">原始輸入：</p>
+                        <p style="font-size: 12px; color: #666; line-height: 1.8; margin-bottom: 12px;">{input_html}</p>
+                        <p style="font-size: 14px; font-weight: bold; color: #443C3C; margin-bottom: 3px;">提取結果：</p>
+                        <p style="font-size: 12px; color: #666; line-height: 1.8;">{result_html}</p>
                     </div>
                     ''', unsafe_allow_html=True)
                 else:
