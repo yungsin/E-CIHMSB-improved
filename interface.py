@@ -676,7 +676,7 @@ section[data-testid="stSidebar"] button[kind="header"],
 [data-testid="stMain"] .stMarkdown div.hint-text,
 p.hint-text,
 div.hint-text {
-    font-size: 20px !important;
+    font-size: 24px !important;
     font-weight: bold !important;
     color: #999 !important;
 }
@@ -2045,7 +2045,7 @@ elif st.session_state.current_mode == 'embed':
             else:
                 st.markdown("""<div style="background: #fff2cc; border: none; border-radius: 8px; padding: 15px; text-align: center;">
                     <div style="font-size: 24px; font-weight: bold; color: #856404;">⚠️ 尚無對象</div>
-                    <div style="font-size: 20px; color: #856404; margin-top: 8px;">點擊「對象管理」新增</div>
+                    <div style="font-size: 24px; color: #856404; margin-top: 8px;">點擊「對象管理」新增</div>
                 </div>""", unsafe_allow_html=True)
         
         # ===== 第二步：機密內容 =====
@@ -2511,7 +2511,7 @@ else:
             else:
                 st.markdown("""<div style="background: #fff2cc; border: none; border-radius: 8px; padding: 15px; text-align: center;">
                     <div style="font-size: 24px; font-weight: bold; color: #856404;">⚠️ 尚無對象</div>
-                    <div style="font-size: 20px; color: #856404; margin-top: 8px;">點擊「對象管理」新增</div>
+                    <div style="font-size: 24px; color: #856404; margin-top: 8px;">點擊「對象管理」新增</div>
                 </div>""", unsafe_allow_html=True)
         
         # ===== 第二步：上傳 Z碼圖 =====
