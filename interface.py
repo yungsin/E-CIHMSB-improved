@@ -2589,7 +2589,7 @@ else:
                     
                     # 顯示上傳的圖像和識別結果（並排）
                     if detected:
-                        img_bytes = uploaded_z.getvalue()
+                        img_bytes = extract_file.getvalue()
                         img_b64 = base64.b64encode(img_bytes).decode()
                         st.markdown(f'''
                         <div style="display: flex; align-items: center; gap: 20px; margin-top: 10px;">
