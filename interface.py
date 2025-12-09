@@ -742,8 +742,8 @@ h3 { font-size: clamp(28px, 3vw, 36px) !important; font-weight: bold !important;
     color: white !important;
     border: none !important;
     border-radius: 8px !important;
-    font-size: 22px !important;
-    padding: 10px 30px !important;
+    font-size: 20px !important;
+    padding: 8px 20px !important;
     min-width: 80px !important;
 }
 
@@ -752,8 +752,8 @@ h3 { font-size: clamp(28px, 3vw, 36px) !important; font-weight: bold !important;
     color: #666 !important;
     border: 2px solid #ccc !important;
     border-radius: 8px !important;
-    font-size: 22px !important;
-    padding: 10px 30px !important;
+    font-size: 20px !important;
+    padding: 8px 20px !important;
     min-width: 80px !important;
 }
 
@@ -764,12 +764,12 @@ h3 { font-size: clamp(28px, 3vw, 36px) !important; font-weight: bold !important;
 
 [data-testid="stMain"] .stButton button[kind="primary"] span,
 [data-testid="stMain"] .stButton button[kind="primary"] p {
-    font-size: 22px !important;
+    font-size: 20px !important;
 }
 
 [data-testid="stMain"] .stButton button[kind="secondary"] span,
 [data-testid="stMain"] .stButton button[kind="secondary"] p {
-    font-size: 22px !important;
+    font-size: 20px !important;
 }
 
 [data-testid="stSidebar"] .stButton button[kind="primary"] {
@@ -2044,7 +2044,7 @@ elif st.session_state.current_mode == 'embed':
                 # Tab 按鈕切換
                 tab_col1, tab_col2 = st.columns(2)
                 with tab_col1:
-                    if st.button("📝 文字", key="tab_text_btn", use_container_width=True, type="primary" if saved_type == "文字" else "secondary"):
+                    if st.button("文字", key="tab_text_btn", use_container_width=True, type="primary" if saved_type == "文字" else "secondary"):
                         if saved_type != "文字":
                             # 從圖像切換到文字，清除圖像資料
                             for key in ['embed_secret_image_data', 'embed_secret_image_name']:
@@ -2054,7 +2054,7 @@ elif st.session_state.current_mode == 'embed':
                             st.session_state.embed_secret_type_saved = "文字"
                             st.rerun()
                 with tab_col2:
-                    if st.button("🖼️ 圖像", key="tab_image_btn", use_container_width=True, type="primary" if saved_type == "圖像" else "secondary"):
+                    if st.button("圖像", key="tab_image_btn", use_container_width=True, type="primary" if saved_type == "圖像" else "secondary"):
                         if saved_type != "圖像":
                             # 從文字切換到圖像，清除文字資料
                             if 'embed_text_saved' in st.session_state:
