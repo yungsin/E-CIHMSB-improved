@@ -717,14 +717,14 @@ div.hint-text {
 /* bits 資訊專用樣式 */
 .bits-info {
     font-size: 28px !important;
-    color: #b28084 !important;
+    color: #5D6D4E !important;
     font-weight: bold !important;
 }
 
 /* 已選擇資訊專用樣式 */
 .selected-info {
     font-size: 28px !important;
-    color: #b28084 !important;
+    color: #5D6D4E !important;
     font-weight: bold !important;
 }
 
@@ -2187,7 +2187,7 @@ elif st.session_state.current_mode == 'embed':
                             <img src="https://images.pexels.com/photos/{selected_image["id"]}/pexels-photo-{selected_image["id"]}.jpeg?auto=compress&cs=tinysrgb&w=200&h=200&fit=crop" 
                                  style="width: 200px; height: 200px; object-fit: cover; border-radius: 8px;">
                         </div>
-                        <div style="color: #b28084; font-size: 28px; font-weight: bold; line-height: 1.8; white-space: nowrap;">
+                        <div style="color: #5D6D4E; font-size: 28px; font-weight: bold; line-height: 1.8; white-space: nowrap;">
                             機密大小：{secret_bits_needed:,} bits<br>
                             圖像容量：{capacity:,} bits<br>
                             使用率：{usage:.1f}%
@@ -2587,7 +2587,7 @@ else:
                     # 顯示上傳的圖像和識別結果
                     st.image(uploaded_img, width=150)
                     if detected:
-                        st.markdown(f'<p style="font-size: 22px; color: #b28084; margin-top: 10px; font-weight: bold;">{success_msg}</p>', unsafe_allow_html=True)
+                        st.markdown(f'<p style="font-size: 22px; color: #5D6D4E; margin-top: 10px; font-weight: bold;">{success_msg}</p>', unsafe_allow_html=True)
                     else:
                         st.markdown(f'<p style="font-size: 22px; color: #C62828; margin-top: 10px;">❌ 無法識別</p>', unsafe_allow_html=True)
                         if error_msg:
