@@ -2188,7 +2188,7 @@ elif st.session_state.current_mode == 'embed':
                 st.markdown('<p style="font-size: 24px; color: #999; text-align: center;">請先完成第二步</p>', unsafe_allow_html=True)
         
         # ===== 開始嵌入按鈕 =====
-        st.markdown("<div style='margin-top: 1px;'></div>", unsafe_allow_html=True)
+        st.markdown("<div style='margin-top: -15px;'></div>", unsafe_allow_html=True)
         
         all_done = step1_done and step2_done and st.session_state.get('embed_image_id')
         
