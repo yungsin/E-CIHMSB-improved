@@ -2613,7 +2613,7 @@ else:
                         st.markdown(f'''
                         <div style="display: flex; align-items: center; gap: 20px; margin-top: 10px;">
                             <div style="flex-shrink: 0;">
-                                <img src="data:image/png;base64,{img_b64}" style="width: 150px; border-radius: 8px;">
+                                <img src="data:image/png;base64,{img_b64}" style="width: 180px; border-radius: 8px;">
                             </div>
                             <div style="font-size: 26px; color: #4f7343; font-weight: bold; line-height: 1.6;">
                                 {success_msg}
