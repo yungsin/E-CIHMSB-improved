@@ -1252,7 +1252,7 @@ body [data-baseweb="select"] ~ div *::-webkit-scrollbar-track,
 
 [data-testid="stHorizontalBlock"] {
     flex-wrap: nowrap !important;
-    gap: 0.5rem !important;
+    gap: 0.3rem !important;
     max-width: 1200px !important;
     margin-left: auto !important;
     margin-right: auto !important;
