@@ -2439,13 +2439,19 @@ else:
                         st.markdown('<p style="font-size: 22px; font-weight: bold; color: #4f7343;">完全一致！</p>', unsafe_allow_html=True)
                     else:
                         st.markdown('<p style="font-size: 22px; font-weight: bold; color: #C62828;">不一致！</p>', unsafe_allow_html=True)
-                    col_orig, col_gap, col_ext = st.columns([1, 0.1, 1])
-                    with col_orig:
-                        st.markdown('<p class="verify-label"><b>原始輸入：</b></p>', unsafe_allow_html=True)
-                        st.markdown(f'<p class="verify-content" style="white-space: pre-wrap; line-height: 1.8;">{vr["input"]}</p>', unsafe_allow_html=True)
-                    with col_ext:
-                        st.markdown('<p class="verify-label"><b>提取結果：</b></p>', unsafe_allow_html=True)
-                        st.markdown(f'<p class="verify-content" style="white-space: pre-wrap; line-height: 1.8;">{r["content"]}</p>', unsafe_allow_html=True)
+                    # 水平並排顯示對比結果
+                    st.markdown(f'''
+                    <div style="display: flex; gap: 20px; margin-top: 10px;">
+                        <div style="flex: 1;">
+                            <p style="font-size: 14px; font-weight: bold; color: #443C3C; margin-bottom: 5px;">原始輸入：</p>
+                            <p style="font-size: 12px; color: #666; white-space: pre-wrap; line-height: 1.6;">{vr["input"]}</p>
+                        </div>
+                        <div style="flex: 1;">
+                            <p style="font-size: 14px; font-weight: bold; color: #443C3C; margin-bottom: 5px;">提取結果：</p>
+                            <p style="font-size: 12px; color: #666; white-space: pre-wrap; line-height: 1.6;">{r["content"]}</p>
+                        </div>
+                    </div>
+                    ''', unsafe_allow_html=True)
             else:
                 verify_img = st.file_uploader("上傳原始機密圖像", type=["png", "jpg", "jpeg"], key="verify_img_upload")
                 if verify_img:
