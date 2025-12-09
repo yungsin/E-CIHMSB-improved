@@ -315,7 +315,7 @@ def decode_image_to_z_with_header(image):
     img_size = int(''.join(map(str, all_bits[56:72])), 2)
     
     if z_length <= 0 or z_length > len(all_bits) - 72:
-        raise ValueError(f"Z碼長度無效：{z_length}")
+        raise ValueError(f"無效的 Z碼（長度：{z_length}）")
     
     z_bits = all_bits[72:72 + z_length]
     
@@ -2602,9 +2602,9 @@ else:
                             detected = True
                         except Exception as e:
                             if error_msg:
-                                error_msg += f", Z碼: {str(e)}"
+                                error_msg += f", {str(e)}"
                             else:
-                                error_msg = f"Z碼: {str(e)}"
+                                error_msg = str(e)
                     
                     # 顯示上傳的圖像和識別結果（並排）
                     if detected:
@@ -2622,7 +2622,7 @@ else:
                         ''', unsafe_allow_html=True)
                     else:
                         st.image(uploaded_img, width=150)
-                        st.markdown(f'<p style="font-size: 22px; color: #C62828; margin-top: 10px;">❌ 無法識別</p>', unsafe_allow_html=True)
+                        st.markdown(f'<p style="font-size: 22px; color: #C62828; margin-top: 10px;">無法識別</p>', unsafe_allow_html=True)
                         if error_msg:
                             st.markdown(f'<p style="font-size: 14px; color: #999;">{error_msg}</p>', unsafe_allow_html=True)
             else:
