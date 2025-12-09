@@ -1778,13 +1778,14 @@ elif st.session_state.current_mode == 'embed':
             color: #443C3C !important;
             border: none !important;
             font-weight: 700 !important;
-            font-size: 20px !important;
-            min-width: 100px !important;
+            font-size: 28px !important;
+            min-width: 140px !important;
+            padding: 12px 24px !important;
         }
         [data-testid="stDownloadButton"] button p,
         [data-testid="stDownloadButton"] button span {
             font-weight: 700 !important;
-            font-size: 20px !important;
+            font-size: 28px !important;
         }
         [data-testid="stDownloadButton"] button:hover {
             background-color: #b8a788 !important;
@@ -2035,7 +2036,7 @@ elif st.session_state.current_mode == 'embed':
                 
                 if selected != "選擇":
                     st.session_state.selected_contact_saved = selected
-                    st.markdown(f'<div class="selected-info">已選擇：{selected}</div>', unsafe_allow_html=True)
+                    st.markdown(f'<div class="selected-info">已選擇對象：{selected}</div>', unsafe_allow_html=True)
                     step1_done = True
                 else:
                     st.session_state.selected_contact_saved = None
@@ -2503,7 +2504,7 @@ else:
                 
                 if selected_contact != "選擇":
                     st.session_state.extract_contact_saved = selected_contact
-                    st.markdown(f'<div class="selected-info">已選擇：{selected_contact}</div>', unsafe_allow_html=True)
+                    st.markdown(f'<div class="selected-info">已選擇對象：{selected_contact}</div>', unsafe_allow_html=True)
                     step1_done = True
                 else:
                     # 未選擇時顯示提示
@@ -2549,7 +2550,7 @@ else:
                                     style_name = NUM_TO_STYLE.get(extract_style_num, "建築")
                                     images = IMAGE_LIBRARY.get(style_name, [])
                                     img_name = images[extract_img_num - 1]['name'] if extract_img_num <= len(images) else str(extract_img_num)
-                                    success_msg = f"Z碼圖額外資訊：{extract_style_num}. {style_name}，圖像：{extract_img_num}（{img_name}），尺寸：{extract_img_size}×{extract_img_size}"
+                                    success_msg = f"Z碼圖額外資訊：<br>風格：{extract_style_num}. {style_name}，載體圖像：{extract_img_num}（{img_name}），尺寸：{extract_img_size}×{extract_img_size}"
                                     detected = True
                                 elif len(parts) == 2:
                                     # 舊格式兼容: 圖像編號-尺寸
@@ -2560,7 +2561,7 @@ else:
                                     style_name = NUM_TO_STYLE.get(extract_style_num, "建築")
                                     images = IMAGE_LIBRARY.get(style_name, [])
                                     img_name = images[extract_img_num - 1]['name'] if extract_img_num <= len(images) else str(extract_img_num)
-                                    success_msg = f"Z碼圖額外資訊：{extract_style_num}. {style_name}，圖像：{extract_img_num}（{img_name}），尺寸：{extract_img_size}×{extract_img_size}"
+                                    success_msg = f"Z碼圖額外資訊：<br>風格：{extract_style_num}. {style_name}，載體圖像：{extract_img_num}（{img_name}），尺寸：{extract_img_size}×{extract_img_size}"
                                     detected = True
                     except Exception as e:
                         error_msg = f"QR: {str(e)}"
@@ -2576,7 +2577,7 @@ else:
                             style_name = NUM_TO_STYLE.get(extract_style_num, "建築")
                             images = IMAGE_LIBRARY.get(style_name, [])
                             img_name = images[extract_img_num - 1]['name'] if extract_img_num <= len(images) else str(extract_img_num)
-                            success_msg = f"Z碼圖額外資訊：{extract_style_num}. {style_name}，圖像：{extract_img_num}（{img_name}），尺寸：{extract_img_size}×{extract_img_size}"
+                            success_msg = f"Z碼圖額外資訊：<br>風格：{extract_style_num}. {style_name}，載體圖像：{extract_img_num}（{img_name}），尺寸：{extract_img_size}×{extract_img_size}"
                             detected = True
                         except Exception as e:
                             if error_msg:
@@ -2608,8 +2609,8 @@ else:
                 for (let btn of buttons) { 
                     if (btn.innerText === '開始提取') {
                         // 按鈕顏色和寬度
-                        btn.style.setProperty('background-color', '#b28084', 'important');
-                        btn.style.setProperty('border-color', '#b28084', 'important');
+                        btn.style.setProperty('background-color', '#7D5A6B', 'important');
+                        btn.style.setProperty('border-color', '#7D5A6B', 'important');
                         btn.style.setProperty('color', 'white', 'important');
                         btn.style.setProperty('width', 'auto', 'important');
                         btn.style.setProperty('min-width', '120px', 'important');
