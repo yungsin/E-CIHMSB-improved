@@ -2300,13 +2300,13 @@ else:
         
         spacer_left, col_left, col_gap, col_right, spacer_right = st.columns([0.4, 2.5, 0.1, 2.2, 0.1])
         with col_left:
-            st.markdown(f'<p style="font-size: 32px; font-weight: bold; color: #443C3C; margin-bottom: 25px;">提取完成！({r["elapsed_time"]:.2f} 秒)</p>', unsafe_allow_html=True)
+            st.markdown(f'<p style="font-size: 32px; font-weight: bold; color: #4f7343; margin-bottom: 25px;">提取完成！({r["elapsed_time"]:.2f} 秒)</p>', unsafe_allow_html=True)
             
             if r['type'] == 'text':
-                st.markdown('<p style="font-size: 32px; font-weight: bold; color: #443C3C;">機密文字:</p>', unsafe_allow_html=True)
-                st.markdown(f'<p style="font-size: 24px; color: #443C3C; white-space: pre-wrap; line-height: 1.8;">{r["content"]}</p>', unsafe_allow_html=True)
+                st.markdown('<p style="font-size: 32px; font-weight: bold; color: #4f7343;">機密文字:</p>', unsafe_allow_html=True)
+                st.markdown(f'<p style="font-size: 24px; color: #4f7343; white-space: pre-wrap; line-height: 1.8;">{r["content"]}</p>', unsafe_allow_html=True)
             else:
-                st.markdown('<p style="font-size: 32px; font-weight: bold; color: #443C3C;">機密圖像:</p>', unsafe_allow_html=True)
+                st.markdown('<p style="font-size: 32px; font-weight: bold; color: #4f7343;">機密圖像:</p>', unsafe_allow_html=True)
                 st.image(Image.open(BytesIO(r['image_data'])), width=200)
                 st.download_button("下載圖像", r['image_data'], "recovered.png", "image/png", key="dl_rec")
         
