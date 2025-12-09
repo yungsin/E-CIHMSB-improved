@@ -2042,7 +2042,7 @@ elif st.session_state.current_mode == 'embed':
                     st.session_state.selected_contact_saved = None
                     step1_done = False
                     # 未選擇時顯示提示
-                    st.markdown('<div class="hint-text" style="margin-top: 10px;">💡  點擊「對象管理」可做修改</div>', unsafe_allow_html=True)
+                    st.markdown('<div class="hint-text" style="margin-top: 10px;">💡  點擊「對象管理」可修改資料</div>', unsafe_allow_html=True)
             else:
                 st.markdown("""<div style="background: #fff2cc; border: none; border-radius: 8px; padding: 15px; text-align: center;">
                     <div style="font-size: 24px; font-weight: bold; color: #856404;">⚠️ 尚無對象</div>
@@ -2529,7 +2529,7 @@ else:
                     step1_done = True
                 else:
                     # 未選擇時顯示提示
-                    st.markdown('<div class="hint-text" style="margin-top: 10px;">💡  點擊「對象管理」可做修改</div>', unsafe_allow_html=True)
+                    st.markdown('<div class="hint-text" style="margin-top: 10px;">💡  點擊「對象管理」可修改資料</div>', unsafe_allow_html=True)
             else:
                 st.markdown("""<div style="background: #fff2cc; border: none; border-radius: 8px; padding: 15px; text-align: center;">
                     <div style="font-size: 24px; font-weight: bold; color: #856404;">⚠️ 尚無對象</div>
