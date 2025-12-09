@@ -1199,7 +1199,7 @@ body [data-baseweb="select"] ~ div *::-webkit-scrollbar-track,
 /* 間距調整 */
 .block-container {
     padding-top: 0.3rem !important;
-    padding-bottom: 1rem !important;
+    padding-bottom: 2rem !important;
     max-width: 1400px !important;
     margin: 0 auto !important;
 }
@@ -2166,7 +2166,7 @@ elif st.session_state.current_mode == 'embed':
                     usage = secret_bits_needed / capacity * 100
                     
                     st.markdown(f'''
-                    <div style="display: flex; align-items: center; gap: 25px; margin-top: 0px;">
+                    <div style="display: flex; align-items: center; gap: 25px; margin-top: 5px;">
                         <div style="flex-shrink: 0;">
                             <img src="https://images.pexels.com/photos/{selected_image["id"]}/pexels-photo-{selected_image["id"]}.jpeg?auto=compress&cs=tinysrgb&w=200&h=200&fit=crop" 
                                  style="width: 200px; height: 200px; object-fit: cover; border-radius: 8px;">
