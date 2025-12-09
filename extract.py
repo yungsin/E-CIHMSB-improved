@@ -32,8 +32,6 @@ def unshuffle_bits(bits, key):
     seed = hash(key) % 2147483647
     np.random.seed(seed)
     order = np.random.permutation(len(bits))
-    
-    # 找到還原順序：argsort 會告訴我們每個位置應該放哪個元素
     restore_order = np.argsort(order)
     
     return [bits[i] for i in restore_order]
@@ -54,22 +52,13 @@ def extract_secret(cover_image, z_bits, secret_type='text', contact_key=None):
         secret: 還原的機密內容（字串或 PIL Image）
         info: 額外資訊
     
-    流程:
-        1. 圖片預處理（彩色轉灰階、檢查尺寸）
-        2. 計算 8×8 區塊數量
-        3. 對每個 8×8 區塊進行提取
-        4. 用 contact_key 還原位元順序（新增！）
-        5. 跳過類型標記，將機密位元轉回原始內容
-    
-    安全機制:
-        - Q 密鑰：保護每個區塊的「值」
-        - Seed 還原：還原機密的「位置」
-        - 雙重保護：載體或對象錯誤都會變成完全馬賽克
+    格式:
+        [1 bit 類型標記] + [打亂後的機密內容]
+        類型標記不參與打亂
     """
     cover_image = np.array(cover_image)
     
     # ========== 步驟 1：圖片預處理 ==========
-    # 1.1 若為彩色圖片，轉成灰階
     if len(cover_image.shape) == 3:
         cover_image = (
             0.299 * cover_image[:, :, 0] + 
@@ -79,7 +68,6 @@ def extract_secret(cover_image, z_bits, secret_type='text', contact_key=None):
     
     height, width = cover_image.shape
     
-    # 1.2 檢查圖片大小是否為 8 的倍數
     if height % 8 != 0 or width % 8 != 0:
         raise ValueError(f"圖片大小必須是 8 的倍數！當前大小: {width}×{height}")
     
@@ -88,7 +76,7 @@ def extract_secret(cover_image, z_bits, secret_type='text', contact_key=None):
     num_cols = width // BLOCK_SIZE
     
     # ========== 步驟 3：對每個 8×8 區塊進行提取 ==========
-    secret_bits_shuffled = []  # 這是打亂順序的位元
+    extracted_bits = []
     z_bit_index = 0
     finished = False
     
@@ -97,31 +85,21 @@ def extract_secret(cover_image, z_bits, secret_type='text', contact_key=None):
             break
         
         for j in range(num_cols):
-            # 檢查是否所有 z_bits 已處理完
             if z_bit_index >= len(z_bits):
                 finished = True
                 break
             
-            # 3.1 提取這個 8×8 區塊
             start_row = i * BLOCK_SIZE
             end_row = start_row + BLOCK_SIZE
             start_col = j * BLOCK_SIZE
             end_col = start_col + BLOCK_SIZE
             block = cover_image[start_row:end_row, start_col:end_col]
             
-            # 3.2 生成這個區塊專屬的排列密鑰 Q（加入 contact_key）
             Q = generate_Q_from_block(block, Q_LENGTH, contact_key=contact_key)
-            
-            # 3.3 計算 21 個多層次平均值
             averages_21 = calculate_hierarchical_averages(block)
-            
-            # 3.4 用 Q 重新排列 21 個平均值
             reordered_averages = apply_Q_three_rounds(averages_21, Q)
-            
-            # 3.5 提取排列後的 21 個 MSB
             msbs = get_msbs(reordered_averages)
             
-            # 3.6 反向映射還原機密位元
             for k in range(TOTAL_AVERAGES_PER_UNIT):
                 if z_bit_index >= len(z_bits):
                     finished = True
@@ -130,28 +108,28 @@ def extract_secret(cover_image, z_bits, secret_type='text', contact_key=None):
                 z_bit = z_bits[z_bit_index]
                 msb = msbs[k]
                 secret_bit = map_from_z(z_bit, msb)
-                secret_bits_shuffled.append(secret_bit)
+                extracted_bits.append(secret_bit)
                 
                 z_bit_index += 1
     
-    # ========== 步驟 4：用 contact_key 還原位元順序（新增！）==========
-    secret_bits = unshuffle_bits(secret_bits_shuffled, contact_key)
-    
-    # ========== 步驟 5：將機密位元轉回原始內容 ==========
-    # 修正：跳過類型標記（第 1 bit）
-    if len(secret_bits) < 1:
+    # ========== 步驟 4：分離類型標記和內容 ==========
+    if len(extracted_bits) < 1:
         raise ValueError("提取的位元數不足，無法讀取類型標記")
     
-    type_marker = secret_bits[0]
-    content_bits = secret_bits[1:]  # ← 跳過類型標記！
+    type_marker = extracted_bits[0]  # 類型標記不參與打亂
+    shuffled_content = extracted_bits[1:]  # 剩餘的是打亂後的內容
     
+    # ========== 步驟 5：只對內容進行還原 ==========
+    content_bits = unshuffle_bits(shuffled_content, contact_key)
+    
+    # ========== 步驟 6：解碼內容 ==========
     if secret_type == 'text':
         secret = binary_to_text(content_bits)
         info = {
             'type': 'text', 
             'length': len(secret),
             'type_marker': type_marker,
-            'total_bits': len(secret_bits),
+            'total_bits': len(extracted_bits),
             'content_bits': len(content_bits)
         }
     else:
@@ -161,7 +139,7 @@ def extract_secret(cover_image, z_bits, secret_type='text', contact_key=None):
             'size': orig_size, 
             'is_color': is_color,
             'type_marker': type_marker,
-            'total_bits': len(secret_bits),
+            'total_bits': len(extracted_bits),
             'content_bits': len(content_bits)
         }
     
@@ -183,13 +161,12 @@ def detect_and_extract(cover_image, z_bits, contact_key=None):
         secret_type: 'text' 或 'image'
         info: 額外資訊
     
-    原理:
-        1. 先提取所有打亂的 bits
-        2. 用 contact_key 還原順序
-        3. 讀取第 1 bit 類型標記來決定解碼方式
-        類型標記: 0 = 文字, 1 = 圖片
+    流程:
+        1. 先提取所有 bits
+        2. 讀取第 1 bit 類型標記（不參與打亂）
+        3. 對剩餘內容用 contact_key 還原順序
+        4. 根據類型標記解碼
     """
-    # 先提取所有 bits
     cover_image = np.array(cover_image)
     
     if len(cover_image.shape) == 3:
@@ -203,7 +180,7 @@ def detect_and_extract(cover_image, z_bits, contact_key=None):
     num_rows = height // BLOCK_SIZE
     num_cols = width // BLOCK_SIZE
     
-    secret_bits_shuffled = []  # 這是打亂順序的位元
+    extracted_bits = []
     z_bit_index = 0
     finished = False
     
@@ -216,7 +193,6 @@ def detect_and_extract(cover_image, z_bits, contact_key=None):
                 break
             
             block = cover_image[i*BLOCK_SIZE:(i+1)*BLOCK_SIZE, j*BLOCK_SIZE:(j+1)*BLOCK_SIZE]
-            # 使用 contact_key 生成 Q
             Q = generate_Q_from_block(block, Q_LENGTH, contact_key=contact_key)
             averages_21 = calculate_hierarchical_averages(block)
             reordered = apply_Q_three_rounds(averages_21, Q)
@@ -226,20 +202,21 @@ def detect_and_extract(cover_image, z_bits, contact_key=None):
                 if z_bit_index >= len(z_bits):
                     finished = True
                     break
-                secret_bits_shuffled.append(map_from_z(z_bits[z_bit_index], msbs[k]))
+                extracted_bits.append(map_from_z(z_bits[z_bit_index], msbs[k]))
                 z_bit_index += 1
     
-    # ========== 用 contact_key 還原位元順序（新增！）==========
-    secret_bits = unshuffle_bits(secret_bits_shuffled, contact_key)
-    
     # 檢查是否有足夠的 bits
-    if len(secret_bits) < 1:
+    if len(extracted_bits) < 1:
         raise ValueError("Z 碼太短，無法提取類型標記")
     
-    # ========== 讀取類型標記（第 1 bit）==========
-    type_marker = secret_bits[0]
-    content_bits = secret_bits[1:]  # 跳過類型標記
+    # ========== 分離類型標記和內容 ==========
+    type_marker = extracted_bits[0]  # 類型標記不參與打亂
+    shuffled_content = extracted_bits[1:]  # 打亂後的內容
     
+    # ========== 只對內容進行還原 ==========
+    content_bits = unshuffle_bits(shuffled_content, contact_key)
+    
+    # ========== 根據類型標記解碼 ==========
     if type_marker == 0:
         # 文字類型
         try:
@@ -248,7 +225,7 @@ def detect_and_extract(cover_image, z_bits, contact_key=None):
                 'type': 'text', 
                 'length': len(text),
                 'type_marker': type_marker,
-                'total_bits': len(secret_bits),
+                'total_bits': len(extracted_bits),
                 'content_bits': len(content_bits)
             }
         except Exception as e:
@@ -263,7 +240,7 @@ def detect_and_extract(cover_image, z_bits, contact_key=None):
                     'size': orig_size, 
                     'is_color': is_color,
                     'type_marker': type_marker,
-                    'total_bits': len(secret_bits),
+                    'total_bits': len(extracted_bits),
                     'content_bits': len(content_bits)
                 }
             else:
