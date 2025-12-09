@@ -1987,6 +1987,13 @@ elif st.session_state.current_mode == 'embed':
         # 三欄並排佈局 - 加大寬度 + 固定不滾動
         st.markdown("""
         <style>
+        /* 強制允許頁面滾動 - 覆蓋首頁的 overflow: hidden */
+        html, body, [data-testid="stAppViewContainer"], .main, [data-testid="stMain"] {
+            overflow: auto !important;
+            height: auto !important;
+            min-height: 100vh !important;
+        }
+        
         [data-testid="stMain"] [data-testid="stHorizontalBlock"] {
             max-width: 100% !important;
             width: 100% !important;
@@ -1995,7 +2002,16 @@ elif st.session_state.current_mode == 'embed':
         
         /* 頁面可滾動 */
         .block-container {
-            padding-bottom: 100px !important;
+            padding-bottom: 120px !important;
+            overflow: auto !important;
+            height: auto !important;
+        }
+        
+        /* 小螢幕適配 (14吋筆電通常 ≤ 900px 高度) */
+        @media (max-height: 800px) {
+            .block-container {
+                padding-bottom: 140px !important;
+            }
         }
         </style>
         """, unsafe_allow_html=True)
@@ -2432,13 +2448,29 @@ else:
         # 兩欄並排佈局 - 和嵌入機密一樣
         st.markdown("""
         <style>
+        /* 強制允許頁面滾動 - 覆蓋首頁的 overflow: hidden */
+        html, body, [data-testid="stAppViewContainer"], .main, [data-testid="stMain"] {
+            overflow: auto !important;
+            height: auto !important;
+            min-height: 100vh !important;
+        }
+        
         [data-testid="stMain"] [data-testid="stHorizontalBlock"] {
             max-width: 100% !important;
             width: 100% !important;
             gap: 2rem !important;
         }
         .block-container {
-            padding-bottom: 100px !important;
+            padding-bottom: 120px !important;
+            overflow: auto !important;
+            height: auto !important;
+        }
+        
+        /* 小螢幕適配 */
+        @media (max-height: 800px) {
+            .block-container {
+                padding-bottom: 140px !important;
+            }
         }
         </style>
         """, unsafe_allow_html=True)
