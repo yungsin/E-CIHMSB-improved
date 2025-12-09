@@ -521,7 +521,7 @@ section[data-testid="stSidebar"] button[kind="header"],
 
 [data-testid="stSidebar"] .stButton button:hover {
     background-color: #e8e8e8 !important;
-    border-color: #999 !important;
+    border-color: #4f7343 !important;
 }
 
 /* 側邊欄 primary 按鈕 */
@@ -678,7 +678,7 @@ p.hint-text,
 div.hint-text {
     font-size: 24px !important;
     font-weight: bold !important;
-    color: #999 !important;
+    color: #4f7343 !important;
 }
 
 /* Tab 切換按鈕樣式 */
@@ -759,7 +759,7 @@ h3 { font-size: clamp(28px, 3vw, 36px) !important; font-weight: bold !important;
 
 [data-testid="stMain"] .stButton button[kind="secondary"]:hover {
     background: #e0e0e0 !important;
-    border-color: #999 !important;
+    border-color: #4f7343 !important;
 }
 
 [data-testid="stMain"] .stButton button[kind="primary"] span,
