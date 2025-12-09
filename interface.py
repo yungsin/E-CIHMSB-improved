@@ -706,9 +706,18 @@ section[data-testid="stSidebar"] button[kind="header"],
 
 /* 機密文字顯示 - 中等字體 */
 [data-testid="stMain"] .stMarkdown div.secret-content {
-    font-size: 14px !important;
+    font-size: 18px !important;
     font-weight: normal !important;
     color: #4f7343 !important;
+    line-height: 1.4 !important;
+    white-space: pre-wrap !important;
+}
+
+/* 結果區對比內容 - 統一字體 */
+[data-testid="stMain"] .stMarkdown div.verify-compare-content {
+    font-size: 14px !important;
+    font-weight: normal !important;
+    color: #666 !important;
     line-height: 1.4 !important;
     white-space: pre-wrap !important;
 }
@@ -2448,11 +2457,11 @@ else:
                     <div style="display: flex; gap: 10px;">
                         <div style="flex: 1;">
                             <p style="font-size: 12px; font-weight: bold; color: #443C3C; margin-bottom: 3px;">原始輸入：</p>
-                            <p style="font-size: 14px; color: #666; white-space: pre-wrap; line-height: 1.4;">{vr["input"]}</p>
+                            <div class="verify-compare-content">{vr["input"]}</div>
                         </div>
                         <div style="flex: 1;">
                             <p style="font-size: 12px; font-weight: bold; color: #443C3C; margin-bottom: 3px;">提取結果：</p>
-                            <p style="font-size: 14px; color: #666; white-space: pre-wrap; line-height: 1.4;">{r["content"]}</p>
+                            <div class="verify-compare-content">{r["content"]}</div>
                         </div>
                     </div>
                     ''', unsafe_allow_html=True)
