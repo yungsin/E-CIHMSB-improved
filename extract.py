@@ -2,15 +2,14 @@
 # 從載體圖像和 Z 碼提取機密內容
 
 import numpy as np
-import hashlib
 from PIL import Image
 
-from config import Q_LENGTH, TOTAL_AVERAGES_PER_UNIT, BLOCK_SIZE
+from config import Q_LENGTH, TOTAL_AVERAGES_PER_UNIT, BLOCK_SIZE, IMAGE_HEADER_SIZE
 from permutation import generate_Q_from_block, apply_Q_three_rounds
-from image_processing import calculate_hierarchical_averages
+from image_processing import calculate_hierarchical_averages, convert_to_grayscale, validate_image_size
 from binary_operations import get_msbs
 from mapping import map_from_z
-from secret_encoding import text_to_binary, binary_to_text, image_to_binary, binary_to_image, xor_cipher
+from secret_encoding import binary_to_text, binary_to_image, xor_cipher
 
 # 提取
 def extract_secret(cover_image, z_bits, secret_type='text', contact_key=None):
@@ -39,23 +38,9 @@ def extract_secret(cover_image, z_bits, secret_type='text', contact_key=None):
         [1 bit 類型標記] + [機密內容]
         類型標記: 0 = 文字, 1 = 圖像
     """
-    cover_image = np.array(cover_image)
-    
     # 步驟 1：圖像預處理
-    # 若為彩色圖像，轉成灰階（使用標準權重）
-    # len(shape) == 3 表示有 3 個維度（高, 寬, 通道），即彩色圖像
-    if len(cover_image.shape) == 3:
-        cover_image = (
-            0.299 * cover_image[:, :, 0] +  # R × 0.299 
-            0.587 * cover_image[:, :, 1] +  # G × 0.587
-            0.114 * cover_image[:, :, 2]    # B × 0.114
-        ).astype(np.uint8)                  # 轉成整數 (0~255)
-    
-    height, width = cover_image.shape       # 取得圖像尺寸（高, 寬）
-    
-    # 檢查圖像大小是否為 8 的倍數（系統以 8×8 區塊處理）
-    if height % 8 != 0 or width % 8 != 0:
-        raise ValueError(f"圖像大小必須是 8 的倍數！當前大小: {width}×{height}")
+    cover_image = convert_to_grayscale(cover_image)
+    height, width = validate_image_size(cover_image)
     
     # 步驟 2：計算 8×8 區塊數量
     num_rows = height // BLOCK_SIZE  # 垂直方向有幾個 8×8 區塊
@@ -122,8 +107,6 @@ def extract_secret(cover_image, z_bits, secret_type='text', contact_key=None):
     # 步驟 4：XOR 解密
     # type_marker 不需要解密
     # 如果是圖像，header (34 bits) 也不需要解密，只解密像素資料
-    IMAGE_HEADER_SIZE = 34  # 圖像 header 固定 34 bits
-    
     if len(encrypted_bits) < 1:
         raise ValueError("提取的位元數不足，無法讀取類型標記")
     
@@ -146,7 +129,7 @@ def extract_secret(cover_image, z_bits, secret_type='text', contact_key=None):
     
     secret_bits = [type_marker] + content_bits  # 重組完整位元（用於計算 total_bits）
 
-     # 步驟 5：將機密位元轉回原始內容
+    # 步驟 5：將機密位元轉回原始內容
     if secret_type == 'text':
         secret = binary_to_text(content_bits)
         info = {
@@ -207,15 +190,8 @@ def detect_and_extract(cover_image, z_bits, contact_key=None):
            類型標記: 0 = 文字, 1 = 圖像
         2. 根據 type_marker 呼叫 extract_secret
     """
-    cover_image = np.array(cover_image)
-    
     # 圖像預處理（轉灰階）
-    if len(cover_image.shape) == 3:
-        cover_image = (
-            0.299 * cover_image[:, :, 0] + 
-            0.587 * cover_image[:, :, 1] + 
-            0.114 * cover_image[:, :, 2]
-        ).astype(np.uint8)
+    cover_image = convert_to_grayscale(cover_image)
     
     # 從第一個區塊提取 type_marker
     block = cover_image[0:BLOCK_SIZE, 0:BLOCK_SIZE]                      # 取第一個 8×8 區塊
