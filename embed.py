@@ -5,7 +5,7 @@ import numpy as np
 
 from config import Q_LENGTH, TOTAL_AVERAGES_PER_UNIT, BLOCK_SIZE, IMAGE_HEADER_SIZE
 from permutation import generate_Q_from_block, apply_Q_three_rounds
-from image_processing import calculate_hierarchical_averages, convert_to_grayscale, validate_image_size
+from image_processing import convert_to_grayscale, validate_image_size, calculate_hierarchical_averages 
 from binary_operations import get_msbs
 from mapping import map_to_z
 from secret_encoding import text_to_binary, image_to_binary, xor_cipher
