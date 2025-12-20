@@ -1,8 +1,59 @@
 # 建立 image_processing.py → 圖像處理模組
-# 多層次平均值計算
+# 多層次平均值計算、圖像預處理
 
 import numpy as np
 
+from config import BLOCK_SIZE
+
+# ==================== 圖像預處理 ====================
+def convert_to_grayscale(image):
+    """
+    功能:
+        將彩色圖像轉成灰階（若已是灰階則不處理）
+    
+    參數:
+        image: numpy array，灰階 (H×W) 或彩色 (H×W×3)
+    
+    返回:
+        gray_image: numpy array，灰階圖像 (H×W)
+    
+    原理:
+        使用標準權重: Gray = 0.299×R + 0.587×G + 0.114×B
+    """
+    image = np.array(image)
+    
+    if len(image.shape) == 3:  # 彩色圖像
+        gray_image = (
+            0.299 * image[:, :, 0] +  # R × 0.299
+            0.587 * image[:, :, 1] +  # G × 0.587
+            0.114 * image[:, :, 2]    # B × 0.114
+        ).astype(np.uint8)
+        return gray_image
+    
+    return image  # 已是灰階，直接返回
+
+def validate_image_size(image):
+    """
+    功能:
+        檢查圖像尺寸是否為 8 的倍數
+    
+    參數:
+        image: numpy array，圖像
+    
+    返回:
+        height, width: 圖像的高度和寬度
+    
+    例外:
+        若尺寸不是 8 的倍數，拋出 ValueError
+    """
+    height, width = image.shape[:2]
+    
+    if height % BLOCK_SIZE != 0 or width % BLOCK_SIZE != 0:
+        raise ValueError(f"圖像大小必須是 {BLOCK_SIZE} 的倍數！當前大小: {width}×{height}")
+    
+    return height, width
+
+# ==================== 多層次平均值計算 ====================
 def calculate_hierarchical_averages(block_8x8):
     """
     功能:
