@@ -25,6 +25,9 @@ TOTAL_AVERAGES_PER_UNIT = NUM_LAYER1_BLOCKS + NUM_LAYER2_BLOCKS + NUM_LAYER3_BLO
 Q_LENGTH = 7                                    # Q 的長度(從圖像第一行取 7 個像素)
 Q_ROUNDS = TOTAL_AVERAGES_PER_UNIT // Q_LENGTH  # 重複使用輪數: 21÷7=3
 
+# 機密內容編碼參數
+IMAGE_HEADER_SIZE = 34  # 圖像 header 大小（寬 16 bits + 高 16 bits + is_color 1 bit + has_alpha 1 bit）
+
 # 測試資料 (論文的圖 2)
 TEST_IMAGE = [
     [44, 61, 72, 58, 70, 79, 66, 79],
