@@ -2,11 +2,10 @@
 # 將機密內容嵌入載體圖像，產生 Z 碼
 
 import numpy as np
-import hashlib
 
-from config import Q_LENGTH, TOTAL_AVERAGES_PER_UNIT, BLOCK_SIZE
+from config import Q_LENGTH, TOTAL_AVERAGES_PER_UNIT, BLOCK_SIZE, IMAGE_HEADER_SIZE
 from permutation import generate_Q_from_block, apply_Q_three_rounds
-from image_processing import calculate_hierarchical_averages
+from image_processing import calculate_hierarchical_averages, convert_to_grayscale, validate_image_size
 from binary_operations import get_msbs
 from mapping import map_to_z
 from secret_encoding import text_to_binary, image_to_binary, xor_cipher
@@ -59,23 +58,9 @@ def embed_secret(cover_image, secret, secret_type='text', contact_key=None):
         [1 bit 類型標記] + [機密內容]
         類型標記: 0 = 文字, 1 = 圖像
     """
-    cover_image = np.array(cover_image)
-    
     # 步驟 1：圖像預處理
-    # 若為彩色圖像，轉成灰階（使用標準權重）
-    # len(shape) == 3 表示有 3 個維度（高, 寬, 通道），即彩色圖像
-    if len(cover_image.shape) == 3:
-        cover_image = (
-            0.299 * cover_image[:, :, 0] +  # R × 0.299
-            0.587 * cover_image[:, :, 1] +  # G × 0.587
-            0.114 * cover_image[:, :, 2]    # B × 0.114
-        ).astype(np.uint8)                  # 轉成整數 (0~255)
-    
-    height, width = cover_image.shape       # 取得圖像尺寸（高, 寬）
-    
-    # 檢查圖像大小是否為 8 的倍數（系統以 8×8 區塊處理）
-    if height % 8 != 0 or width % 8 != 0:
-        raise ValueError(f"圖像大小必須是 8 的倍數！當前大小: {width}×{height}")
+    cover_image = convert_to_grayscale(cover_image)
+    height, width = validate_image_size(cover_image)
     
     # 步驟 2：計算容量並檢查
     # 例如 512×512 的圖像：
@@ -112,8 +97,6 @@ def embed_secret(cover_image, secret, secret_type='text', contact_key=None):
     # 步驟 3：XOR 加密
     # type_marker 不加密（確保類型判斷正確）
     # 圖像的 header (34 bits) 也不加密（確保尺寸正確）
-    IMAGE_HEADER_SIZE = 34
-    
     if secret_type == 'image' and len(content_bits) > IMAGE_HEADER_SIZE:
         # 圖像加密結構：
         # [type_marker 1 bit] + [header 34 bits] + XOR([像素資料])
