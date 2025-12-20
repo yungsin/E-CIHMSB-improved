@@ -1,4 +1,5 @@
 # 建立 main.py → 完整流程展示
+# 展示多層次 E-CIHMSB 隱寫術的完整流程（發送方 Alice ↔ 接收方 Bob）
 
 import numpy as np
 
@@ -15,13 +16,16 @@ from extract import extract_secret
 from text_encoding import z_to_text, text_to_z
 from image_encoding import z_to_image, image_to_z
 
+# ==================== 輔助函數 ====================
 def print_section(title):
+    """印出區塊標題"""
     print()
     print("=" * 40)
     print(title)
     print("=" * 40)
     print()
 
+# ==================== 主要展示函數 ====================
 def demo_complete_process():
     """
     功能:
@@ -45,7 +49,7 @@ def demo_complete_process():
       5. 提取機密內容
       6. 驗證結果
     """
-    # 準備測試資料
+    # ----- 準備測試資料 -----
     image = np.array(TEST_IMAGE)
     secret_message = TEST_SECRET
     rows, cols = image.shape
@@ -56,7 +60,7 @@ def demo_complete_process():
     print("=" * 40)
     print()
 
-    # ==================== 顯示原始圖像 ====================
+    # ----- 顯示原始圖像資訊 -----
     print_section(f"{rows}×{cols} 灰階圖像 (掩護圖像)")
 
     print("原始像素值:")
@@ -64,7 +68,6 @@ def demo_complete_process():
         print("  " + "  ".join(f"{val:3d}" for val in row))
     print()
 
-    # 計算容量
     capacity = calculate_capacity(cols, rows)
     print(f"圖像容量: {capacity} 位元")
     print(f"(共 {(rows//8) * (cols//8)} 個 8×8 區塊，每個區塊 {TOTAL_AVERAGES_PER_UNIT} 位元)")
@@ -77,7 +80,7 @@ def demo_complete_process():
     print()
     print("【發送方 Alice】")
 
-    # ==================== 步驟1: 生成密鑰Q ====================
+    # -------------------- 步驟1: 生成密鑰Q --------------------
     print_section("步驟1: 從圖像產生密鑰 Q")
 
     first_row = image[0, :]
@@ -102,7 +105,7 @@ def demo_complete_process():
     print(f"▸ Q 將重複使用 {Q_ROUNDS} 輪")
     print()
 
-    # ==================== 步驟2: 多層次結構計算 ====================
+    # -------------------- 步驟2: 多層次結構計算 --------------------
     print_section("步驟2: 計算多層次平均值")
 
     print(f"對 8×8 圖像計算三層結構的 {TOTAL_AVERAGES_PER_UNIT} 個平均值:")
@@ -110,13 +113,13 @@ def demo_complete_process():
 
     averages_21 = calculate_hierarchical_averages(image)
 
-    # 顯示第一層詳細過程
+    # ----- 第一層：16 個 2×2 blocks -----
     print("【第一層】16 個 2×2 blocks (切割原始圖像):")
     print()
 
     layer1_index = 0
-    for i in range(4):      # 4 行
-        for j in range(4):  # 4 列
+    for i in range(4):
+        for j in range(4):
             start_row = i * 2
             end_row = start_row + 2
             start_col = j * 2
@@ -139,7 +142,7 @@ def demo_complete_process():
     print()
     print()
 
-    # 顯示第二層詳細過程
+    # ----- 第二層：4 個分組 -----
     print("【第二層】4 個分組 (對第一層的 16 個平均值重新分組):")
     print()
     print(" 將第一層的 16 個平均值排成 4×4 矩陣:")
@@ -149,8 +152,8 @@ def demo_complete_process():
     print()
 
     layer2_index = 0
-    for i in range(2):      # 2 行
-        for j in range(2):  # 2 列
+    for i in range(2):
+        for j in range(2):
             start_row = i * 2
             end_row = start_row + 2
             start_col = j * 2
@@ -173,7 +176,7 @@ def demo_complete_process():
     print()
     print()
 
-    # 顯示第三層詳細過程
+    # ----- 第三層：1 個總平均 -----
     print("【第三層】1 個總平均 (對第二層的 4 個平均值計算平均):")
     print()
     layer2_values = averages_21[16:20]
@@ -188,12 +191,13 @@ def demo_complete_process():
     print(f" 三層結構總共 21 個平均值: {averages_21}")
     print()
 
-    # ==================== 步驟3: 使用Q重新排列 ====================
+    # -------------------- 步驟3: 使用Q重新排列 --------------------
     print_section("步驟3: 使用 Q 分 3 輪排列平均值")
 
     print(f"將 21 個平均值分成 3 輪，每輪 7 個，用 Q={Q} 排列")
     print()
 
+    # ----- 第 1 輪 -----
     print(f"第 1 輪 (前 7 個平均值): {averages_21[0:7]}")
     print(f"用 Q={Q} 排列")
     round1 = apply_permutation(averages_21[0:7], Q)
@@ -203,6 +207,7 @@ def demo_complete_process():
     print(f"排列後: {round1}")
     print()
 
+    # ----- 第 2 輪 -----
     print(f"第 2 輪 (中 7 個平均值): {averages_21[7:14]}")
     print(f"用 Q={Q} 排列")
     round2 = apply_permutation(averages_21[7:14], Q)
@@ -212,6 +217,7 @@ def demo_complete_process():
     print(f"排列後: {round2}")
     print()
 
+    # ----- 第 3 輪 -----
     print(f"第 3 輪 (後 7 個平均值): {averages_21[14:21]}")
     print(f"用 Q={Q} 排列")
     round3 = apply_permutation(averages_21[14:21], Q)
@@ -226,7 +232,7 @@ def demo_complete_process():
     print(f"排列後的 21 個平均值: {reordered_all}")
     print()
 
-    # ==================== 步驟4: 提取MSB ====================
+    # -------------------- 步驟4: 提取MSB --------------------
     print_section("步驟4: 提取排列後平均值的 MSB")
 
     print("▸ 平均值轉二進位並提取 MSB:")
@@ -245,7 +251,7 @@ def demo_complete_process():
     print(f"MSB 序列 (21 個): {msbs}")
     print()
 
-    # ==================== 步驟5: 嵌入機密內容 ====================
+    # -------------------- 步驟5: 嵌入機密內容 --------------------
     print_section("步驟5: 嵌入機密內容並生成 Z 碼")
 
     print(f"機密內容: \"{secret_message}\"")
@@ -254,7 +260,7 @@ def demo_complete_process():
     print(f"內容需要 {len(content_bits)} 位元")
     print()
 
-    # 加入類型標記（和 embed.py 一致）
+    # ----- 加入類型標記 -----
     type_marker = [0]  # 0 = 文字
     secret_bits = type_marker + content_bits
     print(f"▸ 加入類型標記:")
@@ -263,7 +269,7 @@ def demo_complete_process():
     print(f"  總共 {len(secret_bits)} 位元 (1 bit 類型 + {len(content_bits)} bit 內容)")
     print()
 
-    # 執行嵌入
+    # ----- 執行嵌入 -----
     z_bits, capacity_result, info = embed_secret(image, secret_message, secret_type='text')
 
     print("▸ 映射過程: (M,MSB)→Z")
@@ -287,14 +293,16 @@ def demo_complete_process():
     print(f"Z 碼 ({len(z_bits)} bits): {z_bits}")
     print()
 
-    # ==================== 步驟6: Z碼編碼 ====================
+    # -------------------- 步驟6: Z碼編碼 --------------------
     print_section("步驟6: Z 碼編碼")
 
+    # ----- 方式 A: 文字格式 -----
     print("▸ 方式 A: 文字格式")
     z_text = z_to_text(z_bits)
     print(f"  Z 碼文字: \"{z_text}\"")
     print()
 
+    # ----- 方式 B: 圖像格式 -----
     print("▸ 方式 B: 圖像格式")
     print("  每 8 位元轉成 1 個像素值:")
     pixels = []
@@ -312,7 +320,7 @@ def demo_complete_process():
     print(f"  像素數量: {z_image.size[0] * z_image.size[1]}")
     print()
 
-    # ==================== 步驟7: 傳送 ====================
+    # -------------------- 步驟7: 傳送 --------------------
     print_section("步驟7: 傳送")
 
     print("Alice 傳送給 Bob:")
@@ -320,14 +328,14 @@ def demo_complete_process():
     print("※雙方必須都有相同的載體圖像")
     print()
 
-    # ==================== 接收方Bob ====================
+    # ==================== 接收方 Bob ====================
     print()
     print("=" * 40)
     print()
     print()
     print("【接收方 Bob】")
 
-    # ==================== 步驟1: 重建密鑰Q ====================
+    # -------------------- 步驟1: 重建密鑰Q --------------------
     print_section("步驟1: 重建密鑰 Q")
 
     print("▸ Bob 也有相同的 cover image")
@@ -349,15 +357,17 @@ def demo_complete_process():
     print(f"▸ 重建的密鑰 Q: {Q_reconstructed}")
     print()
 
-    # ==================== 步驟2: 解碼Z碼 ====================
+    # -------------------- 步驟2: 解碼Z碼 --------------------
     print_section("步驟2: 解碼 Z 碼")
 
+    # ----- 方式 A: 從文字解碼 -----
     print("▸ 方式 A: 從文字解碼")
     z_decoded_text = text_to_z(z_text)
     print(f"  文字: \"{z_text}\"")
     print(f"  解碼: {z_decoded_text}")
     print()
 
+    # ----- 方式 B: 從圖像解碼 -----
     print("▸ 方式 B: 從圖像解碼")
     print("  從圖像讀取像素值並轉回位元:")
     z_decoded_image = image_to_z(z_image, len(z_bits))
@@ -370,14 +380,13 @@ def demo_complete_process():
     print(f"  解碼: {z_decoded_image}")
     print()
 
-    # ==================== 步驟3: 重建多層次平均值 ====================
+    # -------------------- 步驟3: 重建多層次平均值 --------------------
     print_section("步驟3: 重建多層次平均值")
 
     print("Bob 使用相同的 cover image 重新計算 21 個平均值")
     print("(過程和 Alice 相同，結果也會相同)")
     print()
 
-    # 重新計算
     averages_21_reconstructed = calculate_hierarchical_averages(image)
 
     print(f"【第一層】16 個 2×2 區塊: {averages_21_reconstructed[:16]}")
@@ -387,13 +396,12 @@ def demo_complete_process():
     print(f"重建的 21 個平均值: {averages_21_reconstructed}")
     print()
 
-    # ==================== 步驟4: 重建MSB序列 ====================
+    # -------------------- 步驟4: 重建MSB序列 --------------------
     print_section("步驟4: 重建 MSB 序列")
 
     print("用 Q 重新排列 21 個平均值，然後提取 MSB")
     print()
 
-    # 重新排列
     reordered_all_reconstructed = apply_Q_three_rounds(averages_21_reconstructed, Q_reconstructed)
 
     print(f"第 1 輪排列後: {reordered_all_reconstructed[0:7]}")
@@ -419,17 +427,16 @@ def demo_complete_process():
     print(f"重建的 MSB 序列: {msbs_reconstructed}")
     print()
 
-    # ==================== 步驟5: 提取機密內容 ====================
+    # -------------------- 步驟5: 提取機密內容 --------------------
     print_section("步驟5: 提取機密內容")
 
     print("▸ 使用重建的 MSB 和收到的 Z 碼提取機密內容:")
     print("  (根據 Z 碼和 MSB 用反向映射還原 M)")
     print()
 
-    # 執行提取
     recovered_message, extract_info = extract_secret(image, z_bits, secret_type='text')
 
-    # 手動計算還原的 bits（用於顯示）
+    # ----- 手動計算還原的 bits（用於顯示）-----
     recovered_bits_full = []
     for i in range(len(z_bits)):
         z_bit = z_bits[i]
@@ -456,7 +463,7 @@ def demo_complete_process():
     print("-" * 50)
     print()
 
-    # 分離類型標記和內容
+    # ----- 分離類型標記和內容 -----
     type_marker_recovered = recovered_bits_full[0]
     content_bits_recovered = recovered_bits_full[1:]
 
@@ -465,7 +472,7 @@ def demo_complete_process():
     print(f"  內容位元: {content_bits_recovered}")
     print()
 
-    # 將內容位元轉回文字
+    # ----- 將內容位元轉回文字 -----
     recovered_text = binary_to_text(content_bits_recovered)
     print(f"▸ UTF-8 解碼: {content_bits_recovered} → \"{recovered_text}\"")
     print()
@@ -494,5 +501,6 @@ def demo_complete_process():
                 print(f"  位置 {i}: 原始={content_bits[i]}, 還原={content_bits_recovered[i]}")
     print()
 
+# ==================== 程式進入點 ====================
 if __name__ == "__main__":
     demo_complete_process()
