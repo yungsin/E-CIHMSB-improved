@@ -1,15 +1,14 @@
-
 # 建立 main.py → 完整流程展示
 
 import numpy as np
 
 from config import PROJECT_NAME, VERSION, TEST_IMAGE, TEST_SECRET
 from config import BLOCK_SIZE, TOTAL_AVERAGES_PER_UNIT, Q_LENGTH, Q_ROUNDS
-from config import NUM_LAYER1_BLOCKS, NUM_LAYER2_BLOCKS, NUM_LAYER3_BLOCKS
-from config import calculate_capacity
-from binary_operations import int_to_binary, binary_to_int, get_msbs, text_to_utf8, utf8_to_text
+from embed import calculate_capacity
+from binary_operations import int_to_binary, binary_to_int, get_msbs
+from secret_encoding import text_to_binary, binary_to_text
 from permutation import generate_Q_from_block, apply_permutation, apply_Q_three_rounds
-from image_processing import calculate_hierarchical_averages, process_image_multilayer
+from image_processing import calculate_hierarchical_averages
 from mapping import map_to_z, map_from_z
 from embed import embed_secret
 from extract import extract_secret
@@ -30,12 +29,12 @@ def demo_complete_process():
 
     流程:
      【發送方 Alice】
-      1. 從圖片產生密鑰 Q
+      1. 從圖像產生密鑰 Q
       2. 計算多層次平均值 (三層結構)
       3. 使用 Q 分 3 輪排列平均值
       4. 提取排列後平均值的 MSB
-      5. 嵌入秘密訊息並生成 Z 碼
-      6. Z 碼編碼 (文字或圖片格式)
+      5. 嵌入機密內容並生成 Z 碼
+      6. Z 碼編碼 (文字或圖像格式)
       7. 傳送檔案
 
      【接收方 Bob】
@@ -43,7 +42,7 @@ def demo_complete_process():
       2. 解碼 Z 碼
       3. 重建多層次平均值
       4. 重建 MSB 序列
-      5. 提取秘密訊息
+      5. 提取機密內容
       6. 驗證結果
     """
     # 準備測試資料
@@ -57,8 +56,8 @@ def demo_complete_process():
     print("=" * 40)
     print()
 
-    # ==================== 顯示原始圖片 ====================
-    print_section(f"{rows}×{cols} 灰階圖片 (掩護圖片)")
+    # ==================== 顯示原始圖像 ====================
+    print_section(f"{rows}×{cols} 灰階圖像 (掩護圖像)")
 
     print("原始像素值:")
     for row in image:
@@ -67,7 +66,7 @@ def demo_complete_process():
 
     # 計算容量
     capacity = calculate_capacity(cols, rows)
-    print(f"圖片容量: {capacity} 位元")
+    print(f"圖像容量: {capacity} 位元")
     print(f"(共 {(rows//8) * (cols//8)} 個 8×8 區塊，每個區塊 {TOTAL_AVERAGES_PER_UNIT} 位元)")
     print()
     
@@ -79,10 +78,10 @@ def demo_complete_process():
     print("【發送方 Alice】")
 
     # ==================== 步驟1: 生成密鑰Q ====================
-    print_section("步驟1: 從圖片產生密鑰 Q")
+    print_section("步驟1: 從圖像產生密鑰 Q")
 
     first_row = image[0, :]
-    print("▸ 取出圖片第一行的前 7 個像素:")
+    print("▸ 取出圖像第一行的前 7 個像素:")
     print(" " + " ".join(f"{val:3d}" for val in first_row[:7]))
     print()
 
@@ -106,17 +105,17 @@ def demo_complete_process():
     # ==================== 步驟2: 多層次結構計算 ====================
     print_section("步驟2: 計算多層次平均值")
 
-    print(f"對 8×8 圖片計算三層結構的 {TOTAL_AVERAGES_PER_UNIT} 個平均值:")
+    print(f"對 8×8 圖像計算三層結構的 {TOTAL_AVERAGES_PER_UNIT} 個平均值:")
     print()
 
     averages_21 = calculate_hierarchical_averages(image)
 
     # 顯示第一層詳細過程
-    print("【第一層】16 個 2×2 blocks (切割原始圖片):")
+    print("【第一層】16 個 2×2 blocks (切割原始圖像):")
     print()
 
     layer1_index = 0
-    for i in range(4):  # 4 行
+    for i in range(4):      # 4 行
         for j in range(4):  # 4 列
             start_row = i * 2
             end_row = start_row + 2
@@ -150,7 +149,7 @@ def demo_complete_process():
     print()
 
     layer2_index = 0
-    for i in range(2):  # 2 行
+    for i in range(2):      # 2 行
         for j in range(2):  # 2 列
             start_row = i * 2
             end_row = start_row + 2
@@ -246,11 +245,11 @@ def demo_complete_process():
     print(f"MSB 序列 (21 個): {msbs}")
     print()
 
-    # ==================== 步驟5: 嵌入秘密訊息 ====================
-    print_section("步驟5: 嵌入秘密訊息並生成 Z 碼")
+    # ==================== 步驟5: 嵌入機密內容 ====================
+    print_section("步驟5: 嵌入機密內容並生成 Z 碼")
 
-    print(f"秘密訊息: \"{secret_message}\"")
-    content_bits = text_to_utf8(secret_message)
+    print(f"機密內容: \"{secret_message}\"")
+    content_bits = text_to_binary(secret_message)
     print(f"UTF-8 編碼: {content_bits}")
     print(f"內容需要 {len(content_bits)} 位元")
     print()
@@ -259,7 +258,7 @@ def demo_complete_process():
     type_marker = [0]  # 0 = 文字
     secret_bits = type_marker + content_bits
     print(f"▸ 加入類型標記:")
-    print(f"  類型標記: {type_marker} (0 = 文字, 1 = 圖片)")
+    print(f"  類型標記: {type_marker} (0 = 文字, 1 = 圖像)")
     print(f"  完整 secret_bits: {secret_bits}")
     print(f"  總共 {len(secret_bits)} 位元 (1 bit 類型 + {len(content_bits)} bit 內容)")
     print()
@@ -296,7 +295,7 @@ def demo_complete_process():
     print(f"  Z 碼文字: \"{z_text}\"")
     print()
 
-    print("▸ 方式 B: 圖片格式")
+    print("▸ 方式 B: 圖像格式")
     print("  每 8 位元轉成 1 個像素值:")
     pixels = []
     for i in range(0, len(z_bits), 8):
@@ -309,7 +308,7 @@ def demo_complete_process():
         print(f"  位元 [{i:2d}-{min(i+7, len(z_bits)-1):2d}]: {byte_str:8s} → 像素值 {pixel_value:3d}")
 
     z_image = z_to_image(z_bits)
-    print(f"  Z 碼圖片尺寸: {z_image.size[0]}×{z_image.size[1]}")
+    print(f"  Z 碼圖像尺寸: {z_image.size[0]}×{z_image.size[1]}")
     print(f"  像素數量: {z_image.size[0] * z_image.size[1]}")
     print()
 
@@ -317,8 +316,8 @@ def demo_complete_process():
     print_section("步驟7: 傳送")
 
     print("Alice 傳送給 Bob:")
-    print("1. Z 碼 (文字或圖片格式)")
-    print("※雙方必須都有相同的掩護圖片")
+    print("1. Z 碼 (文字或圖像格式)")
+    print("※雙方必須都有相同的載體圖像")
     print()
 
     # ==================== 接收方Bob ====================
@@ -332,7 +331,7 @@ def demo_complete_process():
     print_section("步驟1: 重建密鑰 Q")
 
     print("▸ Bob 也有相同的 cover image")
-    print("▸ 從圖片第一行前 7 個像素重建 Q:")
+    print("▸ 從圖像第一行前 7 個像素重建 Q:")
     print(" " + " ".join(f"{val:3d}" for val in first_row[:7]))
     print()
 
@@ -359,8 +358,8 @@ def demo_complete_process():
     print(f"  解碼: {z_decoded_text}")
     print()
 
-    print("▸ 方式 B: 從圖片解碼")
-    print("  從圖片讀取像素值並轉回位元:")
+    print("▸ 方式 B: 從圖像解碼")
+    print("  從圖像讀取像素值並轉回位元:")
     z_decoded_image = image_to_z(z_image, len(z_bits))
     for i, pixel in enumerate(pixels):
         start = i * 8
@@ -420,10 +419,10 @@ def demo_complete_process():
     print(f"重建的 MSB 序列: {msbs_reconstructed}")
     print()
 
-    # ==================== 步驟5: 提取秘密訊息 ====================
-    print_section("步驟5: 提取秘密訊息")
+    # ==================== 步驟5: 提取機密內容 ====================
+    print_section("步驟5: 提取機密內容")
 
-    print("▸ 使用重建的 MSB 和收到的 Z 碼提取秘密訊息:")
+    print("▸ 使用重建的 MSB 和收到的 Z 碼提取機密內容:")
     print("  (根據 Z 碼和 MSB 用反向映射還原 M)")
     print()
 
@@ -449,7 +448,7 @@ def demo_complete_process():
         m_bit = recovered_bits_full[i]
         pair = f"({z_bit},{msb})"
         if i == 0:
-            note = f"類型標記 → {'文字' if m_bit == 0 else '圖片'}"
+            note = f"類型標記 → {'文字' if m_bit == 0 else '圖像'}"
         else:
             note = f"內容 bit {i-1}"
         print(f" {i:2d} |  {z_bit}   |  {msb}  |  {pair}   |  {m_bit}   | {note}")
@@ -462,28 +461,28 @@ def demo_complete_process():
     content_bits_recovered = recovered_bits_full[1:]
 
     print(f"▸ 解析還原的位元:")
-    print(f"  類型標記: {type_marker_recovered} → {'文字' if type_marker_recovered == 0 else '圖片'}")
+    print(f"  類型標記: {type_marker_recovered} → {'文字' if type_marker_recovered == 0 else '圖像'}")
     print(f"  內容位元: {content_bits_recovered}")
     print()
 
     # 將內容位元轉回文字
-    recovered_text = utf8_to_text(content_bits_recovered)
+    recovered_text = binary_to_text(content_bits_recovered)
     print(f"▸ UTF-8 解碼: {content_bits_recovered} → \"{recovered_text}\"")
     print()
-    print(f"還原的秘密訊息: \"{recovered_message}\"")
+    print(f"還原的機密內容: \"{recovered_message}\"")
     print()
 
     # ==================== 驗證結果 ====================
     print_section("驗證結果")
 
-    print(f"原始秘密訊息: \"{secret_message}\"")
-    print(f"還原秘密訊息: \"{recovered_message}\"")
+    print(f"原始機密內容: \"{secret_message}\"")
+    print(f"還原機密內容: \"{recovered_message}\"")
     print()
 
     if recovered_message == secret_message:
-        print("✅ 驗證成功! 秘密訊息完整還原!")
+        print("驗證成功! 機密內容完整還原!")
     else:
-        print("❌ 驗證失敗!")
+        print("驗證失敗!")
         print()
         print("除錯資訊:")
         print(f"  原始 content_bits: {content_bits}")
